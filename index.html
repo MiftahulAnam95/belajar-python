@@ -860,10 +860,17 @@
       }
 
       .sidebar-head {
+        position: sticky;
+        top: 0;
+        z-index: 3;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 1rem;
+        gap: 0.75rem;
+        margin: -1.5rem -1.1rem 1rem;
+        padding: 1.35rem 1.1rem 0.9rem;
+        background: var(--bg-soft);
+        border-bottom: 1px solid var(--border);
       }
       .sidebar-title {
         font-size: 0.8rem;
@@ -874,13 +881,21 @@
       }
       .sidebar-close {
         display: none;
-        border: 1px solid var(--border);
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border-strong);
         background: var(--surface);
         color: var(--text);
         border-radius: var(--radius-sm);
-        width: 34px;
-        height: 34px;
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
         cursor: pointer;
+      }
+      .sidebar-close:hover {
+        border-color: var(--danger);
+        color: var(--danger);
       }
 
       .sidebar-progress {
@@ -968,12 +983,25 @@
       }
 
       .materi-main {
-        padding: 2rem clamp(1.25rem, 4vw, 3rem) 5rem;
-        max-width: 860px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        min-height: calc(100vh - var(--header-h));
+        padding: 2rem clamp(1.25rem, 4vw, 3.25rem) 5rem;
+      }
+
+      /* Isi materi dibatasi lebar nyaman baca, lalu DITENGAHKAN di
+         kolom kanan — bukan menempel kiri — supaya halaman terlihat
+         penuh dan tidak ada ruang kosong yang "menggantung" di kanan. */
+      #materiContent {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
       }
 
       .sidebar-open {
         display: none;
+        align-self: flex-start;
         margin-bottom: 1.25rem;
       }
 
@@ -1832,10 +1860,13 @@
         .materi-sidebar.is-open {
           transform: translateX(0);
         }
+        .sidebar-head {
+          top: 0;
+          margin: -1.1rem -1.1rem 1rem;
+          padding: 1.1rem 1.1rem 0.9rem;
+        }
         .sidebar-close {
           display: inline-flex;
-          align-items: center;
-          justify-content: center;
         }
         .sidebar-backdrop.is-visible {
           display: block;
@@ -6086,6 +6117,7 @@ Tahun depan umurmu 18</span>
         var pos = 0;
         var baris = 1;
         var awalBaris = 0; /* posisi karakter pertama di baris ini */
+        var dalamKurung = 0; /* ( [ { : newlines di dalamnya diabaikan */
 
         while (pos < sumber.length) {
           var cocok = null;
@@ -6109,11 +6141,23 @@ Tahun depan umurmu 18</span>
           /* "kolom" dipakai untuk mengetahui indentasi sebuah baris */
           cocok.kolom = pos - awalBaris;
 
+          /* Hitung kurung yang terbuka/tertutup supaya baris baru
+             di dalam [ ], ( ), { } tidak dianggap akhir statement. */
+          if (cocok.tipe === "OP") {
+            if (cocok.nilai === "(" || cocok.nilai === "[" || cocok.nilai === "{") {
+              dalamKurung += 1;
+            } else if (cocok.nilai === ")" || cocok.nilai === "]" || cocok.nilai === "}") {
+              dalamKurung = Math.max(0, dalamKurung - 1);
+            }
+          }
+
           pos += cocok.nilai.length;
           if (cocok.tipe === "NEWLINE") {
-            tokens.push({ tipe: "NEWLINE", nilai: "\\n", baris: baris, kolom: 0 });
             baris += 1;
             awalBaris = pos;
+            if (dalamKurung === 0) {
+              tokens.push({ tipe: "NEWLINE", nilai: "\\n", baris: baris, kolom: 0 });
+            }
           } else if (cocok.tipe !== "SKIP" && cocok.tipe !== "COMMENT") {
             tokens.push(cocok);
           }
@@ -6192,6 +6236,9 @@ Tahun depan umurmu 18</span>
           if (t.nilai === "if") return this.parseIf();
           if (t.nilai === "for") return this.parseFor();
           if (t.nilai === "while") return this.parseWhile();
+          if (t.nilai === "def") return this.parseDef();
+          if (t.nilai === "import") return this.parseImport();
+          if (t.nilai === "return") return this.parseReturn();
           if (t.nilai === "break") {
             this.berikut();
             return { tipe: "Break" };
@@ -6209,7 +6256,60 @@ Tahun depan umurmu 18</span>
         return this.parseSimpleStatement();
       };
 
+      /* Membuat function buatan pengguna: def nama(parameter): blok */
+      Parser.prototype.parseDef = function () {
+        this.makan("NAME", "def");
+        var nama = this.makan("NAME").nilai;
+        this.makan("OP", "(");
+
+        var params = [];
+        if (!this.adalah("OP", ")")) {
+          params.push(this.parseParam());
+          while (this.adalah("OP", ",")) {
+            this.berikut();
+            if (this.adalah("OP", ")")) break;
+            params.push(this.parseParam());
+          }
+        }
+        this.makan("OP", ")");
+        this.makan("OP", ":");
+
+        var body = this.parseBlok();
+        return { tipe: "FuncDef", nama: nama, params: params, body: body };
+      };
+
+      /* Satu parameter, boleh dengan nilai bawaan: nama=nilai */
+      Parser.prototype.parseParam = function () {
+        var nama = this.makan("NAME").nilai;
+        if (this.adalah("OP", "=")) {
+          this.berikut();
+          return { nama: nama, bawaan: this.parseExpression() };
+        }
+        return nama;
+      };
+
+      /* import sederhana: import math  atau  import math, random */
+      Parser.prototype.parseImport = function () {
+        this.makan("NAME", "import");
+        var modules = [this.makan("NAME").nilai];
+        while (this.adalah("OP", ",")) {
+          this.berikut();
+          modules.push(this.makan("NAME").nilai);
+        }
+        return { tipe: "Import", modules: modules };
+      };
+
+      Parser.prototype.parseReturn = function () {
+        this.makan("NAME", "return");
+        /* Kalau return di akhir baris, berarti tidak mengembalikan nilai. */
+        if (this.adalah("NEWLINE") || this.adalah("EOF")) {
+          return { tipe: "Return", value: null };
+        }
+        return { tipe: "Return", value: this.parseExpression() };
+      };
+
       Parser.prototype.parseIf = function () {
+        var ifKolom = this.lihat().kolom;
         this.makan("NAME", "if");
         var test = this.parseExpression();
         this.makan("OP", ":");
@@ -6217,9 +6317,9 @@ Tahun depan umurmu 18</span>
         var orelse = null;
 
         this.lewatiBarisBaru();
-        if (this.adalah("NAME", "elif")) {
-          orelse = [this.parseElif()];
-        } else if (this.adalah("NAME", "else")) {
+        if (this.adalah("NAME", "elif") && this.lihat().kolom === ifKolom) {
+          orelse = [this.parseElif(ifKolom)];
+        } else if (this.adalah("NAME", "else") && this.lihat().kolom === ifKolom) {
           this.makan("NAME", "else");
           this.makan("OP", ":");
           orelse = this.parseBlok();
@@ -6227,7 +6327,7 @@ Tahun depan umurmu 18</span>
         return { tipe: "If", test: test, body: body, orelse: orelse };
       };
 
-      Parser.prototype.parseElif = function () {
+      Parser.prototype.parseElif = function (ifKolom) {
         this.makan("NAME", "elif");
         var test = this.parseExpression();
         this.makan("OP", ":");
@@ -6235,9 +6335,9 @@ Tahun depan umurmu 18</span>
         var orelse = null;
 
         this.lewatiBarisBaru();
-        if (this.adalah("NAME", "elif")) {
-          orelse = [this.parseElif()];
-        } else if (this.adalah("NAME", "else")) {
+        if (this.adalah("NAME", "elif") && this.lihat().kolom === ifKolom) {
+          orelse = [this.parseElif(ifKolom)];
+        } else if (this.adalah("NAME", "else") && this.lihat().kolom === ifKolom) {
           this.makan("NAME", "else");
           this.makan("OP", ":");
           orelse = this.parseBlok();
@@ -6247,12 +6347,24 @@ Tahun depan umurmu 18</span>
 
       Parser.prototype.parseFor = function () {
         this.makan("NAME", "for");
-        var target = this.makan("NAME").nilai;
+
+        /* Target boleh lebih dari satu: for nama, nilai in data.items(): */
+        var target = [this.makan("NAME").nilai];
+        while (this.adalah("OP", ",")) {
+          this.berikut();
+          target.push(this.makan("NAME").nilai);
+        }
+
         this.makan("NAME", "in");
         var iterable = this.parseExpression();
         this.makan("OP", ":");
         var body = this.parseBlok();
-        return { tipe: "For", target: target, iterable: iterable, body: body };
+        return {
+          tipe: "For",
+          target: target.length === 1 ? target[0] : target,
+          iterable: iterable,
+          body: body,
+        };
       };
 
       Parser.prototype.parseWhile = function () {
@@ -6281,7 +6393,23 @@ Tahun depan umurmu 18</span>
 
       /* ---- Ekspresi: dari prioritas terendah ke tertinggi ---- */
       Parser.prototype.parseExpression = function () {
-        return this.parseOr();
+        var nilaiBenar = this.parseOr();
+
+        /* Conditional expression: "A" if kondisi else "B" */
+        if (this.adalah("NAME", "if")) {
+          this.berikut();
+          var test = this.parseOr();
+          this.makan("NAME", "else");
+          var nilaiSalah = this.parseExpression();
+          return {
+            tipe: "Ternary",
+            test: test,
+            benar: nilaiBenar,
+            salah: nilaiSalah,
+          };
+        }
+
+        return nilaiBenar;
       };
 
       Parser.prototype.parseOr = function () {
@@ -6373,12 +6501,45 @@ Tahun depan umurmu 18</span>
 
       Parser.prototype.parsePostfix = function () {
         var node = this.parsePrimary();
-        while (this.adalah("OP", "[")) {
-          this.berikut();
-          var index = this.parseExpression();
-          this.makan("OP", "]");
-          node = { tipe: "Index", object: node, index: index };
+
+        for (;;) {
+          /* Akses per indeks: buah[0], siswa["nama"] */
+          if (this.adalah("OP", "[")) {
+            this.berikut();
+            var index = this.parseExpression();
+            this.makan("OP", "]");
+            node = { tipe: "Index", object: node, index: index };
+            continue;
+          }
+
+          /* Akses anggota / method: math.pi, daftar.append(...) */
+          if (this.adalah("OP", ".")) {
+            this.berikut();
+            var prop = this.makan("NAME").nilai;
+            var penerima = node;
+
+            if (this.adalah("OP", "(")) {
+              this.berikut();
+              var args = [];
+              if (!this.adalah("OP", ")")) {
+                args.push(this.parseExpression());
+                while (this.adalah("OP", ",")) {
+                  this.berikut();
+                  if (this.adalah("OP", ")")) break;
+                  args.push(this.parseExpression());
+                }
+              }
+              this.makan("OP", ")");
+              node = { tipe: "MethodCall", object: penerima, name: prop, args: args };
+            } else {
+              node = { tipe: "Member", object: penerima, prop: prop };
+            }
+            continue;
+          }
+
+          break;
         }
+
         return node;
       };
 
@@ -6431,9 +6592,22 @@ Tahun depan umurmu 18</span>
 
         if (this.adalah("OP", "(")) {
           this.berikut();
-          var expr = this.parseExpression();
+          var pertama = this.parseExpression();
+
+          /* Kalau ada koma, ini tuple: (10, 20) */
+          if (this.adalah("OP", ",")) {
+            var tupleItems = [pertama];
+            while (this.adalah("OP", ",")) {
+              this.berikut();
+              if (this.adalah("OP", ")")) break;
+              tupleItems.push(this.parseExpression());
+            }
+            this.makan("OP", ")");
+            return { tipe: "Tuple", items: tupleItems };
+          }
+
           this.makan("OP", ")");
-          return expr;
+          return pertama;
         }
 
         if (this.adalah("OP", "[")) {
@@ -6451,9 +6625,52 @@ Tahun depan umurmu 18</span>
           return { tipe: "List", items: items };
         }
 
+        if (this.adalah("OP", "{")) {
+          return this.parseDictAtauSet();
+        }
+
         throw new PyError(
           'SyntaxError: ekspresi tidak lengkap di "' + (t.nilai || "akhir baris") + '"'
         );
+      };
+
+      /* Tanda kurung kurawal bisa berarti dictionary atau set.
+         Kalau isinya pasangan "kunci: nilai" berarti dictionary,
+         selain itu berarti set. {} kosong dianggap dictionary. */
+      Parser.prototype.parseDictAtauSet = function () {
+        this.makan("OP", "{");
+
+        var entries = [];
+        var values = [];
+        var adalahDict = false;
+
+        if (!this.adalah("OP", "}")) {
+          var firstKey = this.parseExpression();
+          if (this.adalah("OP", ":")) {
+            this.berikut();
+            adalahDict = true;
+            entries.push({ key: firstKey, value: this.parseExpression() });
+            while (this.adalah("OP", ",")) {
+              this.berikut();
+              if (this.adalah("OP", "}")) break;
+              var key = this.parseExpression();
+              this.makan("OP", ":");
+              entries.push({ key: key, value: this.parseExpression() });
+            }
+          } else {
+            values.push(firstKey);
+            while (this.adalah("OP", ",")) {
+              this.berikut();
+              if (this.adalah("OP", "}")) break;
+              values.push(this.parseExpression());
+            }
+          }
+        }
+
+        this.makan("OP", "}");
+        return adalahDict
+          ? { tipe: "Dict", entries: entries }
+          : { tipe: "Set", items: values };
       };
 
       /* Mengubah token string Python menjadi nilai string JavaScript. */
@@ -6483,6 +6700,55 @@ Tahun depan umurmu 18</span>
       /* ---------- 5c. INTERPRETER — menjalankan pohon perintah ---------- */
       var BATAS_ITERASI = 100000;
 
+      /* Modul sederhana yang didukung lewat "import". */
+      var MODUL_TERSEDIA = {
+        math: {
+          __module__: "math",
+          pi: Math.PI,
+          e: Math.E,
+          sqrt: Math.sqrt,
+          floor: Math.floor,
+          ceil: Math.ceil,
+          pow: Math.pow,
+          fabs: Math.abs,
+          log: Math.log,
+          log10: Math.log10,
+          sin: Math.sin,
+          cos: Math.cos,
+          tan: Math.tan,
+          radians: function (x) {
+            return (x * Math.PI) / 180;
+          },
+          degrees: function (x) {
+            return (x * 180) / Math.PI;
+          },
+        },
+        random: {
+          __module__: "random",
+          random: function () {
+            return Math.random();
+          },
+          randint: function (a, b) {
+            return Math.floor(Math.random() * (b - a + 1)) + a;
+          },
+          randrange: function (a, b) {
+            return Math.floor(Math.random() * (b - a)) + a;
+          },
+          choice: function (daftar) {
+            return daftar[Math.floor(Math.random() * daftar.length)];
+          },
+          shuffle: function (daftar) {
+            for (var i = daftar.length - 1; i > 0; i -= 1) {
+              var j = Math.floor(Math.random() * (i + 1));
+              var s = daftar[i];
+              daftar[i] = daftar[j];
+              daftar[j] = s;
+            }
+            return null;
+          },
+        },
+      };
+
       function Interpreter(output) {
         this.vars = {};
         this.output = output;
@@ -6503,6 +6769,35 @@ Tahun depan umurmu 18</span>
           case "ExprStatement":
             this.evaluasi(stmt.expr);
             break;
+
+          case "FuncDef":
+            /* Function buatan pengguna disimpan seperti variable biasa,
+               tapi ditandai khusus supaya bisa dipanggil. */
+            this.vars[stmt.nama] = {
+              __fungsi__: true,
+              nama: stmt.nama,
+              params: stmt.params,
+              body: stmt.body,
+            };
+            break;
+
+          case "Import":
+            for (var im = 0; im < stmt.modules.length; im += 1) {
+              var namaModul = stmt.modules[im];
+              if (!MODUL_TERSEDIA[namaModul]) {
+                throw new PyError(
+                  "ModuleNotFoundError: Playground ini hanya mendukung module math dan random."
+                );
+              }
+              this.vars[namaModul] = MODUL_TERSEDIA[namaModul];
+            }
+            break;
+
+          case "Return":
+            throw {
+              __return__: true,
+              value: stmt.value ? this.evaluasi(stmt.value) : null,
+            };
 
           case "Assign": {
             var value = this.evaluasi(stmt.value);
@@ -6525,8 +6820,25 @@ Tahun depan umurmu 18</span>
 
           case "For": {
             var daftar = this.keIterable(this.evaluasi(stmt.iterable));
+
+            /* Target tunggal atau banyak (for nama, nilai in data.items()) */
+            var targets = Array.isArray(stmt.target) ? stmt.target : [stmt.target];
+
             for (var i = 0; i < daftar.length; i += 1) {
-              this.vars[stmt.target] = daftar[i];
+              if (targets.length === 1) {
+                this.vars[targets[0]] = daftar[i];
+              } else {
+                var pasangan = daftar[i];
+                if (!Array.isArray(pasangan) || pasangan.length !== targets.length) {
+                  throw new PyError(
+                    "ValueError: jumlah variable for tidak cocok dengan jumlah isi data"
+                  );
+                }
+                for (var t = 0; t < targets.length; t += 1) {
+                  this.vars[targets[t]] = pasangan[t];
+                }
+              }
+
               try {
                 this.jalankanBlok(stmt.body);
               } catch (sinyal) {
@@ -6584,7 +6896,7 @@ Tahun depan umurmu 18</span>
             return node.value;
 
           case "Name":
-            if (!Object.prototype.hasOwnProperty.call(this.vars, node.name)) {
+            if (!punyaVar(this.vars, node.name)) {
               throw new PyError(
                 "NameError: name '" + node.name + "' is not defined — variable \"" + node.name + '" belum dibuat.'
               );
@@ -6594,9 +6906,41 @@ Tahun depan umurmu 18</span>
           case "List":
             return node.items.map(this.evaluasi, this);
 
+          case "Tuple":
+            return { __tuple__: true, items: node.items.map(this.evaluasi, this) };
+
+          case "Dict": {
+            var peta = new Map();
+            for (var d = 0; d < node.entries.length; d += 1) {
+              var entri = node.entries[d];
+              peta.set(this.evaluasi(entri.key), this.evaluasi(entri.value));
+            }
+            return peta;
+          }
+
+          case "Set": {
+            var himpunan = new Set();
+            for (var s = 0; s < node.items.length; s += 1) {
+              himpunan.add(this.evaluasi(node.items[s]));
+            }
+            return himpunan;
+          }
+
+          case "Member":
+            return this.ambilMember(this.evaluasi(node.object), node.prop);
+
+          case "MethodCall":
+            return this.panggilMethod(
+              this.evaluasi(node.object),
+              node.name,
+              node.args.map(this.evaluasi, this)
+            );
+
           case "Index": {
             var object = this.evaluasi(node.object);
             var index = this.evaluasi(node.index);
+
+            if (object && object.__tuple__) object = object.items;
 
             if (Array.isArray(object)) {
               var i = index < 0 ? object.length + index : index;
@@ -6637,6 +6981,11 @@ Tahun depan umurmu 18</span>
             return this.truthy(left) ? this.evaluasi(node.right) : left;
           }
 
+          case "Ternary":
+            return this.truthy(this.evaluasi(node.test))
+              ? this.evaluasi(node.benar)
+              : this.evaluasi(node.salah);
+
           case "Compare":
             return this.compare(node.op, this.evaluasi(node.left), this.evaluasi(node.right));
 
@@ -6667,7 +7016,51 @@ Tahun depan umurmu 18</span>
         });
       };
 
+      /* Mengambil anggota sederhana seperti math.pi */
+      Interpreter.prototype.ambilMember = function (object, prop) {
+        if (object && object.__module__) {
+          if (Object.prototype.hasOwnProperty.call(object, prop)) return object[prop];
+          throw new PyError(
+            "AttributeError: module '" + object.__module__ + "' tidak punya '" + prop + "'"
+          );
+        }
+        if (typeof object === "string") {
+          return ambilMethodString(object, prop, true);
+        }
+        if (Array.isArray(object)) {
+          return ambilMethodArray(object, prop, true);
+        }
+        if (object instanceof Map) {
+          return ambilMethodMap(object, prop, true);
+        }
+        throw new PyError("AttributeError: nilai ini tidak punya '" + prop + "'");
+      };
+
+      /* Memanggil method seperti daftar.append(...) atau data.items() */
+      Interpreter.prototype.panggilMethod = function (object, nama, args) {
+        if (object && object.__module__) {
+          var fn = object[nama];
+          if (typeof fn !== "function") {
+            throw new PyError(
+              "AttributeError: module '" + object.__module__ + "' tidak punya '" + nama + "'"
+            );
+          }
+          return fn.apply(null, args);
+        }
+        if (Array.isArray(object)) return panggilMethodArray(object, nama, args);
+        if (object instanceof Map) return panggilMethodMap(object, nama, args);
+        if (typeof object === "string") return panggilMethodString(object, nama, args);
+        if (object instanceof Set) return panggilMethodSet(object, nama, args);
+        throw new PyError("AttributeError: nilai ini tidak punya '" + nama + "()'");
+      };
+
       Interpreter.prototype.panggil = function (node) {
+        /* Function buatan pengguna */
+        var callee = this.vars[node.name];
+        if (callee && callee.__fungsi__) {
+          return this.panggilFungsi(callee, node.args.map(this.evaluasi, this));
+        }
+
         var args = node.args.map(function (a) {
           return this.evaluasi(a);
         }, this);
@@ -6695,6 +7088,10 @@ Tahun depan umurmu 18</span>
           case "abs":
             return Math.abs(args[0]);
           case "round":
+            if (args.length > 1 && args[1] !== undefined && args[1] !== null) {
+              var faktor = Math.pow(10, args[1]);
+              return Math.round(args[0] * faktor) / faktor;
+            }
             return Math.round(args[0]);
           case "min":
             return Math.min.apply(null, this.keIterable(args[0]));
@@ -6725,11 +7122,216 @@ Tahun depan umurmu 18</span>
         }
       };
 
+      /* Menjalankan function buatan pengguna pada ruang variable baru,
+         tapi tetap bisa membaca variable global di luar function. */
+      Interpreter.prototype.panggilFungsi = function (fn, args) {
+        var scope = Object.create(this.vars);
+        for (var i = 0; i < fn.params.length; i += 1) {
+          var param = fn.params[i];
+
+          if (typeof param === "string") {
+            if (args[i] === undefined) {
+              throw new PyError(
+                "TypeError: " + fn.nama + "() butuh nilai untuk parameter '" + param + "'"
+              );
+            }
+            scope[param] = args[i];
+          } else {
+            /* Parameter dengan nilai bawaan */
+            scope[param.nama] =
+              args[i] === undefined ? this.evaluasi(param.bawaan) : args[i];
+          }
+        }
+
+        var varsLama = this.vars;
+        this.vars = scope;
+        try {
+          this.jalankanBlok(fn.body);
+        } catch (err) {
+          if (err && err.__return__) return err.value;
+          throw err;
+        } finally {
+          this.vars = varsLama;
+        }
+        return null;
+      };
+
+      function punyaVar(scope, nama) {
+        var o = scope;
+        while (o) {
+          if (Object.prototype.hasOwnProperty.call(o, nama)) return true;
+          o = Object.getPrototypeOf(o);
+        }
+        return false;
+      }
+
+      /* ---------- Method list ---------- */
+      function panggilMethodArray(object, nama, args) {
+        switch (nama) {
+          case "append":
+            object.push(args[0]);
+            return null;
+          case "extend":
+            args[0].forEach(function (item) {
+              object.push(item);
+            });
+            return null;
+          case "insert":
+            object.splice(args[0], 0, args[1]);
+            return null;
+          case "remove":
+            for (var r = 0; r < object.length; r += 1) {
+              if (samaKasar(object[r], args[0])) {
+                object.splice(r, 1);
+                return null;
+              }
+            }
+            throw new PyError("ValueError: list.remove(x): x not in list");
+          case "pop":
+            return args.length === 0 ? object.pop() : object.splice(args[0], 1)[0];
+          case "clear":
+            object.length = 0;
+            return null;
+          case "sort":
+            object.sort(function (a, b) {
+              return a > b ? 1 : a < b ? -1 : 0;
+            });
+            return null;
+          case "reverse":
+            object.reverse();
+            return null;
+          case "index":
+            for (var ix = 0; ix < object.length; ix += 1) {
+              if (samaKasar(object[ix], args[0])) return ix;
+            }
+            throw new PyError("ValueError: item tidak ada di list");
+          case "count":
+            return object.filter(function (x) {
+              return samaKasar(x, args[0]);
+            }).length;
+          case "copy":
+            return object.slice();
+          default:
+            throw new PyError("AttributeError: list tidak punya '" + nama + "()'");
+        }
+      }
+
+      function ambilMethodArray(object, prop) {
+        return function () {
+          return panggilMethodArray(object, prop, Array.prototype.slice.call(arguments));
+        };
+      }
+
+      /* ---------- Method dictionary (Map) ---------- */
+      function panggilMethodMap(object, nama, args) {
+        switch (nama) {
+          case "keys":
+            return Array.from(object.keys());
+          case "values":
+            return Array.from(object.values());
+          case "items": {
+            var hasil = [];
+            object.forEach(function (v, k) {
+              hasil.push([k, v]);
+            });
+            return hasil;
+          }
+          case "get":
+            if (object.has(args[0])) return object.get(args[0]);
+            return args.length > 1 ? args[1] : null;
+          case "pop": {
+            var nilai = object.has(args[0]) ? object.get(args[0]) : args[1];
+            object["delete"](args[0]);
+            return nilai;
+          }
+          case "clear":
+            object.clear();
+            return null;
+          case "copy":
+            return new Map(object);
+          default:
+            throw new PyError("AttributeError: dict tidak punya '" + nama + "()'");
+        }
+      }
+
+      function ambilMethodMap(object, prop) {
+        return function () {
+          return panggilMethodMap(object, prop, Array.prototype.slice.call(arguments));
+        };
+      }
+
+      /* ---------- Method string ---------- */
+      function panggilMethodString(object, nama, args) {
+        switch (nama) {
+          case "upper":
+            return object.toUpperCase();
+          case "lower":
+            return object.toLowerCase();
+          case "title":
+            return object.replace(/\w\S*/g, function (kata) {
+              return kata.charAt(0).toUpperCase() + kata.slice(1).toLowerCase();
+            });
+          case "strip":
+            return object.trim();
+          case "replace":
+            return object.split(args[0]).join(args[1]);
+          case "split":
+            return args[0] === undefined ? object.trim().split(/\s+/) : object.split(args[0]);
+          case "startswith":
+            return object.indexOf(args[0]) === 0;
+          case "endswith":
+            return object.slice(object.length - args[0].length) === args[0];
+          case "isdigit":
+            return /^\d+$/.test(object);
+          case "find":
+            return object.indexOf(args[0]);
+          case "join":
+            return args[0].map(pyStr).join(object);
+          default:
+            throw new PyError("AttributeError: 'str' tidak punya '" + nama + "()'");
+        }
+      }
+
+      function ambilMethodString(object, prop) {
+        return function () {
+          return panggilMethodString(object, prop, Array.prototype.slice.call(arguments));
+        };
+      }
+
+      /* ---------- Method set ---------- */
+      function panggilMethodSet(object, nama, args) {
+        switch (nama) {
+          case "add":
+            object.add(args[0]);
+            return null;
+          case "remove":
+          case "discard":
+            object["delete"](args[0]);
+            return null;
+          case "clear":
+            object.clear();
+            return null;
+          case "union":
+            return new Set(Array.from(object).concat(Array.from(args[0])));
+          case "intersection": {
+            var hasil = new Set();
+            object.forEach(function (item) {
+              if (mengandung(args[0], item)) hasil.add(item);
+            });
+            return hasil;
+          }
+          default:
+            throw new PyError("AttributeError: set tidak punya '" + nama + "()'");
+        }
+      }
+
       Interpreter.prototype.keIterable = function (value) {
         if (Array.isArray(value)) return value;
         if (typeof value === "string") return value.split("");
         if (value && value.__range__) return wujudkanRange(value);
         if (value instanceof Map) return Array.from(value.keys());
+        if (value instanceof Set) return Array.from(value);
+        if (value && value.__tuple__) return value.items;
         throw new PyError("TypeError: nilai ini tidak bisa diulang dengan for");
       };
 
@@ -6739,7 +7341,9 @@ Tahun depan umurmu 18</span>
         if (typeof value === "number") return value !== 0;
         if (typeof value === "string") return value.length > 0;
         if (Array.isArray(value)) return value.length > 0;
+        if (value && value.__tuple__) return value.items.length > 0;
         if (value instanceof Map) return value.size > 0;
+        if (value instanceof Set) return value.size > 0;
         return true;
       };
 
@@ -6820,7 +7424,9 @@ Tahun depan umurmu 18</span>
         if (typeof v === "number") return Number.isInteger(v) ? "int" : "float";
         if (typeof v === "string") return "str";
         if (Array.isArray(v)) return "list";
+        if (v && v.__tuple__) return "tuple";
         if (v instanceof Map) return "dict";
+        if (v instanceof Set) return "set";
         return "object";
       }
 
@@ -6830,12 +7436,17 @@ Tahun depan umurmu 18</span>
         if (typeof v === "number") return formatAngka(v);
         if (typeof v === "string") return v;
         if (Array.isArray(v)) return "[" + v.map(pyRepr).join(", ") + "]";
+        if (v && v.__tuple__) return "(" + v.items.map(pyRepr).join(", ") + ")";
         if (v instanceof Map) {
           var parts = [];
           v.forEach(function (val, key) {
             parts.push(pyRepr(key) + ": " + pyRepr(val));
           });
           return "{" + parts.join(", ") + "}";
+        }
+        if (v instanceof Set) {
+          if (v.size === 0) return "set()";
+          return "{" + Array.from(v).map(pyRepr).join(", ") + "}";
         }
         return String(v);
       }
@@ -6850,7 +7461,9 @@ Tahun depan umurmu 18</span>
       function butuhPanjang(v) {
         if (typeof v === "string") return v;
         if (Array.isArray(v)) return v;
+        if (v && v.__tuple__) return v.items;
         if (v instanceof Map) return Array.from(v.keys());
+        if (v instanceof Set) return Array.from(v);
         throw new PyError("TypeError: object of type '" + pyNamaTipe(v) + "' has no len()");
       }
 
@@ -6880,12 +7493,20 @@ Tahun depan umurmu 18</span>
 
       function mengandung(wadah, item) {
         if (typeof wadah === "string") return wadah.indexOf(pyStr(item)) !== -1;
-        if (Array.isArray(wadah)) {
-          return wadah.some(function (c) {
+        var larik = wadah && wadah.__tuple__ ? wadah.items : wadah;
+        if (Array.isArray(larik)) {
+          return larik.some(function (c) {
             return samaKasar(c, item);
           });
         }
         if (wadah instanceof Map) return wadah.has(item);
+        if (wadah instanceof Set) {
+          var ada = false;
+          wadah.forEach(function (c) {
+            if (samaKasar(c, item)) ada = true;
+          });
+          return ada;
+        }
         return false;
       }
 
