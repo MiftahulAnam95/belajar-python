@@ -92,6 +92,11 @@
         --warn: #8a5a00;
         --warn-soft: #fdf4e3;
 
+        /* Warna scrollbar mengikuti tema */
+        --scroll-track: #eef2ee;
+        --scroll-thumb: #c3ccc6;
+        --scroll-thumb-hover: #a7b3ac;
+
         --code-bg: #f7f9f7;
         --code-head-bg: #eef2ee;
         --tok-keyword: #a626a4;
@@ -138,6 +143,11 @@
         --danger-soft: #241715;
         --warn: #e0b061;
         --warn-soft: #221b10;
+
+        /* Scrollbar versi gelap — tidak lagi putih terang */
+        --scroll-track: #121714;
+        --scroll-thumb: #313c35;
+        --scroll-thumb-hover: #44524a;
 
         --code-bg: #121815;
         --code-head-bg: #182019;
@@ -243,6 +253,33 @@
         outline: 3px solid var(--primary);
         outline-offset: 2px;
         border-radius: 4px;
+      }
+
+      /* ---------- Scrollbar mengikuti tema (terang & gelap) ----------
+         Firefox memakai scrollbar-color, browser berbasis WebKit/Blink
+         (Chrome, Edge, Safari) memakai ::-webkit-scrollbar. */
+      html {
+        scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+        scrollbar-width: thin;
+      }
+
+      *::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+      }
+      *::-webkit-scrollbar-track {
+        background: var(--scroll-track);
+      }
+      *::-webkit-scrollbar-thumb {
+        background: var(--scroll-thumb);
+        border-radius: 999px;
+        border: 3px solid var(--scroll-track);
+      }
+      *::-webkit-scrollbar-thumb:hover {
+        background: var(--scroll-thumb-hover);
+      }
+      *::-webkit-scrollbar-corner {
+        background: var(--scroll-track);
       }
 
       [hidden] {
@@ -857,6 +894,18 @@
         background: var(--bg-soft);
         border-right: 1px solid var(--border);
         padding: 1.5rem 1.1rem 3rem;
+        /* Scrollbar daftar materi menyatu dengan latar sidebar */
+        scrollbar-color: var(--scroll-thumb) var(--bg-soft);
+      }
+      .materi-sidebar::-webkit-scrollbar-track {
+        background: var(--bg-soft);
+      }
+      .materi-sidebar::-webkit-scrollbar-thumb {
+        background: var(--scroll-thumb);
+        border-color: var(--bg-soft);
+      }
+      .materi-sidebar::-webkit-scrollbar-thumb:hover {
+        background: var(--scroll-thumb-hover);
       }
 
       .sidebar-head {
@@ -1247,6 +1296,10 @@
         font-size: 0.9rem;
         font-weight: 600;
         color: var(--primary);
+      }
+      .next-hint {
+        font-size: 0.88rem;
+        color: var(--text-muted);
       }
 
       /* ---------- 14. Code block ---------- */
@@ -8491,11 +8544,24 @@ Tahun depan umurmu 18</span>
           ? buatPlayground(materi.playground, "Coba kode " + materi.judul)
           : "";
 
-        /* Tombol tandai selesai */
+        /* Tombol tandai selesai.
+           Kalau masih ada materi berikutnya, tombolnya sekaligus
+           mengantar pembaca ke materi tersebut. */
+        var labelSelesai = berikutnya
+          ? "✓ Tandai selesai & lanjut"
+          : "✓ Tandai sebagai selesai";
+
         var tombolSelesai = selesai
           ? '<button class="btn btn-ghost" type="button" id="btnBatalSelesai">↺ Batalkan tanda selesai</button>' +
             '<span class="done-flag">✓ Materi ini sudah kamu selesaikan</span>'
-          : '<button class="btn btn-primary" type="button" id="btnTandaiSelesai">✓ Tandai sebagai selesai</button>';
+          : '<button class="btn btn-primary" type="button" id="btnTandaiSelesai">' +
+            labelSelesai +
+            "</button>" +
+            (berikutnya
+              ? '<span class="next-hint">Berikutnya: ' +
+                escapeHtml(berikutnya.judul) +
+                "</span>"
+              : "");
 
         var navSebelumnya = sebelumnya
           ? '<a class="materi-nav-link prev" href="#materi/' +
@@ -8640,7 +8706,21 @@ Tahun depan umurmu 18</span>
             tandaiSelesai(materi.id);
             renderSidebar();
             perbaruiTampilanProgress();
-            tampilkanMateri(materi.id);
+
+            /* Cari materi berikutnya, lalu langsung buka.
+               Kalau ini materi terakhir, cukup segarkan halaman ini. */
+            var posisi = cariIndexMateri(materi.id);
+            var lanjut = posisi >= 0 && posisi < PDN.materi.length - 1
+              ? PDN.materi[posisi + 1]
+              : null;
+
+            if (lanjut) {
+              /* Mengubah hash akan memicu router menampilkan materi baru. */
+              window.location.hash = "#materi/" + lanjut.id;
+            } else {
+              tampilkanMateri(materi.id);
+            }
+
             window.scrollTo({ top: 0, behavior: "smooth" });
           });
         }
