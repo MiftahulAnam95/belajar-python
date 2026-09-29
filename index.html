@@ -1191,6 +1191,32 @@
         color: var(--warn);
       }
 
+      /* ---------- Contoh penggunaan di dunia nyata ---------- */
+      .usecase-card {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.05rem 1.2rem;
+        background: var(--surface);
+      }
+      .usecase-title {
+        margin: 0 0 0.85rem;
+        font-size: 1.02rem;
+        line-height: 1.4;
+      }
+      .usecase-card .code-block {
+        margin-bottom: 1rem;
+      }
+      .usecase-card .callout {
+        margin-bottom: 0;
+      }
+      .callout-usecase {
+        border-left-color: var(--secondary);
+        background: var(--secondary-soft);
+      }
+      .callout-usecase .callout-title {
+        color: var(--secondary);
+      }
+
       .mistake-item {
         margin-bottom: 1rem;
       }
@@ -2489,7 +2515,8 @@ Tahun depan umurmu 18</span>
 
          Setiap materi punya bagian yang selalu sama:
          pertanyaan, penjelasan, analogi, kode, penjelasanKode,
-         kesalahan, latihan, dan playground (opsional).
+         contohKasus (judul, kode, kapan dipakai), kesalahan,
+         latihan, dan playground (opsional).
          ========================================================= */
 
       var LEVELS_1 = [
@@ -2545,6 +2572,11 @@ Tahun depan umurmu 18</span>
                 "print() artinya “tampilkan”. Isi di dalam tanda kurung adalah yang ingin kita tampilkan ke layar.",
             },
           ],
+          contohKasus: {
+            judul: "Notifikasi otomatis toko online",
+            kode: 'print("Halo, Dina!")\nprint("Pesanan kamu: Buku Tulis")\nprint("Status: sedang dikemas")',
+            kapan: "Python sering bekerja di balik layar aplikasi: toko online memakainya untuk membuat notifikasi seperti ini secara otomatis ke ribuan pembeli, tanpa ada yang mengetiknya manual satu per satu.",
+          },
           kesalahan: [
             {
               salah: 'Print("Halo")',
@@ -2588,6 +2620,11 @@ Tahun depan umurmu 18</span>
             { kode: "umur = 17", arti: "Kita membuat kotak bernama umur berisi angka 17." },
             { kode: "print(umur)", arti: "Isi kotak umur ditampilkan: 17." },
           ],
+          contohKasus: {
+            judul: "Urutan langkah mesin kasir",
+            kode: 'print("1. Pindai barang")\nprint("2. Hitung total")\nprint("3. Terima pembayaran")\nprint("4. Cetak struk")',
+            kapan: "Program sungguhan adalah daftar langkah yang dijalankan dari atas ke bawah. Kalau urutannya tertukar — misalnya cetak struk sebelum hitung total — hasilnya kacau. Karena itu urutan penulisan kode sangat menentukan.",
+          },
           kesalahan: [
             {
               salah: "print(nama)\nnama = \"Anam\"",
@@ -2630,6 +2667,11 @@ Tahun depan umurmu 18</span>
               arti: "Boleh lebih dari dua isi. Hasilnya: Nilai: 90 poin.",
             },
           ],
+          contohKasus: {
+            judul: "Struk belanja di minimarket",
+            kode: 'print("===== STRUK BELANJA =====")\nprint("Susu    Rp 15000")\nprint("Roti    Rp 12000")\nprint("Total   Rp 27000")\nprint("Terima kasih!")',
+            kapan: "print() adalah cara program menyampaikan informasi ke manusia: struk belanja, hasil perhitungan, sampai laporan penjualan. Hampir semua program punya bagian yang tugasnya menampilkan keluaran seperti ini.",
+          },
           kesalahan: [
             {
               salah: "print(Halo)",
@@ -2677,6 +2719,11 @@ Tahun depan umurmu 18</span>
               arti: "Kode yang di-comment tidak dijalankan. Trik ini dipakai untuk mematikan kode sementara.",
             },
           ],
+          contohKasus: {
+            judul: "Catatan kerja untuk satu tim",
+            kode: '# Harga sudah termasuk pajak 11%\ntotal_bayar = 100000 + 11000\n\n# TODO: tambahkan diskon member bulan depan\nprint(total_bayar)',
+            kapan: "Di proyek sungguhan, kode dibaca oleh banyak orang — termasuk dirimu sendiri tiga bulan lagi. Comment dipakai untuk menjelaskan maksud kode, menandai pekerjaan yang belum selesai (TODO), atau mematikan baris sementara saat mengetes.",
+          },
           kesalahan: [
             {
               salah: "// Ini komentar",
@@ -2729,6 +2776,11 @@ Tahun depan umurmu 18</span>
               arti: "Tanpa indentasi, jadi baris ini di luar blok if dan selalu dijalankan.",
             },
           ],
+          contohKasus: {
+            judul: "Aturan rapi seperti formulir resmi",
+            kode: 'nilai = 80\n\nif nilai >= 75:\n    print("Lulus")\nelse:\n    print("Belum lulus")',
+            kapan: "Sintaks yang rapi itu wajib di setiap program, bukan hiasan. Di tim sungguhan, kode dengan titik dua dan aturan menjorok yang konsisten jauh lebih mudah diperbaiki dan dicek oleh rekan kerja.",
+          },
           kesalahan: [
             {
               salah: "if umur >= 17\n    print(\"Boleh\")",
@@ -2775,6 +2827,11 @@ Tahun depan umurmu 18</span>
             { kode: "tinggi = 165.5", arti: "Kotak tinggi berisi angka 165.5 (bilangan desimal)." },
             { kode: "print(nama)", arti: "Kotak nama dibuka, isinya ditampilkan: Anam." },
           ],
+          contohKasus: {
+            judul: "Saldo e-wallet yang berubah-ubah",
+            kode: 'saldo = 100000\n\nsaldo = saldo - 25000\nsaldo = saldo - 50000\n\nprint("Sisa saldo:", saldo)',
+            kapan: "Variable dipakai untuk menyimpan keadaan yang terus berubah: saldo e-wallet, skor game, status login, sampai isi keranjang belanja. Tanpa variable, program tidak bisa mengingat apa pun.",
+          },
           kesalahan: [
             {
               salah: "nama = Anam",
@@ -2839,6 +2896,11 @@ Tahun depan umurmu 18</span>
                 "Indeks 0 berarti huruf pertama. Penghitungan dimulai dari 0, jadi hasilnya huruf A.",
             },
           ],
+          contohKasus: {
+            judul: "Biodata pengguna aplikasi",
+            kode: 'nama = "Budi Santoso"\nkota = "Jakarta"\n\npesan = "Halo, " + nama + " dari " + kota\nprint(pesan)',
+            kapan: "Semua data berupa tulisan disimpan sebagai string: nama pengguna, alamat, isi chat, sampai caption media sosial. Menggabungkan string adalah dasar membuat pesan yang personal.",
+          },
           kesalahan: [
             {
               salah: 'print("Halo, " + 17)',
@@ -2885,6 +2947,11 @@ Tahun depan umurmu 18</span>
             { kode: "print(jumlah_siswa - 5)", arti: "30 − 5. Hasilnya 25." },
             { kode: "print(jumlah_apel * 2)", arti: "5 × 2. Hasilnya 10." },
           ],
+          contohKasus: {
+            judul: "Stok barang di gudang",
+            kode: 'stok = 50\nterjual = 23\n\nsisa = stok - terjual\nprint("Sisa stok:", sisa)',
+            kapan: "Integer dipakai untuk data hitungan utuh yang tidak punya koma: stok barang, jumlah penonton, umur, atau jumlah like. Menghitung sisa stok seperti ini adalah pekerjaan sehari-hari program gudang dan toko.",
+          },
           kesalahan: [
             {
               salah: 'umur = "17"\nprint(umur + 1)',
@@ -2929,6 +2996,11 @@ Tahun depan umurmu 18</span>
               arti: "Hasil pembagian selalu float, jadi yang muncul 5.0 bukan 5.",
             },
           ],
+          contohKasus: {
+            judul: "Tagihan listrik per kWh",
+            kode: 'pemakaian = 125.5\ntarif = 1352.0\n\ntagihan = pemakaian * tarif\nprint("Tagihan: Rp", round(tagihan, 2))',
+            kapan: "Float dipakai saat datanya punya pecahan: tarif per kWh, suhu tubuh, nilai rata-rata, atau kurs mata uang. Hasilnya sering dibulatkan dengan round() sebelum ditampilkan ke pengguna.",
+          },
           kesalahan: [
             {
               salah: "berat = 62,5",
@@ -2982,6 +3054,11 @@ Tahun depan umurmu 18</span>
               arti: "10 sama dengan 7? Tidak. Hasilnya False.",
             },
           ],
+          contohKasus: {
+            judul: "Saklar status layanan",
+            kode: 'sudah_bayar = True\n\nif sudah_bayar:\n    print("Layanan streaming aktif")\nelse:\n    print("Layanan diblokir sementara")',
+            kapan: "Boolean dipakai untuk status yang cuma punya dua kemungkinan: aktif atau tidak, sudah bayar atau belum, login atau logout. Hampir semua keputusan program ujungnya adalah True atau False.",
+          },
           kesalahan: [
             {
               salah: "sudah_makan = true",
@@ -3040,6 +3117,11 @@ Tahun depan umurmu 18</span>
               arti: "Hasilnya <class 'bool'> — berarti lulus bertipe boolean.",
             },
           ],
+          contohKasus: {
+            judul: "Mengintip jenis data dari formulir",
+            kode: 'umur = 17\nprint(type(umur))\n\numur = "17"\nprint(type(umur))',
+            kapan: "Data dari formulir website atau file sering tiba sebagai teks, bukan angka. Saat program error dan membingungkan, type() dipakai untuk memeriksa jenis data yang sebenarnya sebelum diperbaiki.",
+          },
           kesalahan: [
             {
               salah: 'umur = "17"\nprint(type(umur))',
@@ -3087,6 +3169,11 @@ Tahun depan umurmu 18</span>
                 "str(90) mengubah angka 90 menjadi tulisan \"90\", supaya bisa digabung dengan tulisan lain.",
             },
           ],
+          contohKasus: {
+            judul: "Menghitung umur dari isian formulir",
+            kode: 'tahun_lahir = "2008"\n\numur = 2025 - int(tahun_lahir)\nprint("Umur kamu:", umur)',
+            kapan: "Data dari formulir, file Excel, atau API hampir selalu berupa teks. Sebelum dihitung, ubah dulu dengan int() atau float(); dan sebelum angka digabung dengan tulisan, ubah dulu dengan str(). Ini salah satu penyakit paling umum saat mengolah data sungguhan.",
+          },
           kesalahan: [
             {
               salah: 'print("Umur: " + 17)',
@@ -3139,6 +3226,11 @@ Tahun depan umurmu 18</span>
             { kode: "print(10 % 3)", arti: "Sisa bagi. 10 dibagi 3 sisa 1, jadi hasilnya 1." },
             { kode: "print(2 ** 3)", arti: "Pangkat. 2 pangkat 3 = 8." },
           ],
+          contohKasus: {
+            judul: "Patungan makan bareng teman",
+            kode: 'total_makan = 155000\njumlah_orang = 4\n\nper_orang = total_makan / jumlah_orang\nprint("Bayar per orang:", per_orang)',
+            kapan: "Operator hitung dipakai di semua program yang berhubungan dengan angka: total belanja, pajak, diskon, patungan tagihan, sampai skor game.",
+          },
           kesalahan: [
             {
               salah: "print(10 X 3)",
@@ -3187,6 +3279,11 @@ Tahun depan umurmu 18</span>
             { kode: "print(5 >= 5)", arti: "5 lebih besar atau sama dengan 5? Ya. Hasilnya True." },
             { kode: "print(5 <= 4)", arti: "5 lebih kecil atau sama dengan 4? Tidak. Hasilnya False." },
           ],
+          contohKasus: {
+            judul: "Cek batas umur menonton film",
+            kode: 'umur = 15\nboleh = umur >= 13\n\nprint("Boleh menonton:", boleh)',
+            kapan: "Perbandingan adalah dasar semua aturan aplikasi: minimal umur, batas saldo, syarat kelulusan. Hasilnya True atau False — dan nilai itulah yang dipakai if untuk mengambil keputusan.",
+          },
           kesalahan: [
             {
               salah: "if umur = 17:",
@@ -3240,6 +3337,11 @@ Tahun depan umurmu 18</span>
               arti: "Kebalikan dari True adalah False.",
             },
           ],
+          contohKasus: {
+            judul: "Syarat promo untuk member",
+            kode: 'member = True\ntotal_belanja = 250000\n\nif member and total_belanja >= 200000:\n    print("Dapat voucher gratis ongkir")\nelse:\n    print("Belum dapat voucher")',
+            kapan: "Aturan dunia nyata jarang cuma satu syarat: harus member DAN belanja sekian, bayar pakai QRIS ATAU kartu, TIDAK sedang diblokir. Operator logika menggabungkan semua syarat itu menjadi satu keputusan.",
+          },
           kesalahan: [
             {
               salah: "if umur >= 17 AND punya_ktp:",
@@ -3289,6 +3391,11 @@ Tahun depan umurmu 18</span>
               arti: "Sama dengan saldo = saldo * 2. Saldo menjadi 260000.",
             },
           ],
+          contohKasus: {
+            judul: "Poin reward pelanggan",
+            kode: 'poin = 100\n\npoin += 50\npoin -= 30\n\nprint("Poin akhir:", poin)',
+            kapan: "Kalau ada nilai yang berubah sedikit demi sedikit — poin reward, saldo, stok barang — += dan -= membuat perubahannya singkat dan jelas. Bentuk panjangnya (poin = poin + 50) tetap benar, hanya lebih bertele-tele.",
+          },
           kesalahan: [
             {
               salah: "saldo =+ 50000",
@@ -3341,6 +3448,11 @@ Tahun depan umurmu 18</span>
               arti: "Tidak menjorok, jadi selalu dijalankan apa pun kondisinya.",
             },
           ],
+          contohKasus: {
+            judul: "Peringatan baterai lemah",
+            kode: 'baterai = 18\n\nif baterai < 20:\n    print("Baterai lemah, segera isi daya!")',
+            kapan: "if dipakai saat program hanya perlu bertindak kalau syaratnya terpenuhi: kirim peringatan baterai menipis, blokir transaksi mencurigakan, atau beri bonus kalau target tercapai. Kalau syaratnya salah, baris di dalamnya dilewati begitu saja.",
+          },
           kesalahan: [
             {
               salah: 'if umur >= 17\n    print("Boleh")',
@@ -3393,6 +3505,11 @@ Tahun depan umurmu 18</span>
               arti: "Tidak dicek lagi, karena pengecekan sudah berhenti di kondisi sebelumnya.",
             },
           ],
+          contohKasus: {
+            judul: "Kategori nilai rapor",
+            kode: 'nilai = 82\n\nif nilai >= 90:\n    print("Predikat A")\nelif nilai >= 80:\n    print("Predikat B")\nelif nilai >= 70:\n    print("Predikat C")\nelse:\n    print("Perlu bimbingan")',
+            kapan: "elif dipakai saat kemungkinannya lebih dari dua dan bertingkat: kategori nilai, tingkat keanggotaan, atau besaran diskon. Python mengecek dari atas dan berhenti di syarat pertama yang cocok.",
+          },
           kesalahan: [
             {
               salah: 'if nilai >= 70:\n    print("C")\nelif nilai >= 80:\n    print("B")',
@@ -3445,6 +3562,11 @@ Tahun depan umurmu 18</span>
               arti: "Karena if tidak terpenuhi, baris ini yang dijalankan.",
             },
           ],
+          contohKasus: {
+            judul: "Aturan ganjil-genap kendaraan",
+            kode: 'plat = 1234\n\nif plat % 2 == 0:\n    print("Plat genap: boleh lewat di tanggal genap")\nelse:\n    print("Plat ganjil: boleh lewat di tanggal ganjil")',
+            kapan: "else adalah jaring pengaman: kalau semua syarat di atasnya gagal, bagian inilah yang dijalankan. Dipakai supaya program selalu punya jawaban, apa pun data yang masuk.",
+          },
           kesalahan: [
             {
               salah: 'if password == "rahasia":\n    print("Akses diterima")\nelse password != "rahasia":\n    print("Password salah")',
@@ -3502,6 +3624,11 @@ Tahun depan umurmu 18</span>
               arti: "else untuk if punya_ktm, sejajar dengan if tersebut (4 spasi).",
             },
           ],
+          contohKasus: {
+            judul: "Akses berlapis ke ruang server",
+            kode: 'karyawan = True\npunya_kartu = False\n\nif karyawan:\n    if punya_kartu:\n        print("Silakan masuk ruang server")\n    else:\n        print("Ambil kartu akses dulu")\nelse:\n    print("Pengunjung dilarang masuk")',
+            kapan: "Kalau syaratnya berlapis — sudah login lalu dicek apakah admin, barang ada lalu dicek stoknya cukup — if di dalam if memodelkan pemeriksaan bertahap, seperti gedung yang punya beberapa pos satpam.",
+          },
           kesalahan: [
             {
               salah: 'if hari_kerja:\n    print("Masuk")\n    if punya_ktm:\n    print("Boleh")',
@@ -3543,6 +3670,11 @@ Tahun depan umurmu 18</span>
               arti: "Pola yang sama, hanya kondisinya berbeda. Karena 60 < 75, hasilnya “Tidak lulus”.",
             },
           ],
+          contohKasus: {
+            judul: "Label harga otomatis",
+            kode: 'harga = 120000\nlabel = "Mahal" if harga > 100000 else "Terjangkau"\n\nprint(label)',
+            kapan: "Bentuk singkat ini dipakai untuk memilih satu dari dua nilai dengan cepat: label produk, status aktif atau nonaktif, sapaan tamu atau member. Untuk logika yang panjang, tetap gunakan if biasa supaya mudah dibaca.",
+          },
           kesalahan: [
             {
               salah: 'status = "Dewasa" if umur >= 17\nprint(status)',
@@ -3597,6 +3729,11 @@ Tahun depan umurmu 18</span>
               arti: "Tidak menjorok, jadi dijalankan sekali setelah loop selesai.",
             },
           ],
+          contohKasus: {
+            judul: "Kirim promo ke semua pelanggan",
+            kode: 'pelanggan = ["Ani", "Budi", "Citra"]\n\nfor nama in pelanggan:\n    print("Promo diskon dikirim ke", nama)',
+            kapan: "for dipakai saat kamu sudah punya daftar dan semua isinya harus diperlakukan sama: kirim email ke setiap pengguna, hitung semua nilai, atau tampilkan semua produk di halaman katalog.",
+          },
           kesalahan: [
             {
               salah: "for item in buah\n    print(item)",
@@ -3656,6 +3793,11 @@ Tahun depan umurmu 18</span>
               arti: "Dijalankan setelah loop berhenti, yaitu saat nyawa sudah 0.",
             },
           ],
+          contohKasus: {
+            judul: "Sistem Login — meminta password sampai benar",
+            kode: 'password_benar = "12345"\ninput_user = ""\n\nwhile input_user != password_benar:\n    input_user = input("Masukkan password: ")\n\nprint("Login Berhasil!")',
+            kapan: "Saat kamu tidak tahu persis berapa kali user akan salah mengetik password, jadi perulangan terus berjalan selama syarat (password belum cocok) masih terpenuhi.",
+          },
           kesalahan: [
             {
               salah: 'while nyawa > 0:\n    print("Masih bermain")',
@@ -3710,6 +3852,11 @@ Tahun depan umurmu 18</span>
               arti: "Mulai 0, berhenti sebelum 10, lompat 2. Hasilnya 0, 2, 4, 6, 8.",
             },
           ],
+          contohKasus: {
+            judul: "Jadwal latihan satu minggu",
+            kode: 'for hari in range(1, 8):\n    print("Jadwal latihan hari ke-", hari)',
+            kapan: "range() dipakai saat jumlah pengulangannya sudah pasti: membuat jadwal 7 hari, nomor halaman 1 sampai 10, atau antrian 1 sampai 100. Tidak perlu menulis list angkanya satu per satu.",
+          },
           kesalahan: [
             {
               salah: "for i in range(5):\n    print(i)  # mengharap 1 sampai 5",
@@ -3772,6 +3919,11 @@ Tahun depan umurmu 18</span>
               arti: "Dijalankan setelah loop berhenti karena break.",
             },
           ],
+          contohKasus: {
+            judul: "Cari barang di rak gudang",
+            kode: 'rak = ["buku", "sepatu", "tas", "topi"]\ncari = "tas"\n\nfor barang in rak:\n    print("Mengecek:", barang)\n    if barang == cari:\n        print("Ketemu! Langsung diambil")\n        break',
+            kapan: "break dipakai saat mencari sesuatu: begitu barangnya ketemu, tidak perlu memeriksa sisa rak — hemat waktu. Contoh lain: menu program berhenti berputar saat pengguna memilih keluar.",
+          },
           kesalahan: [
             {
               salah: "break\nif i == 4:",
@@ -3822,6 +3974,11 @@ Tahun depan umurmu 18</span>
               arti: "Dijalankan untuk 1, 2, 4, dan 5. Tidak pernah untuk 3.",
             },
           ],
+          contohKasus: {
+            judul: "Lewati data email yang rusak",
+            kode: 'daftar_email = ["ani@gmail.com", "bukan-email", "budi@gmail.com"]\n\nfor email in daftar_email:\n    if "@" not in email:\n        print("Lewati data rusak:", email)\n        continue\n    print("Kirim promo ke", email)',
+            kapan: "continue adalah jurus membersihkan data: data yang rusak, kosong, atau bukan target dilewati, sedangkan sisanya tetap diproses. Program tidak berhenti total hanya karena satu data bermasalah.",
+          },
           kesalahan: [
             {
               salah: 'for i in range(1, 6):\n    continue\n    print("Angka:", i)',
@@ -3913,6 +4070,11 @@ Tahun depan umurmu 18</span>
               arti: "Menambah satu item baru di akhir list. Sekarang isinya 4 item.",
             },
           ],
+          contohKasus: {
+            judul: "Keranjang belanja online",
+            kode: 'keranjang = ["susu", "roti", "telur"]\n\nkeranjang.append("keju")\n\nprint("Isi keranjang:", keranjang)\nprint("Jumlah barang:", len(keranjang))',
+            kapan: "List adalah struktur data yang paling sering dipakai: isi keranjang belanja, daftar teman di aplikasi chat, riwayat transaksi, hasil pencarian. Data baru tinggal ditambahkan dengan append().",
+          },
           kesalahan: [
             {
               salah: 'belanja = ["telur" "susu" "roti"]',
@@ -3970,6 +4132,11 @@ Tahun depan umurmu 18</span>
                 "Baris ini sengaja dijadikan komentar karena akan menghasilkan TypeError: tuple tidak mendukung perubahan item.",
             },
           ],
+          contohKasus: {
+            judul: "Titik lokasi toko di peta",
+            kode: 'lokasi_toko = (-6.2088, 106.8456)\n\nprint("Latitude:", lokasi_toko[0])\nprint("Longitude:", lokasi_toko[1])',
+            kapan: "Tuple dipakai untuk data yang satu paket dan tidak boleh berubah: koordinat lokasi, ukuran gambar, atau data tetap seperti nama hari. Isinya dikunci supaya tidak rusak karena tidak sengaja terubah.",
+          },
           kesalahan: [
             {
               salah: "koordinat = (10, 20)\nkoordinat[0] = 15",
@@ -4018,6 +4185,11 @@ Tahun depan umurmu 18</span>
               arti: "len() menghitung isi set. Hasilnya 3, bukan 4.",
             },
           ],
+          contohKasus: {
+            judul: "Menghitung pengunjung unik website",
+            kode: 'pengunjung = {"ani", "budi", "ani", "citra", "budi"}\n\nprint("Pengunjung unik hari ini:", len(pengunjung))',
+            kapan: "Set otomatis membuang data ganda. Dipakai saat yang penting adalah keunikannya: pengunjung unik website, daftar kategori tanpa dobel, atau mencari anggota yang sama dari dua grup berbeda.",
+          },
           kesalahan: [
             {
               salah: 'kota = {"Bandung"}\nprint(kota[0])',
@@ -4079,6 +4251,11 @@ Tahun depan umurmu 18</span>
               arti: "Mencari nilai berdasarkan kunci nilai. Hasilnya: 90.",
             },
           ],
+          contohKasus: {
+            judul: "Kontak di HP",
+            kode: 'kontak = {\n    "nama": "Ani",\n    "nomor": "0812-3456-789",\n    "favorit": True\n}\n\nprint(kontak["nama"])\nprint(kontak["nomor"])',
+            kapan: "Bentuk data seperti ini ada di mana-mana: kontak HP, profil pengguna, sampai balasan API dari server (format JSON). Setiap informasi punya label dan isi, sehingga gampang diambil saat dibutuhkan.",
+          },
           kesalahan: [
             {
               salah: 'print(siswa["umur"])  # kunci "umur" tidak ada',
@@ -4132,6 +4309,11 @@ Tahun depan umurmu 18</span>
               arti: "Dari awal sampai sebelum indeks 2. Hasilnya ['apel', 'mangga'].",
             },
           ],
+          contohKasus: {
+            judul: "Podium juara lomba",
+            kode: 'juara = ["Budi", "Ani", "Citra"]\n\nprint("Juara 1:", juara[0])\nprint("Posisi paling akhir:", juara[-1])',
+            kapan: "Index dipakai saat posisi itu bermakna: juara 1 ada di urutan pertama (index 0), pesan terakhir di chat diambil dengan -1, dan lagu pertama di playlist diputar dari index 0.",
+          },
           kesalahan: [
             {
               salah: "print(buah[4])  # list hanya punya indeks 0-3",
@@ -4188,6 +4370,11 @@ Tahun depan umurmu 18</span>
               arti: "Menampilkan: Anam mendapat 90.",
             },
           ],
+          contohKasus: {
+            judul: "Rekap penjualan harian",
+            kode: 'penjualan = [15000, 22000, 17500, 30000]\n\ntotal = 0\nfor uang in penjualan:\n    total = total + uang\n\nprint("Total hari ini:", total)\nprint("Rata-rata:", total / len(penjualan))',
+            kapan: "Ini pola kerja programmer sehari-hari: menyusuri sekumpulan data untuk dijumlahkan, dirata-rata, atau dicari yang paling besar. Data penjualan, nilai siswa, durasi olahraga — polanya sama persis.",
+          },
           kesalahan: [
             {
               salah: "for nama, angka in nilai:",
@@ -4247,6 +4434,11 @@ Tahun depan umurmu 18</span>
               arti: "Dipanggil lagi. Hasilnya sama, tanpa perlu menulis ulang kodenya.",
             },
           ],
+          contohKasus: {
+            judul: "Tombol cetak nota yang dipakai berulang",
+            kode: 'def cetak_nota():\n    print("TOKO MAKMUR")\n    print("Terima kasih sudah belanja!")\n\ncetak_nota()\ncetak_nota()',
+            kapan: "Setiap ada pekerjaan yang dipakai berulang — cetak nota, salam pembuka email, format tanggal — cukup dibuat sekali sebagai function, lalu dipanggil kapan pun dibutuhkan. Tidak perlu salin-tempel kode.",
+          },
           kesalahan: [
             {
               salah: 'sapa()\n\ndef sapa():\n    print("Halo!")',
@@ -4307,6 +4499,11 @@ Tahun depan umurmu 18</span>
               arti: "Dipanggil lagi, hasilnya tetap 50.",
             },
           ],
+          contohKasus: {
+            judul: "Mesin hitung ongkos kirim",
+            kode: 'def hitung_ongkir():\n    jarak = 12\n    ongkir = 5000 + jarak * 2000\n    print("Ongkir: Rp", ongkir)\n\nhitung_ongkir()',
+            kapan: "Program besar dipecah menjadi banyak function sesuai tugasnya: satu untuk ongkir, satu untuk diskon, satu untuk pajak. Kalau aturan ongkir berubah, cukup perbaiki satu function, bukan seluruh program.",
+          },
           kesalahan: [
             {
               salah: "def hitung luas():",
@@ -4362,6 +4559,11 @@ Tahun depan umurmu 18</span>
               arti: "Dipanggil lagi dengan isi berbeda. Sekarang nama berisi “Budi”.",
             },
           ],
+          contohKasus: {
+            judul: "Template pesan promo personal",
+            kode: 'def kirim_promo(nama):\n    print("Hai", nama + ", ada diskon 20% hari ini!")\n\nkirim_promo("Ani")\nkirim_promo("Budi")',
+            kapan: "Parameter membuat satu function bisa melayani banyak kasus: template pesan yang sama menghasilkan sapaan personal untuk Ani, Budi, dan ribuan pelanggan lainnya. Isi datanya menempel saat function dipanggil.",
+          },
           kesalahan: [
             {
               salah: 'def sapa(nama):\n    print("Halo,", nama)\n\nsapa()',
@@ -4419,6 +4621,11 @@ Tahun depan umurmu 18</span>
               arti: "Dipanggil lagi dengan argument berbeda.",
             },
           ],
+          contohKasus: {
+            judul: "Mengirim data tagihan",
+            kode: 'def buat_tagihan(nama, jumlah):\n    print("Tagihan untuk", nama, ": Rp", jumlah)\n\nbuat_tagihan("Ani", 25000)\nbuat_tagihan("Budi", 18000)',
+            kapan: "Argument adalah data asli yang kamu kirim ke function, seperti mengisi kolom formulir. Urutannya harus cocok dengan urutan parameter — tertukar antara nama dan jumlah akan menghasilkan tagihan yang aneh.",
+          },
           kesalahan: [
             {
               salah: 'perkenalan("Anam")',
@@ -4483,6 +4690,11 @@ Tahun depan umurmu 18</span>
                 "Karena hasil adalah angka, dia bisa dipakai lagi. Ini tidak mungkin dilakukan kalau function hanya pakai print.",
             },
           ],
+          contohKasus: {
+            judul: "Menghitung nilai akhir rapor",
+            kode: 'def nilai_akhir(tugas, uts, uas):\n    return (tugas + uts + uas) / 3\n\nhasil = nilai_akhir(80, 85, 90)\nprint("Nilai akhir:", hasil)',
+            kapan: "return dipakai saat hasil olahan function mau dipakai lagi di tempat lain: ditampilkan, disimpan, atau dihitung ulang. Hampir semua function aplikasi nyata berpola sama: terima data, kembalikan hasil.",
+          },
           kesalahan: [
             {
               salah: "def luas(sisi):\n    print(sisi * sisi)\n\nhasil = luas(5)\nprint(hasil + 10)",
@@ -4536,6 +4748,11 @@ Tahun depan umurmu 18</span>
               arti: "Argument dikirim, jadi nilai bawaan ditimpa. Hasilnya: Halo, Anam.",
             },
           ],
+          contohKasus: {
+            judul: "Sapaan dengan bahasa bawaan",
+            kode: 'def sapa(nama, bahasa="Indonesia"):\n    if bahasa == "Inggris":\n        print("Hello,", nama)\n    else:\n        print("Halo,", nama)\n\nsapa("Ani")\nsapa("John", "Inggris")',
+            kapan: "Nilai bawaan dipakai untuk pengaturan standar aplikasi: kalau pengguna tidak memilih, pakai yang paling umum — bahasa Indonesia, pengiriman reguler, atau ukuran kopi medium. Tetap bisa diganti saat perlu.",
+          },
           kesalahan: [
             {
               salah: 'def sapa(nama="Teman", kota):',
@@ -4598,6 +4815,11 @@ Tahun depan umurmu 18</span>
               arti: "Hasilnya: Tidak lulus.",
             },
           ],
+          contohKasus: {
+            judul: "Syarat membuat SIM",
+            kode: 'def boleh_buat_sim(umur):\n    if umur >= 17:\n        return "Boleh, lanjut ke tes"\n    return "Belum cukup umur"\n\nprint(boleh_buat_sim(19))\nprint(boleh_buat_sim(15))',
+            kapan: "Membungkus aturan ke dalam function membuatnya gampang dipakai ulang di mana-mana: cek kelayakan pendaftar, validasi pembayaran, atau hitung kategori nilai. Aturannya ditulis sekali, dicek berkali-kali.",
+          },
           kesalahan: [
             {
               salah: 'def status_kelulusan(nilai):\n    if nilai >= 75:\n        return "Lulus"\n    else:\n        return "Tidak lulus"\n        return "Selesai"',
@@ -4650,6 +4872,11 @@ Tahun depan umurmu 18</span>
                 "Baris ini di-comment karena akan menghasilkan SyntaxError: expected ':' (tanpa titik dua).",
             },
           ],
+          contohKasus: {
+            judul: "Lupa titik dua saat buru-buru",
+            kode: 'saldo = 50000\n\n# Kode di bawah ini langsung SyntaxError karena lupa titik dua:\n# if saldo > 0\n#     print("Masih ada saldo")\n\n# Versi yang benar:\nif saldo > 0:\n    print("Masih ada saldo")',
+            kapan: "SyntaxError adalah error yang paling sering muncul saat mengetik cepat: lupa titik dua, kurung belum ditutup, atau tanda kutip kurang. Kabar baiknya, Python menunjuk persis letak kesalahannya — tinggal diperbaiki.",
+          },
           kesalahan: [
             {
               salah: 'if umur >= 17\n    print("Boleh")',
@@ -4704,6 +4931,11 @@ Tahun depan umurmu 18</span>
                 "Kalau baris ini dijalankan, muncul NameError: name 'nama_lengkap' is not defined karena variable itu belum dibuat.",
             },
           ],
+          contohKasus: {
+            judul: "Salah ketik nama variable",
+            kode: 'total_belanja = 150000\n\n# Sering terjadi: nama variable salah ketik saat memanggilnya\n# print(totalbelanja)   -> NameError, nama itu tidak dikenal\n\nprint(total_belanja)',
+            kapan: "NameError biasanya muncul karena salah ketik nama variable, atau karena variable diganti nama tapi ada pemakaian lama yang terlewat. Saat coding sungguhan, error ini jadi alarm untuk mengecek kembali ejaanmu.",
+          },
           kesalahan: [
             {
               salah: 'print(nama)\nnama = "Anam"',
@@ -4763,6 +4995,11 @@ Tahun depan umurmu 18</span>
               arti: "Sekarang aman. Hasilnya 18.",
             },
           ],
+          contohKasus: {
+            judul: "Mencampur teks dan angka dari formulir",
+            kode: 'harga = "20000"\nongkir = 5000\n\n# print(harga + ongkir)   -> TypeError, teks tidak bisa dijumlah dengan angka\n\ntotal = int(harga) + ongkir\nprint("Total:", total)',
+            kapan: "TypeError paling sering muncul saat mencampur teks dengan angka — khas ketika mengolah data dari formulir atau file. Solusinya selalu sama: samakan dulu jenis datanya, baru dihitung.",
+          },
           kesalahan: [
             {
               salah: 'print("Umur: " + 17)',
@@ -4823,6 +5060,11 @@ Tahun depan umurmu 18</span>
               arti: "Cara aman mengambil item terakhir tanpa perlu menghitung jumlah item.",
             },
           ],
+          contohKasus: {
+            judul: "Memanggil antrian yang tidak ada",
+            kode: 'antrian = ["Ani", "Budi"]\n\n# print(antrian[5])   -> IndexError, yang antre cuma 2 orang\n\nif len(antrian) > 2:\n    print("Dipanggil:", antrian[2])\nelse:\n    print("Belum ada antrian nomor 3")',
+            kapan: "IndexError terjadi saat mengambil posisi yang melebihi isi data — misalnya mengambil barang ke-5 padahal keranjang cuma berisi 2. Kebiasaan aman: cek dulu panjang datanya dengan len().",
+          },
           kesalahan: [
             {
               salah: 'buah = ["apel", "mangga", "pisang"]\nprint(buah[3])',
@@ -4881,6 +5123,11 @@ Tahun depan umurmu 18</span>
               arti: "Perbaikannya: buat variable nama sebelum dipakai.",
             },
           ],
+          contohKasus: {
+            judul: "Jadi detektif pesan merah",
+            kode: 'keranjang = []\n\n# Jalankan kode ini, lalu baca pesan errornya dari PALING BAWAH:\n# baris terakhir memberi tahu jenis errornya,\n# baris sebelumnya menunjuk kode mana penyebabnya\nprint(keranjang[0])',
+            kapan: "Membaca pesan error adalah keterampilan harian programmer — sebagian besar waktu ngoding justru dipakai di sini. Caranya: baca baris paling bawah untuk tahu jenis errornya, lalu naik ke baris kode yang ditunjuk.",
+          },
           kesalahan: [
             {
               salah: "# Membaca error dari baris paling atas",
@@ -4934,6 +5181,11 @@ Tahun depan umurmu 18</span>
               arti: "Total dibagi jumlah item. Hasil untuk [80, 90, 100] adalah 90.0.",
             },
           ],
+          contohKasus: {
+            judul: "Kok total diskonnya janggal?",
+            kode: 'harga = 100000\ndiskon = 10\n\ntotal = harga - diskon\nprint("DEBUG, isi total:", total)\n\n# Ketahuan: 10 dipotong langsung, padahal maksudnya 10 persen\npotongan = harga * diskon / 100\ntotal = harga - potongan\nprint("Total yang benar:", total)',
+            kapan: "Saat output program janggal tapi tidak ada pesan error, tempel print() sementara di titik-titik rawan untuk mengintip isi variable. Ini jurus debugging paling cepat sebelum memakai alat yang lebih canggih.",
+          },
           kesalahan: [
             {
               salah: "# Langsung menulis ulang seluruh program",
@@ -4989,6 +5241,11 @@ Tahun depan umurmu 18</span>
               arti: "Nilai pi (3.14159...) dibulatkan menjadi 3.14.",
             },
           ],
+          contohKasus: {
+            judul: "Undian doorprize pakai module random",
+            kode: 'import random\n\nkupon = random.randint(1, 10)\nprint("Nomor undian kamu:", kupon)\n\nif kupon > 7:\n    print("Selamat, dapat doorprize!")\nelse:\n    print("Belum beruntung, coba lagi besok")',
+            kapan: "import dipakai untuk memakai peralatan buatan orang lain daripada membuatnya sendiri: random untuk undian, math untuk rumus, dan ribuan module lain. Inilah salah satu alasan Python begitu kuat — peralatannya lengkap.",
+          },
           kesalahan: [
             {
               salah: "print(math.sqrt(16))",
@@ -5049,6 +5306,11 @@ Tahun depan umurmu 18</span>
               arti: "Hasilnya 25.",
             },
           ],
+          contohKasus: {
+            judul: "Membagi program besar jadi beberapa file",
+            kode: '# Bayangkan proyek toko online dibagi jadi 3 file:\n#\n#   ongkir.py  -> isinya function untuk ongkos kirim\n#   diskon.py  -> isinya function untuk diskon\n#   utama.py   -> tinggal import keduanya lalu dipakai\n#\n# Supaya bisa dicoba di sini, kita simulasikan isi ongkir.py:\n\ndef hitung_ongkir(kota, berat):\n    return 10000 + berat * 5000\n\nprint("Ongkir: Rp", hitung_ongkir("Jakarta", 2))',
+            kapan: "Saat program makin besar, menumpuk semua kode di satu file bikin pusing. Programmer memecahnya jadi beberapa module sesuai tugasnya — satu file untuk ongkir, satu untuk pembayaran — lalu menggabungkannya kembali dengan import.",
+          },
           kesalahan: [
             {
               salah: "import alat.py",
@@ -5105,6 +5367,11 @@ Tahun depan umurmu 18</span>
               arti: "Menampilkan isi file ke layar.",
             },
           ],
+          contohKasus: {
+            judul: "Membaca daftar hadir dari file",
+            kode: 'with open("hadir.txt", "r") as file:\n    daftar_hadir = file.readlines()\n\nprint("Jumlah yang hadir:", len(daftar_hadir))',
+            kapan: "Membaca file dipakai saat datanya sudah tersimpan di komputer: daftar hadir karyawan, pengaturan aplikasi, sampai catatan log server yang mau dianalisis baris demi baris.",
+          },
           kesalahan: [
             {
               salah: 'open("tidak_ada.txt", "r")',
@@ -5166,6 +5433,11 @@ Tahun depan umurmu 18</span>
               arti: "Satu baris baru ditambahkan di akhir file.",
             },
           ],
+          contohKasus: {
+            judul: "Mencatat transaksi ke file log",
+            kode: 'with open("transaksi.txt", "a") as file:\n    file.write("TRX-001 | Nasi goreng | Rp15000\\n")\n\nprint("Transaksi tercatat di file")',
+            kapan: "Menulis file dipakai untuk menyimpan jejak program: log transaksi, export laporan, atau data pengguna sederhana tanpa database. Mode “a” menambahkan catatan di akhir file tanpa menghapus isi lama.",
+          },
           kesalahan: [
             {
               salah: 'with open("belanja.txt", "w") as file:\n    file.write("Baris baru")',
@@ -5242,6 +5514,11 @@ Tahun depan umurmu 18</span>
               arti: "Jalur terakhir kalau operator tidak cocok dengan semua kondisi.",
             },
           ],
+          contohKasus: {
+            judul: "Menghitung kembalian di kasir",
+            kode: 'def kembalian(uang_bayar, total_belanja):\n    if uang_bayar < total_belanja:\n        return "Uangnya kurang!"\n    return uang_bayar - total_belanja\n\nprint("Kembalian:", kembalian(50000, 35000))\nprint("Kembalian:", kembalian(20000, 35000))',
+            kapan: "Pola kalkulator — function berisi percabangan untuk memilih perhitungan — adalah jantung aplikasi kasir dan keuangan: hitung kembalian, cicilan, atau pajak. Tinggal ganti rumusnya sesuai kebutuhan.",
+          },
           kesalahan: [
             {
               salah: 'angka = input("Masukkan angka: ")\nprint(angka + 1)',
@@ -5316,6 +5593,11 @@ Tahun depan umurmu 18</span>
               arti: "Dijalankan setelah loop selesai.",
             },
           ],
+          contohKasus: {
+            judul: "Verifikasi kode OTP",
+            kode: 'kode_otp = 7\nmasukan = 0\npercobaan = 0\n\nwhile masukan != kode_otp:\n    masukan = 7  # simulasi pengguna mengetik OTP\n    percobaan = percobaan + 1\n\nprint("Verifikasi berhasil!")\nprint("Jumlah percobaan:", percobaan)',
+            kapan: "Pola ulangi-sampai-cocok ini dipakai di verifikasi PIN ATM dan kode OTP: sistem sabar menunggu sampai jawabannya benar. Di aplikasi asli biasanya ditambah batas percobaan supaya tidak ditebak terus-terusan.",
+          },
           kesalahan: [
             {
               salah: 'while tebakan != rahasia:\n    tebakan = input("Tebak: ")',
@@ -5378,6 +5660,11 @@ Tahun depan umurmu 18</span>
               arti: "len() menghitung jumlah siswa. Hasilnya 3.",
             },
           ],
+          contohKasus: {
+            judul: "Laporan nilai di sistem informasi sekolah",
+            kode: 'siswa = {\n    "nama": "Ani",\n    "kelas": "10A",\n    "nilai": [80, 85, 90]\n}\n\ntotal = 0\nfor n in siswa["nilai"]:\n    total = total + n\n\nrata = total / len(siswa["nilai"])\nprint(siswa["nama"], "- rata-rata:", round(rata, 1))',
+            kapan: "Sistem informasi sekolah atau kantor menyimpan data persis seperti ini: satu dictionary untuk satu orang, list untuk kumpulan datanya, lalu perulangan mengolahnya menjadi laporan.",
+          },
           kesalahan: [
             {
               salah: "print(data.nama)",
@@ -5449,6 +5736,11 @@ Tahun depan umurmu 18</span>
               arti: "Menampilkan sisa tugas.",
             },
           ],
+          contohKasus: {
+            judul: "Checklist di aplikasi catatan",
+            kode: 'tugas = ["Belajar Python", "Olahraga"]\n\nfor t in tugas:\n    print("[ ]", t)\n\ntugas.append("Belanja bulanan")\nprint("Total tugas:", len(tugas))',
+            kapan: "list, perulangan, dan append() adalah jantung semua aplikasi daftar: to-do list, keranjang belanja, playlist musik. Kata tugas diganti menjadi barang pun struktur kodenya tetap sama.",
+          },
           kesalahan: [
             {
               salah: 'tugas.remove("Tugas yang tidak ada")',
@@ -5530,6 +5822,11 @@ Tahun depan umurmu 18</span>
               arti: "Jumlah akhir yang harus dibayar.",
             },
           ],
+          contohKasus: {
+            judul: "Kasir swalayan (self-checkout)",
+            kode: 'harga = {\n    "aqua": 5000,\n    "chitato": 12000\n}\n\nbelanja = ["aqua", "chitato", "chitato"]\n\ntotal = 0\nfor barang in belanja:\n    total = total + harga[barang]\n\nprint("Total belanja:", total)\n\nif total >= 25000:\n    print("Selamat, dapat gratis kantong belanja!")',
+            kapan: "Mesin kasir swalayan bekerja persis begini: daftar harga disimpan, barang yang dipindai dijumlahkan satu per satu, lalu promo otomatis dicek. Versi aslinya hanya lebih lengkap — ada stok, pembayaran, dan struk.",
+          },
           kesalahan: [
             {
               salah: "    total += barang",
@@ -6125,7 +6422,7 @@ Tahun depan umurmu 18</span>
 
          Yang didukung:
          - print(...) dengan beberapa argumen
-         - variable: nama = nilai
+         - variable: nama = nilai (termasuk += -= *=)
          - tipe data: string, integer, float, boolean, None, list
          - operator: + - * / // % ** dan perbandingan == != < > <= >=
          - operator logika: and, or, not, in
@@ -6161,7 +6458,7 @@ Tahun depan umurmu 18</span>
         { tipe: "NAME", re: /[A-Za-z_][A-Za-z0-9_]*/y },
         {
           tipe: "OP",
-          re: /(?:\*\*|\/\/|==|!=|<=|>=|[-+*/%=<>(),:\[\]{}.]|and\b|or\b|not\b|in\b|is\b)/y,
+          re: /(?:\*\*|\/\/|\+=|-=|\*=|==|!=|<=|>=|[-+*/%=<>(),:\[\]{}.]|and\b|or\b|not\b|in\b|is\b)/y,
         },
       ];
 
@@ -8539,6 +8836,23 @@ Tahun depan umurmu 18</span>
           })
           .join("");
 
+        /* Contoh penggunaan di dunia nyata (kasus saat coding).
+           Hanya digambar kalau materinya punya data contohKasus. */
+        var contohKasus = materi.contohKasus
+          ? '<section class="materi-section">' +
+            '<h2><span class="sec-icon" aria-hidden="true">💼</span>Contoh penggunaan di dunia nyata</h2>' +
+            '<div class="usecase-card">' +
+            '<h3 class="usecase-title">' +
+            escapeHtml(materi.contohKasus.judul) +
+            "</h3>" +
+            buatCodeBlock(materi.contohKasus.kode) +
+            '<div class="callout callout-usecase">' +
+            '<div class="callout-title">Kapan dipakai</div>' +
+            "<p>" +
+            escapeHtml(materi.contohKasus.kapan) +
+            "</p></div></div></section>"
+          : "";
+
         /* Playground hanya dibuat kalau materi punya kode awal */
         var playground = materi.playground
           ? buatPlayground(materi.playground, "Coba kode " + materi.judul)
@@ -8622,6 +8936,8 @@ Tahun depan umurmu 18</span>
           '<ul class="line-explain">' +
           barisKode +
           "</ul></section>" +
+
+          contohKasus +
 
           '<section class="materi-section">' +
           '<h2><span class="sec-icon" aria-hidden="true">⚠️</span>Kesalahan umum pemula</h2>' +
