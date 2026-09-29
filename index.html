@@ -7433,8 +7433,20 @@ Tahun depan umurmu 18</span>
             return this.truthy(args[0]);
           case "type":
             return "<class '" + pyNamaTipe(args[0]) + "'>";
-          case "input":
+          case "input": {
+            /* Di browser, input() membuka kotak dialog bawaan (prompt)
+               supaya contoh seperti sistem login benar-benar bisa dicoba.
+               Kalau pengguna menekan Batal/Esc, hentikan program dengan
+               pesan yang mirip KeyboardInterrupt di Python asli. */
+            if (typeof window !== "undefined" && typeof window.prompt === "function") {
+              var jawaban = window.prompt(args.length ? pyStr(args[0]) : "Masukkan nilai:", "");
+              if (jawaban === null) {
+                throw new PyError("KeyboardInterrupt: input dibatalkan oleh pengguna");
+              }
+              return jawaban;
+            }
             return "";
+          }
           case "abs":
             return Math.abs(args[0]);
           case "round":
