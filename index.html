@@ -5532,8 +5532,10 @@ Tahun depan umurmu 18</span>
           pertanyaan: "Bagaimana menggabungkan variable, operator, dan function menjadi program yang berguna?",
           penjelasan: [
             'Kalkulator ini menggabungkan variable, operator, function, dan input() menjadi program yang bisa dipakai langsung.',
+            'input() bekerja dengan cara menunggu: begitu barisnya dijalankan, program berhenti sejenak sampai pengguna mengetik jawaban lalu menekan Enter. Apa pun yang diketik — termasuk angka — selalu diterima sebagai string (teks).',
+            'Karena hasilnya string, "2" + "3" menjadi "23", bukan 5. Angka yang mau dihitung harus diubah dulu dengan float(input(...)). float() dipakai di sini supaya angka desimal seperti 2.5 ikut diterima; int() hanya untuk angka bulat dan akan error kalau pengguna mengetik "2.5".',
+            'Operator (+, -, *, /) memang berupa teks, jadi tidak perlu diubah — ia langsung dibandingkan dengan string memakai ==.',
             'Pengguna memasukkan dua angka dan memilih operator. Function kalkulator() memakai if/elif untuk menentukan perhitungannya.',
-            'Hasil input() selalu berupa string, jadi kedua angka diubah dengan float() sebelum dihitung.',
             'Pembagian dengan nol ditangani agar program tidak berhenti karena error.',
           ],
           analogi: [
@@ -5617,9 +5619,11 @@ Tahun depan umurmu 18</span>
           pertanyaan: "Bagaimana cara membuat program yang memakai perulangan sampai kondisi tertentu?",
           penjelasan: [
             'Game ini membuat angka rahasia secara acak, lalu meminta tebakan pemain dengan input() di setiap putaran.',
+            'input() membuat program menunggu: pertanyaan "Tebak angka 1-10" tampil, lalu program berhenti sampai pemain mengetik jawaban dan menekan Enter. Jawabannya selalu berupa string, misalnya "7" sebagai teks, bukan angka 7.',
+            'Tebakan harus dibandingkan dengan angka rahasia memakai < dan >, jadi string wajib diubah menjadi angka dengan int(input(...)). Tanpa int(), Python error karena tidak bisa membandingkan teks dengan angka.',
+            'int() dipakai karena tebakan selalu bilangan bulat 1 sampai 10; float() baru diperlukan kalau angkanya boleh desimal.',
             'Karena jumlah tebakan tidak diketahui, while cocok untuk mengulang permainan sampai jawabannya benar.',
             'Jumlah percobaan dihitung supaya pemain tahu berapa kali ia menebak.',
-            'Nilai input() berupa string, jadi tebakan diubah menjadi int() sebelum dibandingkan dengan angka rahasia.',
           ],
           analogi: [
             "Program ini seperti permainan “suhu dan dingin”.",
@@ -5707,6 +5711,8 @@ Tahun depan umurmu 18</span>
           pertanyaan: "Bagaimana cara menyimpan dan menampilkan banyak data sekaligus?",
           penjelasan: [
             'Program ini meminta jumlah siswa dan data setiap siswa memakai input(), lalu menyimpannya dalam list berisi dictionary.',
+            'input() menunggu jawaban pengguna: setiap kali pertanyaan tampil ("Nama:", "Kelas:", "Nilai:"), program berhenti sampai pengguna mengetik sesuatu dan menekan Enter. Semua jawaban diterima sebagai string, termasuk jawaban berupa angka.',
+            'Karena itu perlakuannya dibedakan: nama dan kelas memang teks sehingga dibiarkan sebagai string, sedangkan jumlah siswa dan nilai akan dipakai untuk menghitung sehingga dibungkus int(input(...)). Tanpa int(), range() akan error karena menerima teks, bukan angka.',
             'Setiap dictionary menyimpan nama, kelas, dan nilai seorang siswa.',
             'Perulangan for digunakan untuk menerima serta menampilkan semua data, sedangkan len() menghitung jumlah siswa.',
             'Struktur data ini mudah dikembangkan dengan fitur pencarian atau filter nilai.',
@@ -5794,6 +5800,8 @@ Tahun depan umurmu 18</span>
           pertanyaan: "Bagaimana cara membuat program yang bisa menambah, menampilkan, dan menghapus data?",
           penjelasan: [
             'To-do list interaktif memakai list untuk menyimpan tugas dan input() untuk menerima pilihan pengguna.',
+            'input() membuat program menunggu di setiap pertanyaan: menu tampil, lalu program berhenti sampai pengguna mengetik jawaban dan menekan Enter. Hasilnya selalu string, walaupun yang diketik angka.',
+            'Pilihan menu dibiarkan sebagai string karena hanya dibandingkan dengan teks: if pilihan == "1". Nomor tugas justru perlu int(input(...)) karena dipakai berhitung (nomor - 1) sebelum tugas dihapus dari list — tanpa int(), pengurangan teks dengan angka akan error.',
             'Menu berjalan di dalam while agar pengguna bisa menambah tugas, melihat daftar, atau menandai tugas selesai berkali-kali.',
             'Pilihan menu diperiksa dengan if/elif. Program berhenti ketika pengguna memilih keluar.',
             'Nomor tugas divalidasi sebelum tugas dihapus dari daftar aktif.',
@@ -5895,6 +5903,8 @@ Tahun depan umurmu 18</span>
           pertanyaan: "Bagaimana cara membuat program yang menghitung total belanja?",
           penjelasan: [
             'Program kasir meminta nama barang dan jumlahnya memakai input(), lalu mencocokkan barang dengan dictionary harga.',
+            'input() menunggu jawaban pengguna: setelah pertanyaan tampil, program berhenti sampai kasir mengetik sesuatu lalu menekan Enter. Semua jawaban masuk sebagai string, termasuk jumlah barang.',
+            'Nama barang memang teks, jadi tetap string — ia dirapikan dengan .lower() lalu dipakai sebagai kunci dictionary harga. Jumlah barang akan dikalikan dengan harga, jadi wajib diubah dengan int(input("Jumlah barang: ")). Tanpa int(), harga * jumlah tidak menghitung uang: Python malah mengulang teks "2" sebanyak 12000 kali dan total akhirnya error.',
             'Barang yang valid disimpan dalam list belanja. Saat checkout, program menghitung subtotal dari harga dan jumlah setiap barang.',
             'Percabangan memberi diskon jika total memenuhi batas tertentu.',
             'Program ini bisa dikembangkan dengan proses pembayaran, kembalian, dan penyimpanan struk.',
