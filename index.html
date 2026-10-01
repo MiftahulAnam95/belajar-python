@@ -3198,6 +3198,68 @@ Tahun depan umurmu 18</span>
             "Buat variable harga_teks berisi \"15000\". Ubah menjadi angka, kalikan dengan 2, lalu tampilkan hasilnya.",
           playground: 'umur_teks = "17"\numur_angka = int(umur_teks)\n\nprint(umur_angka + 1)\n\nnilai = 90\nprint("Nilai kamu: " + str(nilai))',
         },
+              {
+          id: "input",
+          level: 2,
+          judul: "input()",
+          pertanyaan: "Bagaimana cara meminta pengguna mengetikkan data ke dalam program?",
+          penjelasan: [
+            "Kalau print() dipakai untuk menampilkan data ke layar, input() adalah kebalikannya: meminta data dari pengguna.",
+            "Saat Python bertemu perintah input(), program akan berhenti sejenak dan menunggu pengguna mengetikkan sesuatu lalu menekan Enter.",
+            "Apa yang diketik pengguna bisa langsung disimpan ke dalam variable, misalnya nama = input(\"Masukkan nama: \").",
+            "Penting untuk diingat: hasil dari input() selalu bertipe string (tulisan), walaupun pengguna mengetik angka. Kalau ingin dihitung sebagai angka, ubah dulu dengan int() atau float().",
+          ],
+          analogi: [
+            "Kalau print() seperti pengeras suara yang berbicara ke luar, input() seperti mikrofon yang mendengarkan jawaban.",
+            "Atau bayangkan petugas pendaftaran yang bertanya “Siapa nama Anda?”, lalu menunggu kamu menjawab sebelum mencatatnya di formulir.",
+            "Variable adalah kolom di formulir tempat jawabanmu disimpan supaya bisa dipakai lagi di langkah berikutnya.",
+          ],
+          kode: 'nama = input("Masukkan nama kamu: ")\nprint("Halo,", nama)\n\numur_teks = input("Masukkan umur kamu: ")\numur = int(umur_teks)\nprint("Tahun depan umur kamu:", umur + 1)',
+          penjelasanKode: [
+            {
+              kode: 'nama = input("Masukkan nama kamu: ")',
+              arti: "Menampilkan pertanyaan, menunggu pengguna mengetik jawaban, lalu menyimpannya di variable nama.",
+            },
+            {
+              kode: 'print("Halo,", nama)',
+              arti: "Menampilkan sapaan beserta nama yang baru saja diketik.",
+            },
+            {
+              kode: 'umur_teks = input("Masukkan umur kamu: ")',
+              arti: "Jawaban dari input() selalu berupa string (tulisan), misalnya \"17\".",
+            },
+            {
+              kode: "umur = int(umur_teks)",
+              arti: "Mengubah tulisan \"17\" menjadi angka bulat 17 supaya bisa dijumlahkan.",
+            },
+            {
+              kode: 'print("Tahun depan umur kamu:", umur + 1)',
+              arti: "Sekarang umur sudah berupa angka, jadi bisa ditambah 1.",
+            },
+          ],
+          contohKasus: {
+            judul: "Formulir sapaan kasir mandiri",
+            kode: 'nama_pelanggan = input("Atas nama siapa pesanannya? ")\njumlah_gelas = int(input("Pesan berapa gelas? "))\nharga_per_gelas = 15000\n\ntotal = jumlah_gelas * harga_per_gelas\nprint("Pesanan untuk", nama_pelanggan, "- Total Rp", total)',
+            kapan: "input() dipakai setiap kali program butuh informasi langsung dari pengguna: layar login, formulir pemesanan, kalkulator interaktif, atau permainan tebak angka. Di playground website ini, input() akan memunculkan kotak dialog di layar browser kamu.",
+          },
+          kesalahan: [
+            {
+              salah: 'umur = input("Umur: ")\nprint(umur + 1)',
+              benar: 'umur = int(input("Umur: "))\nprint(umur + 1)',
+              catatan:
+                "input() selalu menghasilkan string. Kalau langsung ditambah angka 1, muncul TypeError. Bungkus dengan int() terlebih dahulu.",
+            },
+            {
+              salah: 'input("Masukkan nama: ")\nprint("Halo,", nama)',
+              benar: 'nama = input("Masukkan nama: ")\nprint("Halo,", nama)',
+              catatan:
+                "Kalau hasil input() tidak disimpan ke dalam variable, jawaban pengguna langsung hilang dan tidak bisa dipakai.",
+            },
+          ],
+          latihan:
+            "Minta pengguna memasukkan nama kota dengan input(), simpan di variable kota, lalu tampilkan kalimat “Saya tinggal di [kota]”.",
+          playground: 'nama = input("Masukkan nama kamu: ")\nkota = input("Dari kota mana? ")\n\nprint("Halo,", nama, "dari", kota)',
+        },
 
         /* ===================== LEVEL 3 ===================== */
         {
