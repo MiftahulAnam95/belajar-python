@@ -5531,49 +5531,57 @@ Tahun depan umurmu 18</span>
           judul: "Mini Project: Kalkulator",
           pertanyaan: "Bagaimana menggabungkan variable, operator, dan function menjadi program yang berguna?",
           penjelasan: [
-            "Kalkulator adalah project pertama yang tepat karena memakai konsep yang sudah kita pelajari: variable, operator, dan function.",
-            "Program ini menerima dua angka dan satu operator, lalu menampilkan hasilnya. Karena operator bisa bermacam-macam, kita pakai percabangan if/elif.",
-            "Perhatikan bahwa input dari pengguna selalu berupa string. Karena itu angka harus diubah dengan int() sebelum dipakai.",
-            "Jangan lupa menangani pembagian dengan nol, karena itu akan menyebabkan ZeroDivisionError.",
+            'Kalkulator ini menggabungkan variable, operator, function, dan input() menjadi program yang bisa dipakai langsung.',
+            'Pengguna memasukkan dua angka dan memilih operator. Function kalkulator() memakai if/elif untuk menentukan perhitungannya.',
+            'Hasil input() selalu berupa string, jadi kedua angka diubah dengan float() sebelum dihitung.',
+            'Pembagian dengan nol ditangani agar program tidak berhenti karena error.',
           ],
           analogi: [
             "Program ini bekerja seperti kasir yang menerima dua angka dan instruksi.",
             "Kasir bertanya: angka pertama? lalu angka kedua? lalu operasinya tambah, kurang, kali, atau bagi?",
             "Setelah informasi lengkap, kasir menghitung dan menyebutkan hasilnya.",
           ],
-          kode: 'def kalkulator(a, b, operasi):\n    if operasi == "+":\n        return a + b\n    elif operasi == "-":\n        return a - b\n    elif operasi == "*":\n        return a * b\n    elif operasi == "/":\n        if b == 0:\n            return "Tidak bisa dibagi nol"\n        return a / b\n    return "Operasi tidak dikenal"\n\nprint(kalkulator(10, 5, "+"))\nprint(kalkulator(10, 5, "/"))\nprint(kalkulator(10, 0, "/"))',
+          kode: 'def kalkulator(a, b, operasi):\n    if operasi == "+":\n        return a + b\n    elif operasi == "-":\n        return a - b\n    elif operasi == "*":\n        return a * b\n    elif operasi == "/":\n        if b == 0:\n            return "Tidak bisa dibagi nol"\n        return a / b\n    return "Operasi tidak dikenal"\n\nangka1 = float(input("Masukkan angka pertama: "))\nangka2 = float(input("Masukkan angka kedua: "))\noperasi = input("Pilih operasi (+, -, *, /): ")\n\nprint("Hasil:", kalkulator(angka1, angka2, operasi))',
           penjelasanKode: [
             {
               kode: "def kalkulator(a, b, operasi):",
-              arti: "Function menerima dua angka dan satu operator.",
+              arti: "Function menerima dua angka dan operator pilihan pengguna.",
             },
             {
-              kode: '    if operasi == "+":',
-              arti: "Cek operator yang diminta.",
+              kode: "    if operasi == \"+\":",
+              arti: "Percabangan memeriksa operasi yang dipilih.",
             },
             {
               kode: "        return a + b",
-              arti: "Kalau tambah, kembalikan hasil penjumlahan.",
+              arti: "Mengembalikan hasil penjumlahan.",
             },
             {
-              kode: '    elif operasi == "/":',
-              arti: "Kalau pembagian, perlu pengecekan tambahan.",
+              kode: "    elif operasi == \"/\":",
+              arti: "Pengecekan khusus dilakukan untuk pembagian.",
             },
             {
               kode: "        if b == 0:",
-              arti: "Pengecekan nested if: apakah pembaginya nol?",
+              arti: "Pembagi diperiksa sebelum melakukan pembagian.",
             },
             {
-              kode: '            return "Tidak bisa dibagi nol"',
-              arti: "Menghindari ZeroDivisionError.",
+              kode: "            return \"Tidak bisa dibagi nol\"",
+              arti: "Pesan diberikan jika pembagi bernilai nol.",
             },
             {
-              kode: "    return a / b",
-              arti: "Kalau aman, kembalikan hasil pembagian.",
+              kode: "angka1 = float(input(\"Masukkan angka pertama: \"))",
+              arti: "Minta angka pertama, lalu ubah string hasil input() menjadi angka desimal.",
             },
             {
-              kode: '    return "Operasi tidak dikenal"',
-              arti: "Jalur terakhir kalau operator tidak cocok dengan semua kondisi.",
+              kode: "angka2 = float(input(\"Masukkan angka kedua: \"))",
+              arti: "Minta angka kedua dan ubah dengan float() juga.",
+            },
+            {
+              kode: "operasi = input(\"Pilih operasi (+, -, *, /): \")",
+              arti: "Operator pilihan disimpan sebagai string.",
+            },
+            {
+              kode: "print(\"Hasil:\", kalkulator(angka1, angka2, operasi))",
+              arti: "Kirim semua input ke function dan tampilkan hasilnya.",
             },
           ],
           contohKasus: {
@@ -5599,9 +5607,8 @@ Tahun depan umurmu 18</span>
               catatan: "Untuk membandingkan pakai ==, bukan =.",
             },
           ],
-          latihan:
-            "Tambahkan operasi pangkat (**) dan sisa bagi (%) ke dalam function kalkulator di atas.",
-          playground: 'def kalkulator(a, b, operasi):\n    if operasi == "+":\n        return a + b\n    elif operasi == "-":\n        return a - b\n    elif operasi == "*":\n        return a * b\n    elif operasi == "/":\n        if b == 0:\n            return "Tidak bisa dibagi nol"\n        return a / b\n    return "Operasi tidak dikenal"\n\nprint(kalkulator(10, 5, "+"))\nprint(kalkulator(10, 5, "/"))\nprint(kalkulator(10, 0, "/"))',
+          latihan: 'Kembangkan kalkulator interaktif ini dengan menambahkan operasi pangkat (**) dan sisa bagi (%). Gunakan input() untuk meminta kedua angka dan operator, konversi angka dengan float(), dan tangani kasus pembagi nol.',
+          playground: 'def kalkulator(a, b, operasi):\n    if operasi == "+":\n        return a + b\n    elif operasi == "-":\n        return a - b\n    elif operasi == "*":\n        return a * b\n    elif operasi == "/":\n        if b == 0:\n            return "Tidak bisa dibagi nol"\n        return a / b\n    return "Operasi tidak dikenal"\n\nangka1 = float(input("Masukkan angka pertama: "))\nangka2 = float(input("Masukkan angka kedua: "))\noperasi = input("Pilih operasi (+, -, *, /): ")\n\nprint("Hasil:", kalkulator(angka1, angka2, operasi))',
         },
         {
           id: "tebak-angka",
@@ -5609,55 +5616,66 @@ Tahun depan umurmu 18</span>
           judul: "Mini Project: Tebak Angka",
           pertanyaan: "Bagaimana cara membuat program yang memakai perulangan sampai kondisi tertentu?",
           penjelasan: [
-            "Program tebak angka memakai while untuk terus meminta tebakan sampai pemain benar. Di sinilah kombinasi perulangan, percabangan, dan input dipakai bersama.",
-            "Karena kita tidak tahu berapa kali pemain akan menebak, while lebih cocok daripada for.",
-            "Kita juga perlu menghitung jumlah percobaan supaya bisa memberi informasi ke pemain.",
-            "Untuk membuat angka acak, kita memakai module random.",
+            'Game ini membuat angka rahasia secara acak, lalu meminta tebakan pemain dengan input() di setiap putaran.',
+            'Karena jumlah tebakan tidak diketahui, while cocok untuk mengulang permainan sampai jawabannya benar.',
+            'Jumlah percobaan dihitung supaya pemain tahu berapa kali ia menebak.',
+            'Nilai input() berupa string, jadi tebakan diubah menjadi int() sebelum dibandingkan dengan angka rahasia.',
           ],
           analogi: [
             "Program ini seperti permainan “suhu dan dingin”.",
             "Semakin dekat tebakanmu ke angka rahasia, semakin “panas” petunjuknya. Kamu terus menebak sampai akhirnya benar.",
             "Kamu tidak tahu akan menebak berapa kali, jadi permainan berlangsung selama tebakanmu masih salah.",
           ],
-          kode: 'rahasia = 7\ntebakan = 0\npercobaan = 0\n\nwhile tebakan != rahasia:\n    tebakan = 7\n    percobaan += 1\n    if tebakan < rahasia:\n        print("Terlalu kecil")\n    elif tebakan > rahasia:\n        print("Terlalu besar")\n\nprint("Benar! Angkanya", rahasia)\nprint("Jumlah percobaan:", percobaan)',
+          kode: 'import random\n\nrahasia = random.randint(1, 10)\ntebakan = 0\npercobaan = 0\n\nwhile tebakan != rahasia:\n    tebakan = int(input("Tebak angka 1-10: "))\n    percobaan += 1\n    if tebakan < rahasia:\n        print("Terlalu kecil")\n    elif tebakan > rahasia:\n        print("Terlalu besar")\n\nprint("Benar! Angkanya", rahasia)\nprint("Jumlah percobaan:", percobaan)',
           penjelasanKode: [
             {
-              kode: "rahasia = 7",
-              arti: "Di program sungguhan, angkanya dibuat dengan random.randint(1, 10).",
+              kode: "import random",
+              arti: "Mengimpor modul untuk membuat angka acak.",
+            },
+            {
+              kode: "rahasia = random.randint(1, 10)",
+              arti: "Memilih angka rahasia dari 1 sampai 10.",
             },
             {
               kode: "tebakan = 0",
-              arti: "Nilai awal, dipilih supaya pasti tidak sama dengan rahasia.",
+              arti: "Nilai awal supaya loop bisa mulai berjalan.",
             },
             {
               kode: "while tebakan != rahasia:",
               arti: "Ulangi selama tebakan belum sama dengan angka rahasia.",
             },
             {
-              kode: "    tebakan = 7",
-              arti:
-                "Di program sungguhan, baris ini diganti input dari pengguna. Di sini dipakai angka tetap supaya bisa diuji.",
+              kode: "    tebakan = int(input(\"Tebak angka 1-10: \"))",
+              arti: "Meminta tebakan dan mengubah hasil input() menjadi integer.",
             },
             {
               kode: "    percobaan += 1",
-              arti: "Setiap putaran, jumlah percobaan bertambah satu.",
+              arti: "Menghitung setiap tebakan yang dimasukkan.",
             },
             {
               kode: "    if tebakan < rahasia:",
-              arti: "Memberi petunjuk apakah tebakan terlalu kecil.",
+              arti: "Memberi petunjuk jika tebakan terlalu kecil.",
+            },
+            {
+              kode: "        print(\"Terlalu kecil\")",
+              arti: "Menampilkan petunjuk untuk menebak lebih tinggi.",
             },
             {
               kode: "    elif tebakan > rahasia:",
-              arti: "Petunjuk kalau tebakan terlalu besar.",
+              arti: "Memberi petunjuk jika tebakan terlalu besar.",
             },
             {
-              kode: 'print("Benar! Angkanya", rahasia)',
-              arti: "Dijalankan setelah loop selesai.",
+              kode: "        print(\"Terlalu besar\")",
+              arti: "Menampilkan petunjuk untuk menebak lebih rendah.",
+            },
+            {
+              kode: "print(\"Benar! Angkanya\", rahasia)",
+              arti: "Menampilkan pesan setelah pemain berhasil menebak.",
             },
           ],
           contohKasus: {
             judul: "Verifikasi kode OTP",
-            kode: 'kode_otp = 7\nmasukan = 0\npercobaan = 0\n\nwhile masukan != kode_otp:\n    masukan = 7  # simulasi pengguna mengetik OTP\n    percobaan = percobaan + 1\n\nprint("Verifikasi berhasil!")\nprint("Jumlah percobaan:", percobaan)',
+            kode: 'kode_otp = "739421"\nmasukan = ""\npercobaan = 0\n\nwhile masukan != kode_otp:\n    masukan = input("Masukkan kode OTP: ")\n    percobaan += 1\n\nprint("Verifikasi berhasil!")\nprint("Jumlah percobaan:", percobaan)',
             kapan: "Pola ulangi-sampai-cocok ini dipakai di verifikasi PIN ATM dan kode OTP: sistem sabar menunggu sampai jawabannya benar. Di aplikasi asli biasanya ditambah batas percobaan supaya tidak ditebak terus-terusan.",
           },
           kesalahan: [
@@ -5679,9 +5697,8 @@ Tahun depan umurmu 18</span>
               catatan: "Untuk kondisi pakai == atau !=, bukan tanda =.",
             },
           ],
-          latihan:
-            "Ubah project di atas supaya pemain hanya punya 3 kesempatan. Kalau kesempatan habis, tampilkan angka rahasianya.",
-          playground: 'rahasia = 7\ntebakan = 0\npercobaan = 0\n\nwhile tebakan != rahasia:\n    tebakan = 7\n    percobaan += 1\n    if tebakan < rahasia:\n        print("Terlalu kecil")\n    elif tebakan > rahasia:\n        print("Terlalu besar")\n\nprint("Benar! Angkanya", rahasia)\nprint("Jumlah percobaan:", percobaan)',
+          latihan: 'Tambahkan batas maksimal 3 kesempatan pada permainan interaktif ini. Ambil setiap tebakan dengan input(), beri petunjuk terlalu kecil atau terlalu besar, lalu tampilkan angka rahasia jika kesempatan habis.',
+          playground: 'import random\n\nrahasia = random.randint(1, 10)\ntebakan = 0\npercobaan = 0\n\nwhile tebakan != rahasia:\n    tebakan = int(input("Tebak angka 1-10: "))\n    percobaan += 1\n    if tebakan < rahasia:\n        print("Terlalu kecil")\n    elif tebakan > rahasia:\n        print("Terlalu besar")\n\nprint("Benar! Angkanya", rahasia)\nprint("Jumlah percobaan:", percobaan)',
         },
         {
           id: "data-siswa",
@@ -5689,37 +5706,57 @@ Tahun depan umurmu 18</span>
           judul: "Mini Project: Program Data Siswa",
           pertanyaan: "Bagaimana cara menyimpan dan menampilkan banyak data sekaligus?",
           penjelasan: [
-            "Program data siswa menggabungkan list dan dictionary. List dipakai untuk menyimpan banyak siswa, dictionary untuk menyimpan detail tiap siswa.",
-            "Dengan struktur ini, kita bisa menambah siswa baru, menampilkan semua data, dan mencari siswa tertentu.",
-            "Perulangan for dipakai untuk menampilkan seluruh data, sedangkan percabangan if dipakai untuk mencari data.",
-            "Pola “list berisi dictionary” ini sangat umum dipakai, bahkan di aplikasi nyata.",
+            'Program ini meminta jumlah siswa dan data setiap siswa memakai input(), lalu menyimpannya dalam list berisi dictionary.',
+            'Setiap dictionary menyimpan nama, kelas, dan nilai seorang siswa.',
+            'Perulangan for digunakan untuk menerima serta menampilkan semua data, sedangkan len() menghitung jumlah siswa.',
+            'Struktur data ini mudah dikembangkan dengan fitur pencarian atau filter nilai.',
           ],
           analogi: [
             "Bayangkan sebuah almari berisi banyak map.",
             "Setiap map adalah satu siswa, berisi nama, kelas, dan nilai.",
             "Almari itu list-nya, dan setiap map adalah dictionary-nya. Kalau mau cari satu siswa, kamu buka map yang sesuai.",
           ],
-          kode: 'siswa = [\n    {"nama": "Anam", "kelas": "10A", "nilai": 90},\n    {"nama": "Budi", "kelas": "10B", "nilai": 85},\n    {"nama": "Citra", "kelas": "10A", "nilai": 92}\n]\n\nfor data in siswa:\n    print(data["nama"], "-", data["kelas"], "-", data["nilai"])\n\nprint("Total siswa:", len(siswa))',
+          kode: 'siswa = []\njumlah_siswa = int(input("Berapa siswa yang ingin dimasukkan? "))\n\nfor i in range(jumlah_siswa):\n    print("Data siswa ke-", i + 1)\n    nama = input("Nama: ")\n    kelas = input("Kelas: ")\n    nilai = int(input("Nilai: "))\n    siswa.append({"nama": nama, "kelas": kelas, "nilai": nilai})\n\nprint("\\nDaftar siswa:")\nfor data in siswa:\n    print(data["nama"], "-", data["kelas"], "-", data["nilai"])\n\nprint("Total siswa:", len(siswa))',
           penjelasanKode: [
             {
-              kode: "siswa = [",
-              arti: "List besar berisi beberapa dictionary.",
+              kode: "siswa = []",
+              arti: "List kosong untuk menampung data yang dimasukkan pengguna.",
             },
             {
-              kode: '    {"nama": "Anam", "kelas": "10A", "nilai": 90},',
-              arti: "Satu dictionary mewakili satu siswa.",
+              kode: "jumlah_siswa = int(input(\"Berapa siswa yang ingin dimasukkan? \"))",
+              arti: "Minta jumlah data; int() mengubah jawaban menjadi angka.",
+            },
+            {
+              kode: "for i in range(jumlah_siswa):",
+              arti: "Ulangi proses input sebanyak jumlah siswa.",
+            },
+            {
+              kode: "    nama = input(\"Nama: \")",
+              arti: "Minta nama siswa.",
+            },
+            {
+              kode: "    kelas = input(\"Kelas: \")",
+              arti: "Minta kelas siswa.",
+            },
+            {
+              kode: "    nilai = int(input(\"Nilai: \"))",
+              arti: "Minta nilai dan ubah menjadi integer.",
+            },
+            {
+              kode: "    siswa.append({\"nama\": nama, \"kelas\": kelas, \"nilai\": nilai})",
+              arti: "Gabungkan data siswa dalam dictionary, lalu tambahkan ke list.",
             },
             {
               kode: "for data in siswa:",
-              arti: "Loop untuk menelusuri setiap siswa.",
+              arti: "Telusuri setiap data siswa yang sudah disimpan.",
             },
             {
-              kode: '    print(data["nama"], "-", data["kelas"], "-", data["nilai"])',
-              arti: "Menampilkan nama, kelas, dan nilai tiap siswa.",
+              kode: "    print(data[\"nama\"], \"-\", data[\"kelas\"], \"-\", data[\"nilai\"])",
+              arti: "Tampilkan nama, kelas, dan nilai dari dictionary.",
             },
             {
-              kode: 'print("Total siswa:", len(siswa))',
-              arti: "len() menghitung jumlah siswa. Hasilnya 3.",
+              kode: "print(\"Total siswa:\", len(siswa))",
+              arti: "len() menampilkan jumlah data yang berhasil dimasukkan.",
             },
           ],
           contohKasus: {
@@ -5747,9 +5784,8 @@ Tahun depan umurmu 18</span>
                 "Dictionary tidak boleh punya kunci yang sama. Untuk banyak siswa, pakai list berisi dictionary.",
             },
           ],
-          latihan:
-            "Tambahkan satu siswa baru ke list di atas, lalu tampilkan hanya siswa yang nilainya di atas 88.",
-          playground: 'siswa = [\n    {"nama": "Anam", "kelas": "10A", "nilai": 90},\n    {"nama": "Budi", "kelas": "10B", "nilai": 85},\n    {"nama": "Citra", "kelas": "10A", "nilai": 92}\n]\n\nfor data in siswa:\n    print(data["nama"], "-", data["kelas"], "-", data["nilai"])\n\nprint("Total siswa:", len(siswa))\n\nfor data in siswa:\n    if data["nilai"] > 88:\n        print("Nilai tinggi:", data["nama"])',
+          latihan: 'Tambahkan fitur pencarian: minta nama siswa dengan input(), cari di list siswa, lalu tampilkan kelas dan nilainya. Tampilkan pesan jika nama tidak ditemukan.',
+          playground: 'siswa = []\njumlah_siswa = int(input("Berapa siswa yang ingin dimasukkan? "))\n\nfor i in range(jumlah_siswa):\n    print("Data siswa ke-", i + 1)\n    nama = input("Nama: ")\n    kelas = input("Kelas: ")\n    nilai = int(input("Nilai: "))\n    siswa.append({"nama": nama, "kelas": kelas, "nilai": nilai})\n\nprint("\\nDaftar siswa:")\nfor data in siswa:\n    print(data["nama"], "-", data["kelas"], "-", data["nilai"])\n\nprint("Total siswa:", len(siswa))',
         },
         {
           id: "todo-list",
@@ -5757,45 +5793,77 @@ Tahun depan umurmu 18</span>
           judul: "Mini Project: To-do List Sederhana",
           pertanyaan: "Bagaimana cara membuat program yang bisa menambah, menampilkan, dan menghapus data?",
           penjelasan: [
-            "To-do list adalah project yang sangat baik karena memakai list, perulangan, percabangan, dan function sekaligus.",
-            "Kita menyimpan tugas dalam list. Setiap tugas baru ditambahkan dengan append(), dan untuk menghapus kita bisa memakai remove().",
-            "Program seperti ini biasanya berjalan terus-menerus sampai pengguna memilih keluar. Itulah penggunaan while yang paling umum.",
-            "Menu pilihan ditampilkan setiap putaran, lalu program mengecek pilihan pengguna dengan if/elif.",
+            'To-do list interaktif memakai list untuk menyimpan tugas dan input() untuk menerima pilihan pengguna.',
+            'Menu berjalan di dalam while agar pengguna bisa menambah tugas, melihat daftar, atau menandai tugas selesai berkali-kali.',
+            'Pilihan menu diperiksa dengan if/elif. Program berhenti ketika pengguna memilih keluar.',
+            'Nomor tugas divalidasi sebelum tugas dihapus dari daftar aktif.',
           ],
           analogi: [
             "To-do list itu seperti daftar tugas di papan tulis.",
             "Ada tugas baru? Tulis di papan. Sudah selesai? Coret dari papan. Mau lihat semua? Lihat seluruh papan.",
             "Program ini meniru kebiasaan itu: tambah, lihat, hapus, ulangi.",
           ],
-          kode: 'tugas = []\n\ntugas.append("Belajar Python")\ntugas.append("Kerjakan latihan")\n\nfor t in tugas:\n    print("-", t)\n\ntugas.remove("Belajar Python")\nprint("Setelah dihapus:", tugas)',
+          kode: 'tugas = []\n\nwhile True:\n    print("\\n=== TO-DO LIST ===")\n    print("1. Tambah tugas")\n    print("2. Lihat tugas")\n    print("3. Tandai tugas selesai")\n    print("4. Keluar")\n    pilihan = input("Pilih menu (1-4): ")\n\n    if pilihan == "1":\n        tugas_baru = input("Nama tugas: ")\n        tugas.append(tugas_baru)\n        print("Tugas ditambahkan.")\n    elif pilihan == "2":\n        if len(tugas) == 0:\n            print("Belum ada tugas.")\n        else:\n            for i in range(len(tugas)):\n                print(i + 1, "-", tugas[i])\n    elif pilihan == "3":\n        if len(tugas) == 0:\n            print("Tidak ada tugas yang bisa ditandai.")\n        else:\n            for i in range(len(tugas)):\n                print(i + 1, "-", tugas[i])\n            nomor = int(input("Nomor tugas yang selesai: "))\n            if nomor > 0 and nomor <= len(tugas):\n                selesai = tugas.pop(nomor - 1)\n                print("Selesai:", selesai)\n            else:\n                print("Nomor tugas tidak valid.")\n    elif pilihan == "4":\n        print("Sampai jumpa!")\n        break\n    else:\n        print("Pilihan tidak valid.")',
           penjelasanKode: [
             {
               kode: "tugas = []",
-              arti: "List kosong untuk menyimpan tugas.",
+              arti: "List untuk menyimpan tugas yang belum selesai.",
             },
             {
-              kode: 'tugas.append("Belajar Python")',
-              arti: "Menambah tugas baru ke akhir list.",
+              kode: "while True:",
+              arti: "Jalankan menu berulang sampai pengguna memilih keluar.",
             },
             {
-              kode: 'tugas.append("Kerjakan latihan")',
-              arti: "Menambah tugas kedua.",
+              kode: "    pilihan = input(\"Pilih menu (1-4): \")",
+              arti: "Minta pilihan menu; input() menghasilkan string.",
             },
             {
-              kode: "for t in tugas:",
-              arti: "Loop untuk menampilkan semua tugas.",
+              kode: "    if pilihan == \"1\":",
+              arti: "Pilih aksi tambah tugas.",
             },
             {
-              kode: '    print("-", t)',
-              arti: "Menampilkan tiap tugas dengan tanda hubung.",
+              kode: "        tugas_baru = input(\"Nama tugas: \")",
+              arti: "Minta nama tugas langsung dari pengguna.",
             },
             {
-              kode: 'tugas.remove("Belajar Python")',
-              arti: "Menghapus tugas tertentu berdasarkan isinya.",
+              kode: "        tugas.append(tugas_baru)",
+              arti: "Tambahkan tugas baru ke akhir list.",
             },
             {
-              kode: 'print("Setelah dihapus:", tugas)',
-              arti: "Menampilkan sisa tugas.",
+              kode: "    elif pilihan == \"2\":",
+              arti: "Pilih aksi untuk melihat seluruh tugas.",
+            },
+            {
+              kode: "        for i in range(len(tugas)):",
+              arti: "Loop dengan nomor indeks agar setiap tugas punya nomor.",
+            },
+            {
+              kode: "            print(i + 1, \"-\", tugas[i])",
+              arti: "Tampilkan nomor dan teks tiap tugas.",
+            },
+            {
+              kode: "    elif pilihan == \"3\":",
+              arti: "Pilih aksi untuk menandai tugas selesai.",
+            },
+            {
+              kode: "            nomor = int(input(\"Nomor tugas yang selesai: \"))",
+              arti: "Minta nomor tugas dan ubah menjadi angka.",
+            },
+            {
+              kode: "            if nomor > 0 and nomor <= len(tugas):",
+              arti: "Cek apakah nomor berada dalam rentang daftar.",
+            },
+            {
+              kode: "                selesai = tugas.pop(nomor - 1)",
+              arti: "Ambil dan hapus tugas yang dipilih dari daftar aktif.",
+            },
+            {
+              kode: "    elif pilihan == \"4\":",
+              arti: "Pilih aksi untuk mengakhiri program.",
+            },
+            {
+              kode: "        break",
+              arti: "Hentikan loop menu ketika pengguna memilih keluar.",
             },
           ],
           contohKasus: {
@@ -5817,9 +5885,8 @@ Tahun depan umurmu 18</span>
                 "Kalau tugas berupa string, append() akan menambahkan huruf satu per satu. Gunakan list.",
             },
           ],
-          latihan:
-            "Tambahkan fitur “tandai selesai”: pindahkan tugas dari list tugas ke list selesai.",
-          playground: 'tugas = []\n\ntugas.append("Belajar Python")\ntugas.append("Kerjakan latihan")\n\nfor t in tugas:\n    print("-", t)\n\ntugas.remove("Belajar Python")\nprint("Setelah dihapus:", tugas)',
+          latihan: 'Tambahkan list tugas_selesai. Minta nomor tugas dengan input(), validasi nomornya, lalu pindahkan tugas yang dipilih dari tugas ke tugas_selesai agar pengguna bisa melihatnya lagi.',
+          playground: 'tugas = []\n\nwhile True:\n    print("\\n=== TO-DO LIST ===")\n    print("1. Tambah tugas")\n    print("2. Lihat tugas")\n    print("3. Tandai tugas selesai")\n    print("4. Keluar")\n    pilihan = input("Pilih menu (1-4): ")\n\n    if pilihan == "1":\n        tugas_baru = input("Nama tugas: ")\n        tugas.append(tugas_baru)\n        print("Tugas ditambahkan.")\n    elif pilihan == "2":\n        if len(tugas) == 0:\n            print("Belum ada tugas.")\n        else:\n            for i in range(len(tugas)):\n                print(i + 1, "-", tugas[i])\n    elif pilihan == "3":\n        if len(tugas) == 0:\n            print("Tidak ada tugas yang bisa ditandai.")\n        else:\n            for i in range(len(tugas)):\n                print(i + 1, "-", tugas[i])\n            nomor = int(input("Nomor tugas yang selesai: "))\n            if nomor > 0 and nomor <= len(tugas):\n                selesai = tugas.pop(nomor - 1)\n                print("Selesai:", selesai)\n            else:\n                print("Nomor tugas tidak valid.")\n    elif pilihan == "4":\n        print("Sampai jumpa!")\n        break\n    else:\n        print("Pilihan tidak valid.")',
         },
         {
           id: "kasir",
@@ -5827,61 +5894,85 @@ Tahun depan umurmu 18</span>
           judul: "Mini Project: Program Kasir Sederhana",
           pertanyaan: "Bagaimana cara membuat program yang menghitung total belanja?",
           penjelasan: [
-            "Program kasir menggabungkan hampir semua yang sudah dipelajari: dictionary untuk harga barang, perulangan untuk menjumlahkan, percabangan untuk diskon, dan function untuk merapikan kode.",
-            "Alurnya: pelanggan membeli beberapa barang, program menjumlahkan harganya, lalu memberi diskon kalau totalnya melebihi batas tertentu.",
-            "Perhatikan penggunaan operator += untuk menambah total secara bertahap.",
-            "Program seperti ini bisa dikembangkan lebih jauh, misalnya dengan menambahkan struk atau menyimpan transaksi ke file.",
+            'Program kasir meminta nama barang dan jumlahnya memakai input(), lalu mencocokkan barang dengan dictionary harga.',
+            'Barang yang valid disimpan dalam list belanja. Saat checkout, program menghitung subtotal dari harga dan jumlah setiap barang.',
+            'Percabangan memberi diskon jika total memenuhi batas tertentu.',
+            'Program ini bisa dikembangkan dengan proses pembayaran, kembalian, dan penyimpanan struk.',
           ],
           analogi: [
             "Program ini bekerja seperti kasir sungguhan.",
             "Kasir melihat barang satu per satu, menyebut harganya, lalu menjumlahkan semuanya.",
             "Kalau totalnya besar, kasir memberi diskon. Terakhir, kasir menyebutkan jumlah yang harus dibayar.",
           ],
-          kode: 'harga = {\n    "beras": 12000,\n    "minyak": 15000,\n    "gula": 13000\n}\n\nbelanja = ["beras", "minyak", "gula"]\n\ntotal = 0\nfor barang in belanja:\n    total += harga[barang]\n    print(barang, ":", harga[barang])\n\nprint("Total:", total)\n\nif total > 40000:\n    diskon = total * 0.1\n    total -= diskon\n    print("Diskon 10%:", diskon)\n\nprint("Total bayar:", total)',
+          kode: 'harga = {\n    "beras": 12000,\n    "minyak": 15000,\n    "gula": 13000\n}\nbelanja = []\n\nwhile True:\n    barang = input("Nama barang (ketik selesai untuk checkout): ").lower()\n    if barang == "selesai":\n        break\n    if barang in harga:\n        jumlah = int(input("Jumlah barang: "))\n        belanja.append({"nama": barang, "jumlah": jumlah})\n    else:\n        print("Barang tidak tersedia.")\n\ntotal = 0\nprint("\\n--- STRUK BELANJA ---")\nfor item in belanja:\n    subtotal = harga[item["nama"]] * item["jumlah"]\n    total += subtotal\n    print(item["nama"], "x", item["jumlah"], ":", subtotal)\n\nprint("Subtotal:", total)\nif total > 40000:\n    diskon = total * 0.1\n    total -= diskon\n    print("Diskon 10%:", diskon)\n\nprint("Total bayar:", total)',
           penjelasanKode: [
             {
               kode: "harga = {",
-              arti: "Dictionary menyimpan harga setiap barang.",
+              arti: "Dictionary menyimpan nama barang dan harga satuannya.",
             },
             {
-              kode: '    "beras": 12000,',
-              arti: "Kunci nama barang, nilai harganya.",
+              kode: "    \"beras\": 12000,",
+              arti: "Contoh pasangan nama barang dan harga.",
             },
             {
-              kode: 'belanja = ["beras", "minyak", "gula"]',
-              arti: "List barang yang dibeli.",
+              kode: "belanja = []",
+              arti: "List untuk menampung semua barang yang dimasukkan saat transaksi.",
             },
             {
-              kode: "total = 0",
-              arti: "Total dimulai dari nol.",
+              kode: "while True:",
+              arti: "Terus menerima barang sampai kasir mengetik selesai.",
             },
             {
-              kode: "for barang in belanja:",
-              arti: "Loop untuk setiap barang yang dibeli.",
+              kode: "    barang = input(\"Nama barang (ketik selesai untuk checkout): \").lower()",
+              arti: "Minta nama barang dan samakan hurufnya menjadi kecil.",
             },
             {
-              kode: "    total += harga[barang]",
-              arti: "Harga barang ditambahkan ke total.",
+              kode: "    if barang == \"selesai\":",
+              arti: "Periksa apakah pengguna ingin mengakhiri input barang.",
             },
             {
-              kode: '    print(barang, ":", harga[barang])',
-              arti: "Menampilkan rincian belanja.",
+              kode: "        break",
+              arti: "Keluar dari loop input barang dan lanjut ke checkout.",
+            },
+            {
+              kode: "    if barang in harga:",
+              arti: "Pastikan barang tersedia di katalog harga.",
+            },
+            {
+              kode: "        jumlah = int(input(\"Jumlah barang: \"))",
+              arti: "Minta jumlah barang dan ubah jawaban menjadi integer.",
+            },
+            {
+              kode: "        belanja.append({\"nama\": barang, \"jumlah\": jumlah})",
+              arti: "Simpan nama dan jumlah barang sebagai dictionary di dalam list.",
+            },
+            {
+              kode: "for item in belanja:",
+              arti: "Hitung setiap baris belanja saat membuat struk.",
+            },
+            {
+              kode: "    subtotal = harga[item[\"nama\"]] * item[\"jumlah\"]",
+              arti: "Kalikan harga satuan dengan jumlah yang dibeli.",
+            },
+            {
+              kode: "    total += subtotal",
+              arti: "Tambahkan subtotal ke total transaksi.",
             },
             {
               kode: "if total > 40000:",
-              arti: "Cek apakah total memenuhi syarat diskon.",
+              arti: "Cek apakah transaksi mendapat diskon.",
             },
             {
               kode: "    diskon = total * 0.1",
-              arti: "Diskon 10 persen dari total.",
+              arti: "Hitung diskon sebesar 10 persen.",
             },
             {
               kode: "    total -= diskon",
-              arti: "Total dikurangi diskon.",
+              arti: "Kurangi total belanja dengan diskon.",
             },
             {
-              kode: 'print("Total bayar:", total)',
-              arti: "Jumlah akhir yang harus dibayar.",
+              kode: "print(\"Total bayar:\", total)",
+              arti: "Tampilkan jumlah akhir setelah diskon.",
             },
           ],
           contohKasus: {
@@ -5908,9 +5999,8 @@ Tahun depan umurmu 18</span>
               catatan: "Isi if harus menjorok ke dalam.",
             },
           ],
-          latihan:
-            "Tambahkan barang “telur” seharga 20000 ke dictionary harga, lalu masukkan ke daftar belanja dan hitung ulang totalnya.",
-          playground: 'harga = {\n    "beras": 12000,\n    "minyak": 15000,\n    "gula": 13000\n}\n\nbelanja = ["beras", "minyak", "gula"]\n\ntotal = 0\nfor barang in belanja:\n    total += harga[barang]\n    print(barang, ":", harga[barang])\n\nprint("Total:", total)\n\nif total > 40000:\n    diskon = total * 0.1\n    total -= diskon\n    print("Diskon 10%:", diskon)\n\nprint("Total bayar:", total)',
+          latihan: 'Tambahkan proses pembayaran: minta jumlah uang pelanggan dengan input() dan ubah dengan int(). Jika uang cukup, tampilkan kembalian; jika kurang, beri tahu jumlah kekurangannya.',
+          playground: 'harga = {\n    "beras": 12000,\n    "minyak": 15000,\n    "gula": 13000\n}\nbelanja = []\n\nwhile True:\n    barang = input("Nama barang (ketik selesai untuk checkout): ").lower()\n    if barang == "selesai":\n        break\n    if barang in harga:\n        jumlah = int(input("Jumlah barang: "))\n        belanja.append({"nama": barang, "jumlah": jumlah})\n    else:\n        print("Barang tidak tersedia.")\n\ntotal = 0\nprint("\\n--- STRUK BELANJA ---")\nfor item in belanja:\n    subtotal = harga[item["nama"]] * item["jumlah"]\n    total += subtotal\n    print(item["nama"], "x", item["jumlah"], ":", subtotal)\n\nprint("Subtotal:", total)\nif total > 40000:\n    diskon = total * 0.1\n    total -= diskon\n    print("Diskon 10%:", diskon)\n\nprint("Total bayar:", total)',
         },
       ];
 
@@ -8426,7 +8516,7 @@ Tahun depan umurmu 18</span>
           '<div class="playground-foot">' +
           '<button class="btn btn-primary btn-sm" type="button" data-run="' + id + '">▶ Jalankan</button>' +
           '<button class="btn btn-ghost btn-sm" type="button" data-reset="' + id + '">↺ Reset</button>' +
-          '<p class="playground-note">Playground ini simulasi JavaScript — mendukung print(), variable, if/else, dan for in range().</p>' +
+          '<p class="playground-note">Playground ini simulasi Python dasar; input() akan membuka dialog di browser.</p>' +
           "</div>" +
           "</div>"
         );
