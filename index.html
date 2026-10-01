@@ -6730,12 +6730,15 @@ Tahun depan umurmu 18</span>
         var t = this.lihat();
 
         if (t.tipe === "OP" && (t.nilai === "=" || t.nilai === "+=" || t.nilai === "-=" || t.nilai === "*=")) {
-          if (expr.tipe !== "Name") {
-            throw new PyError("SyntaxError: yang bisa diisi nilai harus berupa nama variable");
-          }
           this.berikut();
           var value = this.parseExpression();
-          return { tipe: "Assign", name: expr.name, op: t.nilai, value: value };
+          if (expr.tipe === "Name") {
+            return { tipe: "Assign", name: expr.name, op: t.nilai, value: value };
+          }
+          if (expr.tipe === "Index") {
+            return { tipe: "AssignIndex", object: expr.object, index: expr.index, op: t.nilai, value: value };
+          }
+          throw new PyError("SyntaxError: yang bisa diisi nilai harus berupa nama variable");
         }
 
         return { tipe: "ExprStatement", expr: expr };
@@ -6853,12 +6856,32 @@ Tahun depan umurmu 18</span>
         var node = this.parsePrimary();
 
         for (;;) {
-          /* Akses per indeks: buah[0], siswa["nama"] */
+          /* Akses per indeks atau irisan (slice): buah[0], buah[1:3], buah[:2], siswa["nama"] */
           if (this.adalah("OP", "[")) {
             this.berikut();
-            var index = this.parseExpression();
-            this.makan("OP", "]");
-            node = { tipe: "Index", object: node, index: index };
+            var start = null;
+            if (!this.adalah("OP", ":")) {
+              start = this.parseExpression();
+            }
+            if (this.adalah("OP", ":")) {
+              this.berikut();
+              var stop = null;
+              if (!this.adalah("OP", ":") && !this.adalah("OP", "]")) {
+                stop = this.parseExpression();
+              }
+              var step = null;
+              if (this.adalah("OP", ":")) {
+                this.berikut();
+                if (!this.adalah("OP", "]")) {
+                  step = this.parseExpression();
+                }
+              }
+              this.makan("OP", "]");
+              node = { tipe: "Slice", object: node, start: start, stop: stop, step: step };
+            } else {
+              this.makan("OP", "]");
+              node = { tipe: "Index", object: node, index: start };
+            }
             continue;
           }
 
@@ -6942,6 +6965,10 @@ Tahun depan umurmu 18</span>
 
         if (this.adalah("OP", "(")) {
           this.berikut();
+          if (this.adalah("OP", ")")) {
+            this.berikut();
+            return { tipe: "Tuple", items: [] };
+          }
           var pertama = this.parseExpression();
 
           /* Kalau ada koma, ini tuple: (10, 20) */
@@ -7160,6 +7187,44 @@ Tahun depan umurmu 18</span>
             break;
           }
 
+          case "AssignIndex": {
+            var target = this.evaluasi(stmt.object);
+            var idx = this.evaluasi(stmt.index);
+            var val = this.evaluasi(stmt.value);
+
+            if (target && target.__tuple__) {
+              throw new PyError(
+                "TypeError: 'tuple' object does not support item assignment — tuple tidak mendukung perubahan item"
+              );
+            }
+            if (typeof target === "string") {
+              throw new PyError(
+                "TypeError: 'str' object does not support item assignment — string tidak mendukung perubahan karakter"
+              );
+            }
+            if (Array.isArray(target)) {
+              var pos = idx < 0 ? target.length + idx : idx;
+              if (pos < 0 || pos >= target.length) {
+                throw new PyError("IndexError: list assignment index out of range");
+              }
+              target[pos] =
+                stmt.op === "=" ? val : this.binary(stmt.op.charAt(0), target[pos], val);
+              break;
+            }
+            if (target instanceof Map) {
+              if (stmt.op === "=") {
+                target.set(idx, val);
+              } else {
+                if (!target.has(idx)) {
+                  throw new PyError("KeyError: " + pyRepr(idx) + " tidak ada di dictionary");
+                }
+                target.set(idx, this.binary(stmt.op.charAt(0), target.get(idx), val));
+              }
+              break;
+            }
+            throw new PyError("TypeError: objek ini tidak mendukung pengisian per indeks");
+          }
+
           case "If":
             if (this.truthy(this.evaluasi(stmt.test))) {
               this.jalankanBlok(stmt.body);
@@ -7317,6 +7382,15 @@ Tahun depan umurmu 18</span>
             throw new PyError("TypeError: objek ini tidak bisa diambil bagiannya");
           }
 
+          case "Slice": {
+            var targetObj = this.evaluasi(node.object);
+            var rawStart = node.start ? this.evaluasi(node.start) : null;
+            var rawStop = node.stop ? this.evaluasi(node.stop) : null;
+            var rawStep = node.step ? this.evaluasi(node.step) : null;
+
+            return potongUrutan(targetObj, rawStart, rawStop, rawStep);
+          }
+
           case "Unary": {
             var v = this.evaluasi(node.value);
             return node.op === "-" ? -v : v;
@@ -7470,7 +7544,23 @@ Tahun depan umurmu 18</span>
                 return a > b ? 1 : a < b ? -1 : 0;
               });
           case "list":
-            return this.keIterable(args[0]).slice();
+            return args.length ? this.keIterable(args[0]).slice() : [];
+          case "tuple":
+            return {
+              __tuple__: true,
+              items: args.length ? this.keIterable(args[0]).slice() : [],
+            };
+          case "set":
+            return new Set(args.length ? this.keIterable(args[0]) : []);
+          case "dict":
+            return args.length && args[0] instanceof Map ? new Map(args[0]) : new Map();
+          case "enumerate": {
+            var urut = this.keIterable(args[0]);
+            var mulai = args.length > 1 ? args[1] : 0;
+            return urut.map(function (item, idx) {
+              return [mulai + idx, item];
+            });
+          }
           case "range":
             return buatRange(args);
           default:
@@ -7870,6 +7960,82 @@ Tahun depan umurmu 18</span>
           return ada;
         }
         return false;
+      }
+
+      function potongUrutan(object, rawStart, rawStop, rawStep) {
+        var adalahTuple = Boolean(object && object.__tuple__);
+        var adalahString = typeof object === "string";
+        var sumber = adalahTuple ? object.items : object;
+
+        if (!Array.isArray(sumber) && !adalahString) {
+          throw new PyError("TypeError: objek ini tidak bisa diambil bagiannya");
+        }
+
+        var batas = [rawStart, rawStop, rawStep];
+        for (var b = 0; b < batas.length; b += 1) {
+          var v = batas[b];
+          if (v !== null && v !== undefined && (typeof v !== "number" || !Number.isInteger(v))) {
+            throw new PyError("TypeError: indeks slice harus berupa bilangan bulat (integer)");
+          }
+        }
+
+        var step = rawStep === null || rawStep === undefined ? 1 : rawStep;
+        if (step === 0) {
+          throw new PyError("ValueError: slice step cannot be zero");
+        }
+
+        var len = sumber.length;
+        var start;
+        var stop;
+
+        if (step > 0) {
+          if (rawStart === null || rawStart === undefined) {
+            start = 0;
+          } else {
+            start = rawStart < 0 ? rawStart + len : rawStart;
+            if (start < 0) start = 0;
+            if (start > len) start = len;
+          }
+
+          if (rawStop === null || rawStop === undefined) {
+            stop = len;
+          } else {
+            stop = rawStop < 0 ? rawStop + len : rawStop;
+            if (stop < 0) stop = 0;
+            if (stop > len) stop = len;
+          }
+        } else {
+          if (rawStart === null || rawStart === undefined) {
+            start = len - 1;
+          } else {
+            start = rawStart < 0 ? rawStart + len : rawStart;
+            if (start < 0) start = -1;
+            if (start >= len) start = len - 1;
+          }
+
+          if (rawStop === null || rawStop === undefined) {
+            stop = -1;
+          } else {
+            stop = rawStop < 0 ? rawStop + len : rawStop;
+            if (stop < 0) stop = -1;
+            if (stop >= len) stop = len - 1;
+          }
+        }
+
+        var hasil = [];
+        if (step > 0) {
+          for (var i = start; i < stop; i += step) {
+            hasil.push(adalahString ? sumber.charAt(i) : sumber[i]);
+          }
+        } else {
+          for (var j = start; j > stop; j += step) {
+            hasil.push(adalahString ? sumber.charAt(j) : sumber[j]);
+          }
+        }
+
+        if (adalahString) return hasil.join("");
+        if (adalahTuple) return { __tuple__: true, items: hasil };
+        return hasil;
       }
 
       function buatRange(args) {
