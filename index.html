@@ -8526,11 +8526,150 @@ Tahun depan umurmu 18</span>
           '<div class="playground-foot">' +
           '<button class="btn btn-primary btn-sm" type="button" data-run="' + id + '">▶ Jalankan</button>' +
           '<button class="btn btn-ghost btn-sm" type="button" data-reset="' + id + '">↺ Reset</button>' +
-          '<p class="playground-note">Playground ini simulasi Python dasar; input() akan membuka dialog di browser.</p>' +
+          '<p class="playground-note">Tab menambahkan 4 spasi; tanda petik dan kurung otomatis ditutup. Playground ini simulasi Python dasar; input() akan membuka dialog di browser.</p>' +
           "</div>" +
           "</div>"
         );
       }
+
+      /* Batas satu atau beberapa baris yang terkena Tab/Shift+Tab. */
+      function rentangBarisTextarea(teks, awal, akhir) {
+        var awalBaris = teks.lastIndexOf("\n", awal - 1) + 1;
+        var karakterTerakhir = akhir > awal ? akhir - 1 : awal;
+
+        /* Kalau seleksi berakhir tepat setelah newline, baris berikutnya tidak ikut. */
+        if (akhir > awal && teks.charAt(akhir - 1) === "\n") {
+          karakterTerakhir = akhir - 2;
+        }
+
+        var awalBarisTerakhir = teks.lastIndexOf("\n", karakterTerakhir) + 1;
+        var akhirBaris = teks.indexOf("\n", awalBarisTerakhir);
+        if (akhirBaris === -1) akhirBaris = teks.length;
+
+        return { awal: awalBaris, akhir: akhirBaris };
+      }
+
+      /* Sisipkan 4 spasi atau kurangi satu tingkat indentasi. */
+      function ubahIndentasiPlayground(input, kurangi) {
+        var teks = input.value;
+        var awal = input.selectionStart;
+        var akhir = input.selectionEnd;
+
+        if (!kurangi && awal === akhir) {
+          input.setRangeText("    ", awal, akhir, "end");
+          return;
+        }
+
+        var rentang = rentangBarisTextarea(teks, awal, akhir);
+        var baris = teks.slice(rentang.awal, rentang.akhir).split("\n");
+        var arahSeleksi = input.selectionDirection || "none";
+
+        if (!kurangi) {
+          var barisDiindentasi = baris.map(function (isi) {
+            return "    " + isi;
+          });
+          input.setRangeText(
+            barisDiindentasi.join("\n"),
+            rentang.awal,
+            rentang.akhir,
+            "preserve"
+          );
+          input.setSelectionRange(
+            awal + 4,
+            akhir + baris.length * 4,
+            arahSeleksi
+          );
+          return;
+        }
+
+        var jumlahDihapus = [];
+        var barisDioutdentasi = baris.map(function (isi) {
+          var spasi = 0;
+          while (spasi < 4 && isi.charAt(spasi) === " ") spasi += 1;
+          var hapus = isi.charAt(0) === "\t" ? 1 : spasi;
+          jumlahDihapus.push(hapus);
+          return isi.slice(hapus);
+        });
+
+        if (!jumlahDihapus.some(function (jumlah) { return jumlah > 0; })) return;
+
+        input.setRangeText(
+          barisDioutdentasi.join("\n"),
+          rentang.awal,
+          rentang.akhir,
+          "preserve"
+        );
+
+        function posisiBaru(posisi) {
+          var totalDihapus = 0;
+          var posisiAwalBaris = rentang.awal;
+          for (var i = 0; i < baris.length; i += 1) {
+            if (posisi > posisiAwalBaris) {
+              totalDihapus += Math.min(jumlahDihapus[i], posisi - posisiAwalBaris);
+            }
+            posisiAwalBaris += baris[i].length + 1;
+          }
+          return Math.max(rentang.awal, posisi - totalDihapus);
+        }
+
+        input.setSelectionRange(posisiBaru(awal), posisiBaru(akhir), arahSeleksi);
+      }
+
+      function petikDiEscape(teks, posisi) {
+        var garisMiring = 0;
+        for (var i = posisi - 1; i >= 0 && teks.charAt(i) === "\\"; i -= 1) {
+          garisMiring += 1;
+        }
+        return garisMiring % 2 === 1;
+      }
+
+      /*
+       * Tangani tombol editor secara terdelegasi karena playground dirender ulang
+       * setiap kali materi dibuka. Tab tetap fokus di editor dan tidak pindah ke output.
+       */
+      document.addEventListener("keydown", function (event) {
+        var input = event.target;
+        if (!input || input.tagName !== "TEXTAREA" || !input.matches(".playground-editor textarea")) {
+          return;
+        }
+        if (event.ctrlKey || event.metaKey || event.altKey || event.isComposing) return;
+
+        if (event.key === "Tab") {
+          event.preventDefault();
+          ubahIndentasiPlayground(input, event.shiftKey);
+          return;
+        }
+
+        var awal = input.selectionStart;
+        var akhir = input.selectionEnd;
+        var teks = input.value;
+        var pasangan = { "'": "'", '"': '"', "(": ")", "[": "]", "{": "}" };
+        var penutup = {")": true, "]": true, "}": true, "'": true, '"': true };
+
+        /* Lewati karakter penutup yang sudah ada, bukan menyisipkannya dua kali. */
+        if (
+          awal === akhir &&
+          penutup[event.key] &&
+          teks.charAt(awal) === event.key &&
+          !((event.key === "'" || event.key === '"') && petikDiEscape(teks, awal))
+        ) {
+          event.preventDefault();
+          input.setSelectionRange(awal + 1, awal + 1);
+          return;
+        }
+
+        if (!Object.prototype.hasOwnProperty.call(pasangan, event.key)) return;
+
+        event.preventDefault();
+        var isiDipilih = teks.slice(awal, akhir);
+        input.setRangeText(
+          event.key + isiDipilih + pasangan[event.key],
+          awal,
+          akhir,
+          "end"
+        );
+        input.setSelectionRange(awal + 1, awal + 1 + isiDipilih.length);
+      });
 
       /* Delegasi event untuk tombol Jalankan & Reset playground. */
       document.addEventListener("click", function (event) {
