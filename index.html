@@ -1527,6 +1527,214 @@
         margin: 0;
       }
 
+      .playground-output pre.is-waiting {
+        color: var(--primary);
+      }
+
+      /* ---------- Dialog input modern (gaya SweetAlert) ---------- */
+      .input-dialog {
+        width: min(calc(100vw - 2rem), 30rem);
+        margin: auto;
+        padding: 0;
+        border: 0;
+        border-radius: 22px;
+        background: transparent;
+        color: var(--text);
+        overflow: visible;
+      }
+      .input-dialog::backdrop {
+        background: rgba(10, 20, 14, 0.58);
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+      }
+      .input-dialog[open] {
+        animation: input-dialog-in 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      @keyframes input-dialog-in {
+        from {
+          opacity: 0;
+          transform: translateY(12px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      .input-dialog-card {
+        position: relative;
+        padding: 2rem;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: inherit;
+        background: var(--surface);
+        box-shadow: 0 24px 70px rgba(8, 20, 13, 0.3), var(--shadow-lg);
+      }
+      .input-dialog-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 5px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      }
+      .input-dialog-close {
+        position: absolute;
+        top: 0.8rem;
+        right: 0.8rem;
+        display: inline-grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--text-muted);
+        font: inherit;
+        font-size: 1.45rem;
+        line-height: 1;
+        cursor: pointer;
+        transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+      }
+      .input-dialog-close:hover {
+        background: var(--bg-soft-2);
+        color: var(--text);
+        transform: rotate(4deg);
+      }
+      .input-dialog-icon {
+        display: grid;
+        width: 58px;
+        height: 58px;
+        margin: 0 auto 1rem;
+        place-items: center;
+        border: 1px solid var(--primary);
+        border-radius: 50%;
+        background: var(--primary-soft);
+        color: var(--primary);
+        box-shadow: 0 8px 20px color-mix(in srgb, var(--primary) 18%, transparent);
+      }
+      .input-dialog-icon svg {
+        width: 27px;
+        height: 27px;
+      }
+      .input-dialog-kicker,
+      .input-dialog-step {
+        margin: 0;
+        text-align: center;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+      .input-dialog-kicker {
+        color: var(--primary);
+      }
+      .input-dialog-step {
+        margin-top: 0.35rem;
+        color: var(--text-muted);
+      }
+      .input-dialog-title {
+        margin: 0.38rem 2rem 0.45rem;
+        text-align: center;
+        font-size: clamp(1.3rem, 4vw, 1.6rem);
+      }
+      .input-dialog-description {
+        margin: 0 auto 1.25rem;
+        max-width: 24rem;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.92rem;
+        line-height: 1.55;
+      }
+      .input-dialog-prompt {
+        margin: 0 0 1rem;
+        padding: 0.8rem 0.9rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--bg-soft);
+        text-align: left;
+      }
+      .input-dialog-prompt-label {
+        display: block;
+        margin-bottom: 0.32rem;
+        color: var(--text-muted);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .input-dialog-prompt code {
+        display: block;
+        overflow-wrap: anywhere;
+        border: 0;
+        background: transparent;
+        color: var(--text);
+        padding: 0;
+        white-space: pre-wrap;
+      }
+      .input-dialog-label {
+        display: block;
+        margin: 0 0 0.42rem;
+        font-size: 0.88rem;
+        font-weight: 700;
+      }
+      .input-dialog-field {
+        width: 100%;
+        min-height: 50px;
+        padding: 0.7rem 0.85rem;
+        border: 1px solid var(--border-strong);
+        border-radius: 10px;
+        background: var(--bg);
+        color: var(--text);
+        font: inherit;
+        font-size: 1rem;
+        transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+      }
+      .input-dialog-field:hover {
+        border-color: var(--primary);
+      }
+      .input-dialog-field:focus {
+        outline: 0;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 18%, transparent);
+      }
+      .input-dialog-help {
+        margin: 0.55rem 0 0;
+        color: var(--text-muted);
+        font-size: 0.76rem;
+      }
+      .input-dialog-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.7rem;
+        margin-top: 1.4rem;
+      }
+      .input-dialog-actions .btn {
+        min-width: 122px;
+      }
+      .input-dialog-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+      }
+      .input-dialog-submit kbd {
+        padding: 0.04rem 0.3rem;
+        border: 1px solid color-mix(in srgb, currentColor 32%, transparent);
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        line-height: 1.2;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .input-dialog[open] {
+          animation: none;
+        }
+      }
+
       /* ---------- Editor gelap untuk materi (independen dari tema situs) ---------- */
       .materi-main .callout-exercise {
         background: var(--editor-bg);
@@ -2172,6 +2380,18 @@
         .playground-editor textarea {
           font-size: 0.82rem;
         }
+        .input-dialog {
+          width: calc(100vw - 1.25rem);
+        }
+        .input-dialog-card {
+          padding: 1.6rem 1.15rem 1.2rem;
+        }
+        .input-dialog-actions {
+          flex-direction: column-reverse;
+        }
+        .input-dialog-actions .btn {
+          width: 100%;
+        }
         .quiz-toolbar {
           flex-direction: column;
           align-items: flex-start;
@@ -2610,6 +2830,62 @@ Tahun depan umurmu 18</span>
         <p class="muted">100% statis · tanpa backend · tanpa tracking</p>
       </div>
     </footer>
+
+    <!-- Dialog input untuk playground: dibuat kustom agar tidak memakai prompt bawaan browser. -->
+    <dialog
+      class="input-dialog"
+      id="inputDialog"
+      aria-labelledby="inputDialogTitle"
+      aria-describedby="inputDialogDescription inputDialogHelp"
+    >
+      <form class="input-dialog-card" id="inputDialogForm" novalidate>
+        <button
+          class="input-dialog-close"
+          type="button"
+          data-input-cancel
+          aria-label="Batalkan input"
+          title="Batalkan"
+        >
+          ×
+        </button>
+        <div class="input-dialog-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3.5" y="7" width="25" height="18" rx="3"></rect>
+            <path d="M8 12h.01M12 12h.01M16 12h.01M20 12h.01M24 12h.01M9 17h8M20 17h3M12 21h8"></path>
+          </svg>
+        </div>
+        <p class="input-dialog-kicker">Playground Python</p>
+        <h2 class="input-dialog-title" id="inputDialogTitle">Program menunggu jawaban</h2>
+        <p class="input-dialog-description" id="inputDialogDescription">
+          Isi kolom di bawah untuk meneruskan kode yang sedang kamu jalankan.
+        </p>
+        <p class="input-dialog-step" id="inputDialogStep">Input ke-1</p>
+
+        <div class="input-dialog-prompt">
+          <span class="input-dialog-prompt-label">Prompt dari program</span>
+          <code id="inputDialogPrompt">Masukkan nilai:</code>
+        </div>
+
+        <label class="input-dialog-label" for="inputDialogValue">Jawaban kamu</label>
+        <input
+          class="input-dialog-field"
+          id="inputDialogValue"
+          type="text"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          placeholder="Ketik jawaban di sini..."
+        />
+        <p class="input-dialog-help" id="inputDialogHelp">Tekan Enter untuk mengirim, atau Esc untuk membatalkan.</p>
+
+        <div class="input-dialog-actions">
+          <button class="btn btn-ghost" type="button" data-input-cancel>Batalkan</button>
+          <button class="btn btn-primary input-dialog-submit" type="submit">
+            Kirim jawaban <kbd>↵</kbd>
+          </button>
+        </div>
+      </form>
+    </dialog>
 
     <!-- ===================== SCRIPT ===================== -->
     <script type="module">
@@ -6982,6 +7258,16 @@ Tahun depan umurmu 18</span>
       }
       PyError.prototype = Object.create(Error.prototype);
 
+      /* Sinyal internal: interpreter berhenti sementara saat menemukan input().
+         UI kemudian menampilkan dialog modern, menyimpan jawabannya, dan
+         menjalankan ulang kode dengan jawaban tersebut. */
+      function PyInputRequest(prompt, index) {
+        this.name = "PyInputRequest";
+        this.prompt = prompt;
+        this.index = index;
+      }
+      PyInputRequest.prototype = Object.create(Error.prototype);
+
       /* ---------- 5a. TOKENIZER — memecah kode jadi potongan kecil ---------- */
       var ATURAN_TOKEN = [
         { tipe: "NEWLINE", re: /\n/y },
@@ -7708,10 +7994,62 @@ Tahun depan umurmu 18</span>
         },
       };
 
-      function Interpreter(output) {
+      function Interpreter(output, opsi) {
         this.vars = {};
         this.output = output;
+        this.inputValues = opsi && Array.isArray(opsi.inputValues) ? opsi.inputValues : [];
+        this.inputIndex = 0;
+        this.randomState = opsi && opsi.randomState ? opsi.randomState : null;
+        this.randomIndex = 0;
       }
+
+      /* Saat kode dijalankan ulang setelah pengguna mengisi input(), nilai
+         acak yang sudah pernah dibuat dipakai lagi. Ini membuat contoh game
+         tebak angka tetap konsisten selama satu sesi input. */
+      Interpreter.prototype.ambilNilaiAcak = function () {
+        if (!this.randomState) return Math.random();
+        if (!Array.isArray(this.randomState.nilai)) this.randomState.nilai = [];
+
+        var index = this.randomIndex;
+        this.randomIndex += 1;
+        if (index < this.randomState.nilai.length) return this.randomState.nilai[index];
+
+        var nilai = Math.random();
+        this.randomState.nilai.push(nilai);
+        return nilai;
+      };
+
+      Interpreter.prototype.buatModulRandom = function () {
+        var self = this;
+        return {
+          __module__: "random",
+          random: function () {
+            return self.ambilNilaiAcak();
+          },
+          randint: function (a, b) {
+            return Math.floor(self.ambilNilaiAcak() * (b - a + 1)) + a;
+          },
+          randrange: function (a, b) {
+            return Math.floor(self.ambilNilaiAcak() * (b - a)) + a;
+          },
+          choice: function (daftar) {
+            return daftar[Math.floor(self.ambilNilaiAcak() * daftar.length)];
+          },
+          shuffle: function (daftar) {
+            for (var i = daftar.length - 1; i > 0; i -= 1) {
+              var j = Math.floor(self.ambilNilaiAcak() * (i + 1));
+              var sementara = daftar[i];
+              daftar[i] = daftar[j];
+              daftar[j] = sementara;
+            }
+            return null;
+          },
+        };
+      };
+
+      Interpreter.prototype.ambilModul = function (nama) {
+        return nama === "random" ? this.buatModulRandom() : MODUL_TERSEDIA[nama];
+      };
 
       Interpreter.prototype.jalankan = function (program) {
         this.jalankanBlok(program.body);
@@ -7743,12 +8081,13 @@ Tahun depan umurmu 18</span>
           case "Import":
             for (var im = 0; im < stmt.modules.length; im += 1) {
               var namaModul = stmt.modules[im];
-              if (!MODUL_TERSEDIA[namaModul]) {
+              var modul = this.ambilModul(namaModul);
+              if (!modul) {
                 throw new PyError(
                   "ModuleNotFoundError: Playground ini hanya mendukung module math dan random."
                 );
               }
-              this.vars[namaModul] = MODUL_TERSEDIA[namaModul];
+              this.vars[namaModul] = modul;
             }
             break;
 
@@ -8092,18 +8431,17 @@ Tahun depan umurmu 18</span>
           case "type":
             return "<class '" + pyNamaTipe(args[0]) + "'>";
           case "input": {
-            /* Di browser, input() membuka kotak dialog bawaan (prompt)
-               supaya contoh seperti sistem login benar-benar bisa dicoba.
-               Kalau pengguna menekan Batal/Esc, hentikan program dengan
-               pesan yang mirip KeyboardInterrupt di Python asli. */
-            if (typeof window !== "undefined" && typeof window.prompt === "function") {
-              var jawaban = window.prompt(args.length ? pyStr(args[0]) : "Masukkan nilai:", "");
-              if (jawaban === null) {
-                throw new PyError("KeyboardInterrupt: input dibatalkan oleh pengguna");
-              }
-              return jawaban;
+            /* Tidak memakai prompt bawaan browser. Jika belum ada
+               jawaban tersimpan, kirim sinyal ke UI agar dialog modern tampil. */
+            if (this.inputIndex < this.inputValues.length) {
+              var jawaban = this.inputValues[this.inputIndex];
+              this.inputIndex += 1;
+              return jawaban === null || jawaban === undefined ? "" : String(jawaban);
             }
-            return "";
+            throw new PyInputRequest(
+              args.length ? pyStr(args[0]) : "Masukkan nilai:",
+              this.inputIndex
+            );
           }
           case "abs":
             return Math.abs(args[0]);
@@ -8668,7 +9006,7 @@ Tahun depan umurmu 18</span>
       }
 
       /* ---------- 5e. TITIK MASUK — dipanggil oleh playground ---------- */
-      function runPython(source) {
+      function runPython(source, inputValues, randomState) {
         var output = [];
 
         if (!source || !source.trim()) {
@@ -8679,10 +9017,23 @@ Tahun depan umurmu 18</span>
           var tokens = tokenize(source);
           var parser = new Parser(tokens);
           var program = parser.parseProgram();
-          var interpreter = new Interpreter(output);
+          var interpreter = new Interpreter(output, {
+            inputValues: inputValues || [],
+            randomState: randomState || null,
+          });
           interpreter.jalankan(program);
           return { ok: true, output: output.join("\n"), supported: true };
         } catch (err) {
+          if (err instanceof PyInputRequest) {
+            return {
+              ok: false,
+              inputRequired: true,
+              inputIndex: err.index,
+              prompt: err.prompt,
+              output: output.join("\n"),
+              supported: true,
+            };
+          }
           if (err instanceof PyError) {
             return { ok: false, output: output.join("\n"), error: err.message, supported: true };
           }
@@ -8937,6 +9288,174 @@ Tahun depan umurmu 18</span>
       });
 
       /* ---------- 6. Playground ---------- */
+      var dialogInputAktif = null;
+      var sesiPlaygroundAktif = null;
+
+      function tutupDialogInputModern() {
+        dialogInputAktif = null;
+        var dialog = document.getElementById("inputDialog");
+        if (!dialog) return;
+        if (dialog.open && typeof dialog.close === "function") {
+          dialog.close();
+        } else {
+          dialog.removeAttribute("open");
+        }
+      }
+
+      function konfirmasiDialogInputModern() {
+        var sesi = dialogInputAktif;
+        if (!sesi) return;
+
+        var kolom = document.getElementById("inputDialogValue");
+        var jawaban = kolom ? kolom.value : "";
+        tutupDialogInputModern();
+
+        window.setTimeout(function () {
+          sesi.lanjutkan(jawaban);
+        }, 0);
+      }
+
+      function batalkanDialogInputModern() {
+        var sesi = dialogInputAktif;
+        if (!sesi) return;
+        tutupDialogInputModern();
+
+        window.setTimeout(function () {
+          sesi.batalkan();
+        }, 0);
+      }
+
+      function bukaDialogInputModern(prompt, index, lanjutkan, batalkan) {
+        var dialog = document.getElementById("inputDialog");
+        var form = document.getElementById("inputDialogForm");
+        var promptEl = document.getElementById("inputDialogPrompt");
+        var stepEl = document.getElementById("inputDialogStep");
+        var kolom = document.getElementById("inputDialogValue");
+
+        if (!dialog || !form || !promptEl || !stepEl || !kolom) {
+          batalkan();
+          return;
+        }
+
+        /* Satu dialog dipakai bergantian untuk semua input() agar tidak ada
+           dialog yang menumpuk ketika kode berisi loop. */
+        tutupDialogInputModern();
+        dialogInputAktif = { lanjutkan: lanjutkan, batalkan: batalkan };
+        promptEl.textContent = prompt || "Masukkan nilai:";
+        stepEl.textContent = "Input ke-" + (index + 1);
+        kolom.value = "";
+
+        try {
+          if (typeof dialog.showModal === "function") {
+            dialog.showModal();
+          } else {
+            dialog.setAttribute("open", "");
+          }
+        } catch (err) {
+          dialog.setAttribute("open", "");
+        }
+
+        window.setTimeout(function () {
+          kolom.focus();
+        }, 30);
+      }
+
+      function siapkanDialogInputModern() {
+        var dialog = document.getElementById("inputDialog");
+        var form = document.getElementById("inputDialogForm");
+        if (!dialog || !form) return;
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          konfirmasiDialogInputModern();
+        });
+
+        dialog.addEventListener("cancel", function (event) {
+          event.preventDefault();
+          batalkanDialogInputModern();
+        });
+
+        dialog.addEventListener("click", function (event) {
+          var target = event.target;
+          if (target === dialog || (target && target.closest("[data-input-cancel]"))) {
+            event.preventDefault();
+            batalkanDialogInputModern();
+          }
+        });
+      }
+
+      function hentikanSesiPlayground() {
+        sesiPlaygroundAktif = null;
+        tutupDialogInputModern();
+      }
+
+      function tampilkanHasilPlayground(output, hasil) {
+        output.classList.remove("is-waiting");
+        output.classList.toggle("is-error", !hasil.ok);
+        if (hasil.ok) {
+          output.textContent = hasil.output === "" ? "(tidak ada output)" : hasil.output;
+          return;
+        }
+        output.textContent = hasil.output ? hasil.output + "\n\n" + hasil.error : hasil.error;
+      }
+
+      /* Menjalankan ulang source dengan jawaban yang sudah diberikan. Cara
+         ini membuat dialog tetap bisa dipakai untuk input() di dalam if,
+         function, maupun perulangan tanpa memakai prompt bawaan browser. */
+      function jalankanKodePlayground(kotak, input, output) {
+        hentikanSesiPlayground();
+
+        var sesi = {
+          kode: input.value,
+          jawaban: [],
+          randomState: { nilai: [] },
+          outputSementara: "",
+        };
+        sesiPlaygroundAktif = sesi;
+
+        function lanjutkan() {
+          if (sesiPlaygroundAktif !== sesi) return;
+
+          var hasil = runPython(sesi.kode, sesi.jawaban, sesi.randomState);
+          if (hasil.inputRequired) {
+            sesi.outputSementara = hasil.output;
+            output.classList.remove("is-error");
+            output.classList.add("is-waiting");
+            output.textContent = hasil.output
+              ? hasil.output + "\n\n⌨ Menunggu jawaban di dialog…"
+              : "⌨ Menunggu jawaban di dialog…";
+
+            bukaDialogInputModern(
+              hasil.prompt,
+              hasil.inputIndex,
+              function (jawaban) {
+                if (sesiPlaygroundAktif !== sesi) return;
+                sesi.jawaban.push(jawaban);
+                lanjutkan();
+              },
+              function () {
+                if (sesiPlaygroundAktif !== sesi) return;
+                sesiPlaygroundAktif = null;
+                output.classList.remove("is-waiting");
+                output.classList.add("is-error");
+                output.textContent = sesi.outputSementara
+                  ? sesi.outputSementara + "\n\nKeyboardInterrupt: input dibatalkan oleh pengguna"
+                  : "KeyboardInterrupt: input dibatalkan oleh pengguna";
+              }
+            );
+            return;
+          }
+
+          if (sesiPlaygroundAktif !== sesi) return;
+          sesiPlaygroundAktif = null;
+          tampilkanHasilPlayground(output, hasil);
+        }
+
+        lanjutkan();
+      }
+
+      siapkanDialogInputModern();
+
       function buatPlayground(kodeAwal, judul) {
         var id = "pg-" + Math.random().toString(36).slice(2, 9);
         return (
@@ -8963,7 +9482,7 @@ Tahun depan umurmu 18</span>
           '<div class="playground-foot">' +
           '<button class="btn btn-primary btn-sm" type="button" data-run="' + id + '">▶ Jalankan</button>' +
           '<button class="btn btn-ghost btn-sm" type="button" data-reset="' + id + '">↺ Reset</button>' +
-          '<p class="playground-note">Tab menambahkan 4 spasi; tanda petik dan kurung otomatis ditutup. Playground ini simulasi Python dasar; input() akan membuka dialog di browser.</p>' +
+          '<p class="playground-note">Tab menambahkan 4 spasi; tanda petik dan kurung otomatis ditutup. Playground ini simulasi Python dasar; input() akan membuka dialog modern.</p>' +
           "</div>" +
           "</div>"
         );
@@ -9140,24 +9659,17 @@ Tahun depan umurmu 18</span>
         if (!input || !output) return;
 
         if (resetBtn) {
+          hentikanSesiPlayground();
           input.value = input.dataset.asli || input.value;
           input.scrollTop = 0;
           input.scrollLeft = 0;
           perbaruiHighlightPlayground(input);
           output.textContent = "Tekan “Jalankan” untuk melihat hasil.";
-          output.classList.remove("is-error");
+          output.classList.remove("is-error", "is-waiting");
           return;
         }
 
-        var hasil = runPython(input.value);
-        output.classList.toggle("is-error", !hasil.ok);
-
-        if (hasil.ok) {
-          output.textContent = hasil.output === "" ? "(tidak ada output)" : hasil.output;
-        } else {
-          var pesan = hasil.output ? hasil.output + "\n\n" + hasil.error : hasil.error;
-          output.textContent = pesan;
-        }
+        jalankanKodePlayground(kotak, input, output);
       });
 
       /* Simpan kode awal setiap playground supaya tombol Reset berfungsi. */
