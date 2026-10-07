@@ -4060,6 +4060,68 @@ Tahun depan umurmu 18</span>
           playground: "for i in range(1, 11):\n    print(i)\n\nprint(\"---\")\n\nfor i in range(2, 11, 2):\n    print(i)",
         },
         {
+          id: "nested-loop",
+          level: 5,
+          judul: "Nested loop",
+          pertanyaan: "Bagaimana kalau kita butuh perulangan di dalam perulangan?",
+          penjelasan: [
+            "Nested loop artinya loop di dalam loop. Loop yang di luar disebut loop luar (outer), dan yang di dalam disebut loop dalam (inner).",
+            "Cara kerjanya: loop luar berjalan satu putaran, lalu loop dalam menyelesaikan seluruh putarannya dari awal sampai akhir. Setelah loop dalam selesai, loop luar lanjut ke putaran berikutnya, dan loop dalam mulai lagi dari awal.",
+            "Karena itu jumlah putaran totalnya adalah hasil kali keduanya. Loop luar 3 kali dan loop dalam 4 kali berarti ada 3 × 4 = 12 putaran.",
+            "Setiap tingkat menambah satu indentasi: isi loop luar 4 spasi, isi loop dalam 8 spasi. Sebaiknya pakai nama variable yang berbeda, misalnya i untuk loop luar dan j untuk loop dalam.",
+            "Nested loop boleh lebih dari dua tingkat, tapi makin dalam makin sulit dibaca. Dua tingkat sudah cukup untuk sebagian besar kebutuhan seperti tabel dan papan baris-kolom.",
+          ],
+          analogi: [
+            "Nested loop itu seperti jam dinding dengan dua jarum: jarum jam dan jarum menit.",
+            "Setiap kali jarum jam berpindah satu angka, jarum menit sudah berputar satu putaran penuh — 60 kali.",
+            "Jarum jam adalah loop luar, jarum menit adalah loop dalam. Jarum menit selalu menyelesaikan seluruh putarannya sebelum jarum jam berpindah lagi.",
+          ],
+          kode: 'for baris in range(1, 4):\n    for kolom in range(1, 4):\n        print(baris, "x", kolom, "=", baris * kolom)\n    print("--- baris selesai ---")',
+          penjelasanKode: [
+            {
+              kode: "for baris in range(1, 4):",
+              arti: "Loop luar. Nilai baris menjadi 1, lalu 2, lalu 3.",
+            },
+            {
+              kode: "    for kolom in range(1, 4):",
+              arti:
+                "Loop dalam, dijalankan ulang setiap kali loop luar berputar. Nilai kolom menjadi 1, 2, dan 3.",
+            },
+            {
+              kode: '        print(baris, "x", kolom, "=", baris * kolom)',
+              arti:
+                "Menjorok 8 spasi, jadi milik loop dalam. Baris ini berjalan 3 × 3 = 9 kali: dari 1 x 1 = 1 sampai 3 x 3 = 9.",
+            },
+            {
+              kode: '    print("--- baris selesai ---")',
+              arti:
+                "Menjorok 4 spasi, jadi milik loop luar. Baris ini baru muncul setelah loop dalam menyelesaikan ketiga kolomnya.",
+            },
+          ],
+          contohKasus: {
+            judul: "Nomor kursi bioskop",
+            kode: 'baris = ["A", "B"]\n\nfor b in baris:\n    for nomor in range(1, 4):\n        print("Kursi", b + str(nomor))',
+            kapan: "Nested loop dipakai setiap kali data punya dua tingkat: baris dan kolom pada denah kursi, bulan dan tanggal pada kalender, kelas dan siswa pada daftar nilai, atau playlist dan lagu di dalamnya. Loop luar memilih kelompoknya, loop dalam menyusuri isi kelompok itu.",
+          },
+          kesalahan: [
+            {
+              salah: "for i in range(2):\n    for j in range(2):\n    print(i, j)",
+              benar: "for i in range(2):\n    for j in range(2):\n        print(i, j)",
+              catatan:
+                "Isi loop dalam harus lebih menjorok daripada for-nya, jadi 8 spasi. Kalau sejajar, muncul IndentationError.",
+            },
+            {
+              salah: "for i in range(2):\n    for i in range(2):\n        print(i)",
+              benar: "for i in range(2):\n    for j in range(2):\n        print(i, j)",
+              catatan:
+                "Pakai nama variable yang berbeda untuk setiap loop. Kalau keduanya bernama i, nilai dari loop luar ikut tertimpa sehingga hasilnya membingungkan.",
+            },
+          ],
+          latihan:
+            "Buat tabel perkalian: loop luar untuk angka 1 sampai 3, loop dalam untuk angka 1 sampai 5. Tampilkan setiap hasil dalam bentuk “2 x 3 = 6”.",
+          playground: 'for baris in range(1, 4):\n    for kolom in range(1, 4):\n        hasil = baris * kolom\n        print(baris, "x", kolom, "=", hasil)\n    print("---")',
+        },
+        {
           id: "break",
           level: 5,
           judul: "break",
@@ -6237,6 +6299,15 @@ Tahun depan umurmu 18</span>
         },
         {
           pertanyaan:
+            "Berapa baris yang ditampilkan kode ini?\n\nfor i in range(3):\n    for j in range(2):\n        print(i, j)",
+          opsi: ["3 baris", "5 baris", "6 baris", "9 baris"],
+          jawaban: 2,
+          penjelasan:
+            "Loop luar berjalan 3 kali, dan di setiap putarannya loop dalam berjalan 2 kali. Jadi totalnya 3 × 2 = 6 baris.",
+          level: 5,
+        },
+        {
+          pertanyaan:
             'Bagaimana cara mengambil item pertama dari list buah = ["apel", "mangga", "pisang"]?',
           opsi: ["buah[1]", "buah[0]", "buah.first()", "buah[-3]"],
           jawaban: 1,
@@ -6547,6 +6618,12 @@ Tahun depan umurmu 18</span>
           arti: "Loop = menyuruh komputer mengulangi sesuatu.",
           analogi:
             "Seperti menyapu setiap kamar di rumah. Kamu tidak menyebut nama kamar satu per satu, kamu cukup bilang “sapu semua kamar”.",
+        },
+        {
+          istilah: "Nested loop",
+          arti: "Nested loop = perulangan di dalam perulangan, dipakai untuk data yang punya dua tingkat seperti baris dan kolom.",
+          analogi:
+            "Seperti jam dinding. Setiap kali jarum jam berpindah satu angka, jarum menit sudah berputar penuh satu putaran.",
         },
         {
           istilah: "List",
