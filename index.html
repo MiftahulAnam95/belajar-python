@@ -1037,6 +1037,21 @@
         align-items: stretch;
         min-height: calc(100vh - var(--header-h));
         padding: 2rem clamp(1.25rem, 4vw, 3.25rem) 5rem;
+
+        /* Palet editor VS Code Dark+ untuk materi, tetap sama di light mode. */
+        --editor-bg: #1e1e1e;
+        --editor-panel: #252526;
+        --editor-foreground: #d4d4d4;
+        --editor-muted: #9da4ad;
+        --editor-border: #3c3c3c;
+        --editor-keyword: #569cd6;
+        --editor-builtin: #4ec9b0;
+        --editor-string: #ce9178;
+        --editor-number: #b5cea8;
+        --editor-comment: #6a9955;
+        --editor-operator: #d4d4d4;
+        --editor-function: #dcdcaa;
+        --editor-accent: #d7ba7d;
       }
 
       /* Isi materi dibatasi lebar nyaman baca, lalu DITENGAHKAN di
@@ -1510,6 +1525,108 @@
         font-size: 0.8rem;
         color: var(--text-muted);
         margin: 0;
+      }
+
+      /* ---------- Editor gelap untuk materi (independen dari tema situs) ---------- */
+      .materi-main .callout-exercise {
+        background: var(--editor-bg);
+        border-color: var(--editor-border);
+        border-left-color: var(--editor-accent);
+        color: var(--editor-foreground);
+      }
+      .materi-main .callout-exercise .callout-title {
+        color: var(--editor-accent);
+      }
+
+      .materi-main .code-block,
+      .materi-main .playground {
+        --code-bg: var(--editor-bg);
+        --code-head-bg: var(--editor-panel);
+        --text: var(--editor-foreground);
+        --text-muted: var(--editor-muted);
+        --border: var(--editor-border);
+        --border-strong: #5a5a5a;
+        --surface: var(--editor-panel);
+        --primary: #4ec9b0;
+        --primary-strong: #68d7c0;
+        --primary-soft: #153a36;
+        --primary-contrast: #102b27;
+        --danger: #f48771;
+        --tok-keyword: var(--editor-keyword);
+        --tok-builtin: var(--editor-builtin);
+        --tok-string: var(--editor-string);
+        --tok-number: var(--editor-number);
+        --tok-comment: var(--editor-comment);
+        --tok-op: var(--editor-operator);
+        --tok-func: var(--editor-function);
+      }
+
+      .materi-main .playground {
+        background: var(--editor-bg);
+        border-color: var(--editor-border);
+        color: var(--editor-foreground);
+      }
+      .materi-main .playground-head,
+      .materi-main .playground-foot {
+        background: var(--editor-panel);
+        border-color: var(--editor-border);
+      }
+      .materi-main .playground-editor {
+        background: var(--editor-bg);
+        border-color: var(--editor-border);
+      }
+      .materi-main .playground-editor textarea {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        caret-color: var(--editor-foreground);
+        font-weight: 400;
+      }
+      .materi-main .playground-editor textarea::selection {
+        color: var(--editor-foreground);
+        -webkit-text-fill-color: var(--editor-foreground);
+        background: rgba(38, 79, 120, 0.82);
+      }
+      .materi-main .playground-highlight {
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        display: block;
+        margin: 0;
+        padding: 1.1rem 1.2rem;
+        overflow: hidden;
+        pointer-events: none;
+        background: transparent;
+        color: var(--editor-foreground);
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.75;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        tab-size: 4;
+      }
+      .materi-main .playground-highlight code {
+        display: block;
+        min-height: 100%;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        white-space: inherit;
+        word-break: normal;
+      }
+      /* Font token komentar/kata kunci tidak mengubah lebar karakter,
+         supaya sorotan tepat sejajar dengan teks textarea yang transparan. */
+      .materi-main .playground-highlight .tok-keyword {
+        font-weight: 400;
+      }
+      .materi-main .playground-highlight .tok-comment {
+        font-style: normal;
       }
 
       /* ---------- 16. Latihan ---------- */
@@ -8514,6 +8631,9 @@ Tahun depan umurmu 18</span>
           '<div class="playground-body">' +
           '<div class="playground-editor">' +
           '<label class="skip-link" for="' + id + '-input">Editor kode Python</label>' +
+          '<pre class="playground-highlight" aria-hidden="true"><code id="' + id + '-highlight">' +
+          highlightPython(kodeAwal) +
+          "</code></pre>" +
           '<textarea id="' + id + '-input" spellcheck="false" autocomplete="off" autocapitalize="off">' +
           escapeHtml(kodeAwal) +
           "</textarea>" +
@@ -8530,6 +8650,19 @@ Tahun depan umurmu 18</span>
           "</div>" +
           "</div>"
         );
+      }
+
+      function sinkronkanScrollHighlight(input) {
+        var kode = document.getElementById(input.id.replace(/-input$/, "-highlight"));
+        if (!kode) return;
+        kode.style.transform = "translate(" + -input.scrollLeft + "px, " + -input.scrollTop + "px)";
+      }
+
+      function perbaruiHighlightPlayground(input) {
+        var kode = document.getElementById(input.id.replace(/-input$/, "-highlight"));
+        if (!kode) return;
+        kode.innerHTML = highlightPython(input.value);
+        sinkronkanScrollHighlight(input);
       }
 
       /* Batas satu atau beberapa baris yang terkena Tab/Shift+Tab. */
@@ -8557,6 +8690,7 @@ Tahun depan umurmu 18</span>
 
         if (!kurangi && awal === akhir) {
           input.setRangeText("    ", awal, akhir, "end");
+          perbaruiHighlightPlayground(input);
           return;
         }
 
@@ -8579,6 +8713,7 @@ Tahun depan umurmu 18</span>
             akhir + baris.length * 4,
             arahSeleksi
           );
+          perbaruiHighlightPlayground(input);
           return;
         }
 
@@ -8613,6 +8748,7 @@ Tahun depan umurmu 18</span>
         }
 
         input.setSelectionRange(posisiBaru(awal), posisiBaru(akhir), arahSeleksi);
+        perbaruiHighlightPlayground(input);
       }
 
       function petikDiEscape(teks, posisi) {
@@ -8669,6 +8805,7 @@ Tahun depan umurmu 18</span>
           "end"
         );
         input.setSelectionRange(awal + 1, awal + 1 + isiDipilih.length);
+        perbaruiHighlightPlayground(input);
       });
 
       /* Delegasi event untuk tombol Jalankan & Reset playground. */
@@ -8687,6 +8824,9 @@ Tahun depan umurmu 18</span>
 
         if (resetBtn) {
           input.value = input.dataset.asli || input.value;
+          input.scrollTop = 0;
+          input.scrollLeft = 0;
+          perbaruiHighlightPlayground(input);
           output.textContent = "Tekan “Jalankan” untuk melihat hasil.";
           output.classList.remove("is-error");
           return;
@@ -8710,7 +8850,16 @@ Tahun depan umurmu 18</span>
         for (var i = 0; i < daftar.length; i += 1) {
           var kotak = daftar[i];
           var input = document.getElementById(kotak.dataset.playground + "-input");
-          if (input) input.dataset.asli = input.value;
+          if (input) {
+            input.dataset.asli = input.value;
+            input.addEventListener("input", function (event) {
+              perbaruiHighlightPlayground(event.currentTarget);
+            });
+            input.addEventListener("scroll", function (event) {
+              sinkronkanScrollHighlight(event.currentTarget);
+            }, { passive: true });
+            perbaruiHighlightPlayground(input);
+          }
         }
       }
 
