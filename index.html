@@ -2650,7 +2650,7 @@ Tahun depan umurmu 18</span>
         {
           no: 3,
           judul: "Operator",
-          deskripsi: "Simbol untuk menghitung, membandingkan, dan menggabungkan kondisi.",
+          deskripsi: "Simbol untuk menghitung, membandingkan, menggabungkan kondisi, dan mengecek data.",
         },
         {
           no: 4,
@@ -3592,6 +3592,161 @@ Tahun depan umurmu 18</span>
           latihan:
             "Buat variable pohon dengan nilai 0. Tambahkan 3, lalu tambahkan 2 lagi, lalu tampilkan hasil akhirnya.",
           playground: "saldo = 100000\n\nsaldo += 50000\nprint(saldo)\n\nsaldo -= 20000\nprint(saldo)\n\nsaldo *= 2\nprint(saldo)",
+        },
+
+        /* ===================== OPERATOR LANJUTAN ===================== */
+        {
+          id: "operator-bitwise",
+          level: 3,
+          judul: "Operator Bitwise",
+          pertanyaan: "Bagaimana cara mengolah angka sampai ke tingkat bit atau biner?",
+          penjelasan: [
+            "Operator bitwise bekerja pada representasi biner sebuah bilangan bulat, yaitu susunan angka 0 dan 1 di balik angka yang kita lihat.",
+            "Operator & membandingkan bit dengan aturan AND, | dengan aturan OR, dan ^ dengan aturan XOR. Operator ~ membalik bit, sedangkan << menggeser bit ke kiri dan >> menggeser bit ke kanan.",
+            "Contoh: 6 dalam biner adalah 110 dan 3 adalah 011. Maka 6 & 3 menghasilkan 010, yaitu 2. Hasilnya lebih mudah dipahami kalau angka biner ditulis sebagai komentar di samping kode.",
+            "Operator bitwise terutama dipakai untuk flag, permission, mask, protokol, dan pekerjaan tingkat rendah. Untuk hitungan sehari-hari, operator matematika biasanya lebih tepat.",
+          ],
+          analogi: [
+            "Bayangkan setiap bit sebagai sakelar kecil yang hanya punya dua keadaan: mati (0) atau menyala (1).",
+            "& hanya menyalakan sakelar kalau kedua sakelar pasangannya menyala. | menyalakan kalau minimal salah satunya menyala, sedangkan ^ menyalakan kalau keduanya berbeda.",
+            "<< seperti menggeser semua sakelar ke kiri dan >> menggesernya ke kanan. ~ membalik sakelar: yang menyala menjadi mati dan sebaliknya.",
+          ],
+          kode: "a = 6  # 110\nb = 3  # 011\n\nprint(a & b)   # 2, 010\nprint(a | b)   # 7, 111\nprint(a ^ b)   # 5, 101\nprint(~a)      # -7\nprint(a << 1)  # 12\nprint(a >> 1)  # 3",
+          penjelasanKode: [
+            { kode: "a = 6  # 110", arti: "Angka 6 ditulis sebagai 110 dalam biner." },
+            { kode: "b = 3  # 011", arti: "Angka 3 ditulis sebagai 011 dalam biner." },
+            { kode: "a & b", arti: "AND bitwise: hanya bit yang sama-sama 1 yang menjadi 1. Hasilnya 2." },
+            { kode: "a | b", arti: "OR bitwise: bit menjadi 1 kalau salah satu atau keduanya bernilai 1. Hasilnya 7." },
+            { kode: "a ^ b", arti: "XOR bitwise: bit menjadi 1 kalau kedua bit berbeda. Hasilnya 5." },
+            { kode: "~a", arti: "Membalik bit. Dalam Python, ~6 bernilai -7 karena bilangan bulat memakai konsep two’s complement." },
+            { kode: "a << 1", arti: "Menggeser bit ke kiri satu posisi. Untuk angka ini hasilnya 12." },
+            { kode: "a >> 1", arti: "Menggeser bit ke kanan satu posisi. Untuk angka ini hasilnya 3." },
+          ],
+          contohKasus: {
+            judul: "Menyimpan beberapa izin dalam satu angka",
+            kode: "baca = 1\ntulis = 2\nhapus = 4\n\nizin = baca | tulis\nprint(izin & tulis != 0)\nprint(izin & hapus != 0)",
+            kapan: "Satu angka dapat menyimpan banyak tanda izin secara hemat. Cara seperti ini masih dipakai pada permission, konfigurasi perangkat, dan data yang membutuhkan pemeriksaan flag dengan cepat.",
+          },
+          kesalahan: [
+            {
+              salah: "print(6 and 3)",
+              benar: "print(6 & 3)",
+              catatan: "and adalah operator logika, sedangkan & adalah AND bitwise. Keduanya punya aturan dan tujuan yang berbeda.",
+            },
+            {
+              salah: "print(6 | 3.5)",
+              benar: "print(6 | 3)",
+              catatan: "Operator bitwise digunakan pada bilangan bulat. Ubah nilai desimal menjadi int terlebih dahulu jika memang itu yang diinginkan.",
+            },
+            {
+              salah: "print(6 << 3)  # mengira dikali 3",
+              benar: "print(6 << 3)  # sama dengan 6 * 2**3",
+              catatan: "Geser kiri sebanyak n posisi setara dengan mengalikan 2 pangkat n, bukan mengalikan langsung dengan n.",
+            },
+          ],
+          latihan: "Gunakan a = 12 dan b = 10. Tampilkan hasil a & b, a | b, a ^ b, a << 1, dan a >> 1.",
+          playground: "a = 6  # 110\nb = 3  # 011\n\nprint(a & b)\nprint(a | b)\nprint(a ^ b)\nprint(~a)\nprint(a << 1)\nprint(a >> 1)",
+        },
+        {
+          id: "operator-identitas",
+          level: 3,
+          judul: "Operator Identitas (is dan is not)",
+          pertanyaan: "Bagaimana cara mengecek apakah dua variable menunjuk objek yang sama?",
+          penjelasan: [
+            "Operator identitas dipakai untuk mengecek identitas objek, bukan sekadar apakah nilainya terlihat sama. Python menyediakan is dan is not.",
+            "is bernilai True kalau dua variable menunjuk objek yang sama. is not bernilai True kalau keduanya menunjuk objek yang berbeda.",
+            "is tidak sama dengan ==. Tanda == membandingkan isi atau nilai, sedangkan is membandingkan objeknya. Dua list bisa punya isi sama tetapi tetap merupakan dua objek berbeda.",
+            "Penggunaan paling umum adalah memeriksa None: if data is None:. Untuk membandingkan angka, string, atau isi list, gunakan == dan !=.",
+          ],
+          analogi: [
+            "== seperti membandingkan isi dua kotak: apakah barang di dalamnya sama?",
+            "is seperti memeriksa nomor kotaknya: apakah dua nama menunjuk kotak fisik yang sama?",
+            "Dua kotak bisa berisi pensil yang sama persis, tetapi bukan kotak yang sama. Itulah perbedaan == dan is.",
+          ],
+          kode: "a = [1, 2]\nb = [1, 2]\nc = a\n\nprint(a == b)       # True, isinya sama\nprint(a is b)       # False, objek berbeda\nprint(a is c)       # True, objek yang sama\n\ndata = None\nprint(data is None)\nprint(data is not None)",
+          penjelasanKode: [
+            { kode: "a = [1, 2]", arti: "Membuat list pertama." },
+            { kode: "b = [1, 2]", arti: "Membuat list kedua. Isinya sama, tetapi objeknya dibuat terpisah." },
+            { kode: "c = a", arti: "c menjadi nama lain yang menunjuk list yang sama dengan a." },
+            { kode: "a == b", arti: "Membandingkan isi. Hasilnya True karena kedua list berisi 1 dan 2." },
+            { kode: "a is b", arti: "Membandingkan identitas. Hasilnya False karena a dan b adalah objek berbeda." },
+            { kode: "a is c", arti: "Hasilnya True karena a dan c menunjuk objek list yang sama." },
+            { kode: "data is None", arti: "Cara yang dianjurkan untuk mengecek apakah data belum berisi nilai." },
+            { kode: "data is not None", arti: "Mengecek kebalikannya: data sudah bukan None." },
+          ],
+          contohKasus: {
+            judul: "Memeriksa data opsional",
+            kode: 'hasil = None\n\nif hasil is None:\n    print("Belum ada hasil")\nelse:\n    print("Hasil siap dipakai:", hasil)',
+            kapan: "None sering berarti data belum tersedia, misalnya hasil pencarian belum ditemukan atau pilihan pengguna belum diisi. is None membedakan keadaan kosong tersebut secara jelas dari angka 0 atau string kosong.",
+          },
+          kesalahan: [
+            {
+              salah: 'if nama is "Anam":',
+              benar: 'if nama == "Anam":',
+              catatan: "Untuk membandingkan nilai string gunakan ==. is dikhususkan untuk identitas objek dan paling sering dipakai dengan None.",
+            },
+            {
+              salah: "if data == None:",
+              benar: "if data is None:",
+              catatan: "== masih bisa menghasilkan jawaban yang tampak benar, tetapi gaya Python yang dianjurkan untuk None adalah is None.",
+            },
+            {
+              salah: "if data is not:",
+              benar: "if data is not None:",
+              catatan: "is not harus diikuti nilai yang ingin dibandingkan, misalnya None.",
+            },
+          ],
+          latihan: "Buat a = [10, 20], b = a, dan c = [10, 20]. Tampilkan hasil a is b, a is c, a == c, dan c is not a.",
+          playground: "a = [10, 20]\nb = a\nc = [10, 20]\n\nprint(a is b)\nprint(a is c)\nprint(a == c)\nprint(c is not a)",
+        },
+        {
+          id: "operator-keanggotaan",
+          level: 3,
+          judul: "Operator Keanggotaan (in dan not in)",
+          pertanyaan: "Bagaimana cara mengecek apakah sebuah nilai ada di dalam kumpulan data?",
+          penjelasan: [
+            "Operator keanggotaan dipakai untuk mencari keberadaan sebuah nilai di dalam container atau kumpulan data. Operatornya adalah in dan not in.",
+            "in bernilai True kalau item ditemukan. not in bernilai True kalau item tidak ditemukan. Operator ini bisa dipakai pada string, list, tuple, set, dan dictionary.",
+            "Pada dictionary, in mengecek kunci, bukan value. Pada string, in mengecek apakah sebuah teks muncul sebagai bagian dari teks yang lebih panjang.",
+            "Operator keanggotaan membantu kita mengecek data sebelum mengaksesnya, sehingga kode lebih aman dan mudah dibaca.",
+          ],
+          analogi: [
+            "Bayangkan kamu mencari nama di daftar hadir. Pertanyaan “Apakah Sari ada di daftar?” adalah contoh in.",
+            "Pertanyaan “Apakah nama itu belum ada di daftar?” adalah contoh not in.",
+            "Kamu tidak perlu memeriksa baris satu per satu secara manual; Python melakukan pencarian untukmu.",
+          ],
+          kode: 'buah = ["apel", "mangga", "pisang"]\n\nprint("apel" in buah)\nprint("durian" not in buah)\n\nnama = "Python"\nprint("Py" in nama)\n\nharga = {"beras": 12000, "gula": 13000}\nprint("beras" in harga)\nprint("teh" not in harga)',
+          penjelasanKode: [
+            { kode: '"apel" in buah', arti: "Mengecek apakah string apel ada di list buah. Hasilnya True." },
+            { kode: '"durian" not in buah', arti: "Mengecek bahwa durian tidak ada di list. Hasilnya True." },
+            { kode: '"Py" in nama', arti: "Mengecek substring. Py adalah bagian dari tulisan Python." },
+            { kode: '"beras" in harga', arti: "Pada dictionary, yang dicari oleh in adalah kunci beras." },
+            { kode: '"teh" not in harga', arti: "Kunci teh tidak ada, jadi hasil not in adalah True." },
+          ],
+          contohKasus: {
+            judul: "Validasi barang sebelum mengambil harga",
+            kode: 'harga = {"beras": 12000, "minyak": 15000}\nbarang = "gula"\n\nif barang in harga:\n    print("Harga:", harga[barang])\nelse:\n    print("Barang belum tersedia")',
+            kapan: "Sebelum mengakses harga[barang], cek dulu apakah barang in harga. Pola ini mencegah KeyError dan berguna untuk katalog, daftar username, validasi pilihan menu, serta pencarian teks.",
+          },
+          kesalahan: [
+            {
+              salah: 'if buah in "apel":',
+              benar: 'if "apel" in buah:',
+              catatan: "Nilai yang dicari ditulis di sebelah kiri, sedangkan list atau container ditulis di sebelah kanan.",
+            },
+            {
+              salah: 'if "Beras" in harga:',
+              benar: 'if "beras" in harga:',
+              catatan: "Pencarian string peka huruf besar-kecil. Beras dan beras dianggap berbeda.",
+            },
+            {
+              salah: 'if 12000 in harga:',
+              benar: 'if "beras" in harga:',
+              catatan: "in pada dictionary mencari kunci, bukan value. Untuk mencari value, gunakan harga.values().",
+            },
+          ],
+          latihan: 'Buat list warna = ["merah", "biru", "hijau"]. Tampilkan hasil "biru" in warna dan "kuning" not in warna.',
+          playground: 'warna = ["merah", "biru", "hijau"]\n\nprint("biru" in warna)\nprint("kuning" not in warna)',
         },
 
         /* ===================== LEVEL 4 ===================== */
@@ -6255,6 +6410,30 @@ Tahun depan umurmu 18</span>
           level: 3,
         },
         {
+          pertanyaan: "Apa hasil dari 6 & 3?",
+          opsi: ["1", "2", "5", "7"],
+          jawaban: 1,
+          penjelasan:
+            "6 adalah 110 dan 3 adalah 011 dalam biner. AND hanya menyisakan bit yang sama-sama 1, yaitu 010 atau 2.",
+          level: 3,
+        },
+        {
+          pertanyaan: "Operator apa yang tepat untuk mengecek bahwa data belum memiliki nilai?",
+          opsi: ["data == None", "data is None", "data in None", "data != None"],
+          jawaban: 1,
+          penjelasan:
+            "Gunakan is None untuk memeriksa identitas nilai None. is dipakai untuk identitas objek, bukan membandingkan isi biasa.",
+          level: 3,
+        },
+        {
+          pertanyaan: 'Apa hasil dari "apel" in ["apel", "mangga"]?',
+          opsi: ["apel", "True", "False", "Error"],
+          jawaban: 1,
+          penjelasan:
+            "in mengecek apakah item ada di dalam list. Karena apel ada di list, hasilnya True.",
+          level: 3,
+        },
+        {
           pertanyaan: "Apa fungsi dari if?",
           opsi: [
             "Mengulang kode beberapa kali",
@@ -6780,8 +6959,10 @@ Tahun depan umurmu 18</span>
          - print(...) dengan beberapa argumen
          - variable: nama = nilai (termasuk += -= *=)
          - tipe data: string, integer, float, boolean, None, list
-         - operator: + - * / // % ** dan perbandingan == != < > <= >=
-         - operator logika: and, or, not, in
+         - operator: + - * / // % **, bitwise & | ^ ~ << >>,
+           dan perbandingan == != < > <= >=
+         - operator logika: and, or, not
+         - operator keanggotaan dan identitas: in, not in, is, is not
          - percabangan: if / elif / else
          - perulangan: for ... in range(...) dan while
          - break, continue, pass
@@ -6814,7 +6995,7 @@ Tahun depan umurmu 18</span>
         { tipe: "NAME", re: /[A-Za-z_][A-Za-z0-9_]*/y },
         {
           tipe: "OP",
-          re: /(?:\*\*|\/\/|\+=|-=|\*=|==|!=|<=|>=|[-+*/%=<>(),:\[\]{}.]|and\b|or\b|not\b|in\b|is\b)/y,
+          re: /(?:\*\*|\/\/|<<|>>|\+=|-=|\*=|==|!=|<=|>=|[-+*/%=<>!&|^~(),:\[\]{}.]|and\b|or\b|not\b|in\b|is\b)/y,
         },
       ];
 
@@ -7148,7 +7329,7 @@ Tahun depan umurmu 18</span>
       };
 
       Parser.prototype.parseComparison = function () {
-        var left = this.parseAdditive();
+        var left = this.parseBitwiseOr();
         for (;;) {
           var t = this.lihat();
           if (
@@ -7156,14 +7337,55 @@ Tahun depan umurmu 18</span>
             (t.tipe === "NAME" && (t.nilai === "in" || t.nilai === "is"))
           ) {
             this.berikut();
-            left = { tipe: "Compare", op: t.nilai, left: left, right: this.parseAdditive() };
+            var op = t.nilai;
+            if (op === "is" && this.adalah("NAME", "not")) {
+              this.berikut();
+              op = "is not";
+            }
+            left = { tipe: "Compare", op: op, left: left, right: this.parseBitwiseOr() };
           } else if (t.tipe === "NAME" && t.nilai === "not" && this.lihat(1).nilai === "in") {
             this.berikut();
             this.berikut();
-            left = { tipe: "Compare", op: "not in", left: left, right: this.parseAdditive() };
+            left = { tipe: "Compare", op: "not in", left: left, right: this.parseBitwiseOr() };
           } else {
             break;
           }
+        }
+        return left;
+      };
+
+      Parser.prototype.parseBitwiseOr = function () {
+        var left = this.parseBitwiseXor();
+        while (this.adalah("OP", "|")) {
+          this.berikut();
+          left = { tipe: "Binary", op: "|", left: left, right: this.parseBitwiseXor() };
+        }
+        return left;
+      };
+
+      Parser.prototype.parseBitwiseXor = function () {
+        var left = this.parseBitwiseAnd();
+        while (this.adalah("OP", "^")) {
+          this.berikut();
+          left = { tipe: "Binary", op: "^", left: left, right: this.parseBitwiseAnd() };
+        }
+        return left;
+      };
+
+      Parser.prototype.parseBitwiseAnd = function () {
+        var left = this.parseShift();
+        while (this.adalah("OP", "&")) {
+          this.berikut();
+          left = { tipe: "Binary", op: "&", left: left, right: this.parseShift() };
+        }
+        return left;
+      };
+
+      Parser.prototype.parseShift = function () {
+        var left = this.parseAdditive();
+        while (this.adalah("OP", "<<") || this.adalah("OP", ">>")) {
+          var op = this.berikut().nilai;
+          left = { tipe: "Binary", op: op, left: left, right: this.parseAdditive() };
         }
         return left;
       };
@@ -7192,7 +7414,11 @@ Tahun depan umurmu 18</span>
       };
 
       Parser.prototype.parseUnary = function () {
-        if (this.adalah("OP", "-") || this.adalah("OP", "+")) {
+        if (
+          this.adalah("OP", "-") ||
+          this.adalah("OP", "+") ||
+          this.adalah("OP", "~")
+        ) {
           var op = this.berikut().nilai;
           return { tipe: "Unary", op: op, value: this.parseUnary() };
         }
@@ -7749,7 +7975,9 @@ Tahun depan umurmu 18</span>
 
           case "Unary": {
             var v = this.evaluasi(node.value);
-            return node.op === "-" ? -v : v;
+            if (node.op === "-") return -v;
+            if (node.op === "~") return ~v;
+            return v;
           }
 
           case "Not":
@@ -8175,6 +8403,8 @@ Tahun depan umurmu 18</span>
             return !mengandung(right, left);
           case "is":
             return left === right;
+          case "is not":
+            return left !== right;
           default:
             throw new PyError('RuntimeError: operator "' + op + '" belum didukung');
         }
@@ -8214,6 +8444,16 @@ Tahun depan umurmu 18</span>
             return left % right;
           case "**":
             return Math.pow(left, right);
+          case "&":
+            return left & right;
+          case "|":
+            return left | right;
+          case "^":
+            return left ^ right;
+          case "<<":
+            return left << right;
+          case ">>":
+            return left >> right;
           default:
             throw new PyError('RuntimeError: operator "' + op + '" belum didukung');
         }
