@@ -1206,7 +1206,7 @@
         min-width: 520px;
       }
       .reference-table.is-narrow {
-        width: min(100%, 520px);
+        width: 100%;
         min-width: 0;
       }
       .reference-table th,
@@ -1237,6 +1237,41 @@
       .reference-table.is-compact th,
       .reference-table.is-compact td {
         text-align: center;
+      }
+
+      /* Tabel sempit (mis. Tabel Biner Dasar 0–10) dipusatkan supaya card
+         tidak membentang penuh dan menyisakan ruang kosong di kanan. */
+      .reference-table-card.is-narrow-card {
+        width: 100%;
+        max-width: 560px;
+        margin-inline: auto;
+      }
+
+      /* Di desktop lebar, dua tabel kompak ditampilkan berdampingan supaya
+         ruang terisi penuh; tabel lebar tetap satu baris penuh di bawahnya. */
+      @media (min-width: 1200px) {
+        .bitwise-reference .reference-tables {
+          grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+          align-items: start;
+        }
+        .bitwise-reference .reference-table-card.is-narrow-card {
+          max-width: none;
+          margin-inline: 0;
+        }
+        .bitwise-reference .reference-table-card.is-wide-card {
+          grid-column: 1 / -1;
+        }
+        .bitwise-reference .reference-table.is-compact {
+          min-width: 0;
+          width: 100%;
+        }
+        .bitwise-reference .reference-table.is-compact thead th {
+          white-space: normal;
+          vertical-align: bottom;
+        }
+        .bitwise-reference .reference-scroll-hint {
+          display: none;
+        }
       }
 
       .callout {
@@ -10448,8 +10483,13 @@ Tahun depan umurmu 18</span>
                   })
                   .join("");
 
+                var cardMod = tabel.narrow
+                  ? " is-narrow-card"
+                  : tabel.ringkas
+                    ? " is-compact-card"
+                    : " is-wide-card";
                 return (
-                  '<div class="reference-table-card">' +
+                  '<div class="reference-table-card' + cardMod + '">' +
                   '<h3 class="reference-table-title">' +
                   escapeHtml(tabel.judul) +
                   "</h3>" +
