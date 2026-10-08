@@ -1158,6 +1158,87 @@
         color: var(--text-muted);
       }
 
+      /* ---------- Tabel ringkasan materi ---------- */
+      .reference-intro {
+        max-width: 76ch;
+        color: var(--text-muted);
+      }
+      .reference-scroll-hint {
+        margin: 0 0 0.55rem;
+        color: var(--text-muted);
+        font-size: 0.8rem;
+      }
+      .reference-tables {
+        display: grid;
+        gap: 1rem;
+      }
+      .reference-table-card {
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+      .reference-table-title {
+        margin: 0;
+        padding: 0.85rem 1rem;
+        border-bottom: 1px solid var(--border);
+        background: var(--bg-soft);
+        font-size: 1rem;
+      }
+      .reference-table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .reference-table-scroll:focus-visible {
+        outline: 3px solid var(--primary);
+        outline-offset: -3px;
+      }
+      .reference-table {
+        width: 100%;
+        min-width: 720px;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+      .reference-table.is-compact {
+        min-width: 520px;
+      }
+      .reference-table.is-narrow {
+        width: min(100%, 520px);
+        min-width: 0;
+      }
+      .reference-table th,
+      .reference-table td {
+        padding: 0.7rem 0.8rem;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      .reference-table thead th {
+        background: var(--bg-soft);
+        color: var(--text);
+        font-size: 0.82rem;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .reference-table tbody tr:nth-child(even) {
+        background: var(--bg-soft);
+      }
+      .reference-table tbody tr:last-child td,
+      .reference-table tbody tr:last-child th {
+        border-bottom: 0;
+      }
+      .reference-table tbody th[scope="row"] {
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+      .reference-table.is-compact th,
+      .reference-table.is-compact td {
+        text-align: center;
+      }
+
       .callout {
         border-radius: var(--radius);
         border: 1px solid var(--border);
@@ -2906,10 +2987,9 @@ Tahun depan umurmu 18</span>
       /* =========================================================
          BAGIAN 1 — DATA MATERI LEVEL 1 s/d 5
 
-         Setiap materi punya bagian yang selalu sama:
-         pertanyaan, penjelasan, analogi, kode, penjelasanKode,
-         contohKasus (judul, kode, kapan dipakai), kesalahan,
-         latihan, dan playground (opsional).
+         Materi berisi pertanyaan, penjelasan, analogi, kode,
+         penjelasanKode, contohKasus, kesalahan, dan latihan.
+         tabelHafalan serta playground bersifat opsional.
          ========================================================= */
 
       var LEVELS_1 = [
@@ -3882,6 +3962,56 @@ Tahun depan umurmu 18</span>
             "Contoh: 6 dalam biner adalah 110 dan 3 adalah 011. Maka 6 & 3 menghasilkan 010, yaitu 2. Hasilnya lebih mudah dipahami kalau angka biner ditulis sebagai komentar di samping kode.",
             "Operator bitwise terutama dipakai untuk flag, permission, mask, protokol, dan pekerjaan tingkat rendah. Untuk hitungan sehari-hari, operator matematika biasanya lebih tepat.",
           ],
+          tabelHafalan: {
+            judul: "Tabel hafalan operator bitwise",
+            pengantar: "Mulai dengan mencocokkan angka desimal ke binernya pada tabel 0–10. Setelah itu, tabel kebenaran menunjukkan hasil &, |, dan ^ untuk setiap pasangan bit. Contoh operator menggunakan a = 6 (110) dan b = 3 (011).",
+            kunci: "AND (&): kedua bit harus 1. OR (|): minimal satu bit bernilai 1. XOR (^): kedua bit berbeda.",
+            tabel: [
+              {
+                judul: "Tabel Biner Dasar (0–10)",
+                ringkas: true,
+                narrow: true,
+                kolom: ["Desimal", "Biner"],
+                baris: [
+                  ["0", "000"],
+                  ["1", "001"],
+                  ["2", "010"],
+                  ["3", "011"],
+                  ["4", "100"],
+                  ["5", "101"],
+                  ["6", "110"],
+                  ["7", "111"],
+                  ["8", "1000"],
+                  ["9", "1001"],
+                  ["10", "1010"],
+                ],
+              },
+              {
+                judul: "Tabel kebenaran &, |, dan ^",
+                ringkas: true,
+                kolom: ["Bit A", "Bit B", "A & B (AND)", "A | B (OR)", "A ^ B (XOR)"],
+                baris: [
+                  ["0", "0", "0", "0", "0"],
+                  ["0", "1", "0", "1", "1"],
+                  ["1", "0", "0", "1", "1"],
+                  ["1", "1", "1", "1", "0"],
+                ],
+              },
+              {
+                judul: "Ringkasan semua operator bitwise",
+                kolomPertamaHeader: true,
+                kolom: ["Operator", "Nama", "Aturan singkat", "Contoh"],
+                baris: [
+                  ["&", "AND", "Hasil 1 hanya jika kedua bit sama-sama 1.", "110 & 011 = 010 (2)"],
+                  ["|", "OR", "Hasil 1 jika minimal satu bit bernilai 1.", "110 | 011 = 111 (7)"],
+                  ["^", "XOR", "Hasil 1 jika kedua bit berbeda.", "110 ^ 011 = 101 (5)"],
+                  ["~", "NOT / komplemen", "Membalik bit. Untuk integer Python berlaku ~n = -(n + 1).", "~6 = -7"],
+                  ["<< n", "Geser kiri", "Geser n posisi; untuk bilangan nonnegatif setara dengan dikali 2**n.", "6 << 1 = 12"],
+                  [">> n", "Geser kanan", "Geser n posisi; untuk bilangan nonnegatif setara dengan pembagian bulat oleh 2**n.", "6 >> 1 = 3"],
+                ],
+              },
+            ],
+          },
           analogi: [
             "Bayangkan setiap bit sebagai sakelar kecil yang hanya punya dua keadaan: mati (0) atau menyala (1).",
             "& hanya menyalakan sakelar kalau kedua sakelar pasangannya menyala. | menyalakan kalau minimal salah satunya menyala, sedangkan ^ menyalakan kalau keduanya berbeda.",
@@ -10275,6 +10405,73 @@ Tahun depan umurmu 18</span>
           })
           .join("");
 
+        /* Tabel ringkasan opsional untuk membantu menghafal konsep. */
+        var tabelHafalan = materi.tabelHafalan
+          ? '<section class="materi-section bitwise-reference">' +
+            '<h2><span class="sec-icon" aria-hidden="true">📋</span>' +
+            escapeHtml(materi.tabelHafalan.judul) +
+            "</h2>" +
+            '<p class="reference-intro">' +
+            escapeHtml(materi.tabelHafalan.pengantar) +
+            "</p>" +
+            '<p class="reference-scroll-hint">Di layar kecil, geser tabel ke samping untuk melihat seluruh kolom.</p>' +
+            '<div class="reference-tables">' +
+            materi.tabelHafalan.tabel
+              .map(function (tabel) {
+                var kepala = tabel.kolom
+                  .map(function (kolom) {
+                    return '<th scope="col">' + escapeHtml(kolom) + "</th>";
+                  })
+                  .join("");
+                var isi = tabel.baris
+                  .map(function (baris) {
+                    return (
+                      "<tr>" +
+                      baris
+                        .map(function (sel, indexSel) {
+                          var headerBaris = tabel.kolomPertamaHeader && indexSel === 0;
+                          var tag = headerBaris ? "th" : "td";
+                          return (
+                            "<" +
+                            tag +
+                            (headerBaris ? ' scope="row"' : "") +
+                            ">" +
+                            escapeHtml(sel) +
+                            "</" +
+                            tag +
+                            ">"
+                          );
+                        })
+                        .join("") +
+                      "</tr>"
+                    );
+                  })
+                  .join("");
+
+                return (
+                  '<div class="reference-table-card">' +
+                  '<h3 class="reference-table-title">' +
+                  escapeHtml(tabel.judul) +
+                  "</h3>" +
+                  '<div class="reference-table-scroll" role="region" tabindex="0" aria-label="' +
+                  escapeHtml(tabel.judul + ". Geser tabel ke samping untuk melihat seluruh kolom.") +
+                  '"><table class="reference-table' +
+                  (tabel.ringkas ? " is-compact" : "") +
+                  (tabel.narrow ? " is-narrow" : "") +
+                  '"><thead><tr>' +
+                  kepala +
+                  "</tr></thead><tbody>" +
+                  isi +
+                  "</tbody></table></div></div>"
+                );
+              })
+              .join("") +
+            "</div>" +
+            '<div class="callout callout-tip reference-memory-key"><div class="callout-title">Kunci hafalan</div><p>' +
+            escapeHtml(materi.tabelHafalan.kunci) +
+            "</p></div></section>"
+          : "";
+
         /* Kesalahan umum */
         var kesalahan = (materi.kesalahan || [])
           .map(function (item) {
@@ -10377,6 +10574,8 @@ Tahun depan umurmu 18</span>
           '<h2><span class="sec-icon" aria-hidden="true">🧠</span>Penjelasan sederhana</h2>' +
           materi.penjelasan.map(function (p) { return "<p>" + escapeHtml(p) + "</p>"; }).join("") +
           "</section>" +
+
+          tabelHafalan +
 
           '<section class="materi-section">' +
           '<h2><span class="sec-icon" aria-hidden="true">🏠</span>Analogi kehidupan nyata</h2>' +
