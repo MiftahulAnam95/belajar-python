@@ -2622,7 +2622,7 @@
               <div
                 class="editor"
                 role="img"
-                aria-label="Contoh editor kode Python yang menampilkan variable dan print"
+                aria-label="Contoh editor kode Python yang menampilkan variable, f-string, dan print"
               >
                 <div class="editor-bar">
                   <span class="dot dot-red" aria-hidden="true"></span>
@@ -2633,8 +2633,8 @@
                 <pre class="editor-body" data-highlight>nama = "Anam"
 umur = 17
 
-print("Halo,", nama)
-print("Tahun depan umurmu", umur + 1)</pre>
+print(f"Halo, {nama}")
+print(f"Tahun depan umurmu {umur + 1}")</pre>
                 <div class="editor-foot">
                   <span class="editor-label">Output</span>
                   <span class="editor-output">Halo, Anam
@@ -2885,6 +2885,7 @@ Tahun depan umurmu 18</span>
             <p>
               Playground di halaman materi adalah <strong>simulasi</strong> yang ditulis dengan JavaScript.
               Ia mendukung syntax Python dasar seperti <code>print()</code>, variable, perhitungan,
+              <code>f-string</code> (termasuk <code>{harga:,}</code> dan <code>{nilai:.2f}</code>),
               <code>if/else</code>, dan <code>for ... in range()</code>.
               Struktur kodenya dibuat modular, jadi runtime Python sungguhan (misalnya Pyodide)
               bisa ditambahkan nanti tanpa mengubah tampilan.
@@ -3036,7 +3037,8 @@ Tahun depan umurmu 18</span>
         {
           no: 2,
           judul: "Variable & Data",
-          deskripsi: "Belajar menyimpan data: string, angka, boolean, dan cara mengubah tipe data.",
+          deskripsi:
+            "Belajar menyimpan data: string, angka, boolean, cara mengubah tipe data, dan menyisipkan nilai ke dalam tulisan dengan f-string.",
         },
         {
           no: 3,
@@ -3155,6 +3157,7 @@ Tahun depan umurmu 18</span>
             "Tanda kurung setelah print wajib ada. Apa pun yang kamu taruh di dalam kurung itulah yang akan ditampilkan.",
             "Kamu bisa menampilkan tulisan (harus pakai tanda kutip), angka (tanpa tanda kutip), atau isi variable.",
             "Kalau kamu memberi lebih dari satu isi, pisahkan dengan koma. Python akan menampilkannya dipisah spasi.",
+            "Kalau isinya bercampur antara tulisan dan isi variable, ada cara yang lebih rapi bernama f-string. Caranya dibahas di Level 2, di materi f-string.",
           ],
           analogi: [
             "print() itu seperti pengeras suara.",
@@ -3414,7 +3417,7 @@ Tahun depan umurmu 18</span>
               salah: 'print("Halo, " + 17)',
               benar: 'print("Halo,", 17)',
               catatan:
-                "String tidak bisa langsung dijumlah dengan angka. Pakai koma, atau ubah angkanya dulu: str(17).",
+                "String tidak bisa langsung dijumlah dengan angka. Pakai koma, atau ubah angkanya dulu: str(17). Cara paling rapi: pakai f-string, misalnya f\"Halo, {17}\" — dibahas di materi f-string.",
             },
             {
               salah: 'nama = "Anam',
@@ -3432,6 +3435,104 @@ Tahun depan umurmu 18</span>
           latihan:
             "Buat variable salam berisi \"Selamat pagi\" dan variable nama berisi namamu. Gabungkan keduanya dan tampilkan hasilnya.",
           playground: 'nama_depan = "Anam"\nnama_belakang = "Pratama"\n\nprint(nama_depan + " " + nama_belakang)\nprint("Halo, " + nama_depan)\nprint(nama_depan[0])',
+        },
+        {
+          id: "f-string",
+          level: 2,
+          judul: "f-string",
+          pertanyaan: "Bagaimana cara menyisipkan isi variable ke dalam tulisan tanpa sibuk menambah tanda +?",
+          penjelasan: [
+            "f-string adalah cara paling praktis menyisipkan nilai ke dalam sebuah tulisan. Caranya: tulis huruf f tepat sebelum tanda kutip, lalu taruh bagian yang mau diganti di dalam kurung kurawal { }.",
+            "Contoh: nilai = 90, lalu print(f\"ini adalah nilai = {nilai}\"). Python mengganti {nilai} dengan isi kotak nilai, jadi yang tampil di layar: ini adalah nilai = 90.",
+            "Isi kurung kurawal tidak harus nama variable. Boleh juga perhitungan seperti {umur + 1}, pemanggilan function seperti {len(nama)}, atau method seperti {nama.upper()}.",
+            "Karena bagian yang diganti sudah ditandai kurung kurawal, kita tidak perlu lagi menyambung tulisan dengan tanda + dan tidak perlu mengubah angka menjadi tulisan memakai str().",
+            "Kalau angkanya ingin dirapikan, tambahkan tanda titik dua setelah nama variable, misalnya {harga:,} atau {nilai:.2f}. Daftar singkatnya ada di tabel bawah.",
+          ],
+          tabelHafalan: {
+            judul: "Tabel bantu: isi kurung kurawal",
+            pengantar: "Bagian di dalam { } bisa berisi banyak hal, mulai dari nama variable sampai perintah perapian angka. Tabel ini merangkum yang paling sering dipakai. Contoh di bawah memakai variable nama = \"Anam\", umur = 17, harga = 45000, nilai = 87.5, dan persen = 0.85. Catatan: pemisah ribuan di Python memakai koma gaya Inggris (45,000), bukan titik.",
+            kunci: "Polanya selalu sama: huruf f, tanda kutip, lalu tulisan yang berisi {isi}. Kurung kurawal harus berpasangan — { tanpa } membuat Python melaporkan SyntaxError.",
+            tabel: [
+              {
+                judul: "Yang bisa ditulis di dalam kurung kurawal",
+                kolomPertamaHeader: true,
+                kolom: ["Ditulis", "Hasil", "Kegunaan"],
+                baris: [
+                  ["f\"Halo, {nama}\"", "Halo, Anam", "Menyisipkan isi variable ke dalam tulisan."],
+                  ["f\"Umur: {umur + 1}\"", "Umur: 18", "Menghitung dulu, lalu menyisipkan hasilnya."],
+                  ["f\"Panjang: {len(nama)}\"", "Panjang: 4", "Memanggil function di dalam kurung kurawal."],
+                  ["f\"Nama: {nama.upper()}\"", "Nama: ANAM", "Memakai method untuk mengubah tulisan."],
+                  ["f\"Rp {harga:,}\"", "Rp 45,000", "Menambahkan pemisah ribuan memakai koma."],
+                  ["f\"{nilai:.2f}\"", "87.50", "Menentukan jumlah angka di belakang koma."],
+                  ["f\"{persen:.1%}\"", "85.0%", "Mengubah angka desimal menjadi persen."],
+                  ["f\"{nama:>8}\"", "Anam (rata kanan)", "Mengatur lebar 8 karakter. Karena Anam hanya 4 huruf, di depannya ada 4 spasi."],
+                  ["f\"{{dan}}\"", "{dan}", "Menampilkan kurung kurawal apa adanya."],
+                ],
+              },
+            ],
+          },
+          analogi: [
+            "f-string itu seperti template undangan yang sudah dilubangi.",
+            "Kamu menulis “Halo, {nama}! Kamu mendapat {hadiah}”, lalu setiap kali dipakai, lubang {nama} dan {hadiah} tinggal diisi orang yang berbeda.",
+            "Tanpa f-string, kamu menyusun kalimat sepotong-sepotong dengan lem (tanda +): \"Halo, \" + nama + \"! Kamu mendapat \" + hadiah. Hasilnya sama, tapi tulisannya lebih panjang dan mudah salah.",
+          ],
+          kode: 'nama = "Anam"\numur = 17\ntotal = 45000\nnilai = 87.456\n\nprint(f"Halo, nama saya {nama}")\nprint(f"Umur saya {umur} tahun, tahun depan {umur + 1}")\nprint(f"Total belanja: Rp {total:,}")\nprint(f"Nilai ujian: {nilai:.2f}")',
+          penjelasanKode: [
+            {
+              kode: 'nama = "Anam"',
+              arti: "Kita siapkan dulu datanya di dalam variable, seperti biasa.",
+            },
+            {
+              kode: 'print(f"Halo, nama saya {nama}")',
+              arti: "Huruf f sebelum tanda kutip memberi tahu Python: di dalam tulisan ini ada bagian yang harus diganti. {nama} diganti isi kotaknya, jadi hasilnya: Halo, nama saya Anam.",
+            },
+            {
+              kode: 'print(f"Umur saya {umur} tahun, tahun depan {umur + 1}")',
+              arti: "Di dalam kurung kurawal boleh ada perhitungan. Python menghitung umur + 1 lebih dulu, lalu menggantinya. Hasilnya: Umur saya 17 tahun, tahun depan 18.",
+            },
+            {
+              kode: 'print(f"Total belanja: Rp {total:,}")',
+              arti: "Tanda titik dua dan koma (:, ) meminta Python menambahkan pemisah ribuan. Hasilnya: Total belanja: Rp 45,000.",
+            },
+            {
+              kode: 'print(f"Nilai ujian: {nilai:.2f}")',
+              arti: "Tanda .2f artinya tampilkan 2 angka di belakang koma. Nilai 87.456 dibulatkan menjadi 87.46, jadi hasilnya: Nilai ujian: 87.46.",
+            },
+          ],
+          contohKasus: {
+            judul: "Nota pesanan yang rapi",
+            kode: 'nama = "Dina"\nmenu = "Nasi Goreng"\nporsi = 2\nharga = 25000\n\ntotal = porsi * harga\nprint(f"Pelanggan : {nama}")\nprint(f"Pesanan   : {menu} x {porsi}")\nprint(f"Total     : Rp {total:,}")',
+            kapan: "f-string adalah cara standar menyusun tulisan yang isinya bercampur data: nota, struk, email otomatis, notifikasi, sampai laporan. Program-profesional memakai f-string justru karena tulisannya tetap mudah dibaca walaupun datanya banyak.",
+          },
+          kesalahan: [
+            {
+              salah: 'print("Halo, {nama}")',
+              benar: 'print(f"Halo, {nama}")',
+              catatan:
+                "Tanpa huruf f di depan tanda kutip, kurung kurawal tidak diproses Python. Hasilnya muncul apa adanya: Halo, {nama}.",
+            },
+            {
+              salah: 'print(f"Halo, nama saya {nama")',
+              benar: 'print(f"Halo, nama saya {nama}")',
+              catatan:
+                "Setiap { harus punya pasangan }. Kalau kurang, Python melaporkan SyntaxError karena tulisan itu dianggap belum selesai.",
+            },
+            {
+              salah: 'print(f"Halo, {nma}")',
+              benar: 'print(f"Halo, {nama}")',
+              catatan:
+                "Nama variable di dalam kurung kurawal harus ditulis persis sama, termasuk huruf besar dan kecilnya. Kalau salah ketik, Python mencari variable yang tidak ada dan melaporkan NameError.",
+            },
+            {
+              salah: 'nilai = 87.5\nprint(f"Nilai: {nilai:d}")',
+              benar: 'nilai = 87.5\nprint(f"Nilai: {nilai:.1f}")',
+              catatan:
+                ":d hanya untuk angka bulat. Kalau isinya angka desimal, pakai :f, misalnya {nilai:.1f} untuk satu angka di belakang koma.",
+            },
+          ],
+          latihan:
+            "Buat variable nama berisi namamu dan variable nilai berisi 90. Tampilkan keduanya dengan satu print f-string: “Nama saya [nama], nilai saya [nilai]”.",
+          playground: 'nama = "Anam"\nnilai = 90\nharga = 15000\njumlah = 3\n\nprint(f"ini adalah nilai = {nilai}")\nprint(f"Nama saya {nama}, nilai saya {nilai}")\nprint(f"Total bayar: Rp {harga * jumlah:,}")\nprint(f"Setengah nilai: {nilai / 2:.1f}")',
         },
         {
           id: "integer",
@@ -6819,6 +6920,24 @@ Tahun depan umurmu 18</span>
           level: 2,
         },
         {
+          pertanyaan:
+            'Kode berikut menghasilkan apa?\n\nnama = "Anam"\nprint(f"Halo, {nama}!")',
+          opsi: ["Halo, {nama}!", "Halo, Anam!", "Halo! Anam", "Error"],
+          jawaban: 1,
+          penjelasan:
+            "Huruf f memberi tahu Python bahwa {nama} harus diganti dengan isi variable tersebut. Karena nama berisi Anam, hasilnya Halo, Anam!",
+          level: 2,
+        },
+        {
+          pertanyaan:
+            'Kode berikut menghasilkan apa?\n\nnama = "Anam"\nprint("Halo, {nama}")',
+          opsi: ["Halo, Anam", "Halo, {nama}", "Error", "Halo, nama"],
+          jawaban: 1,
+          penjelasan:
+            "Tanpa huruf f di depan tanda kutip, kurung kurawal tidak diproses Python. Tulisan {nama} ditampilkan apa adanya.",
+          level: 2,
+        },
+        {
           pertanyaan: "Manakah nama variable yang BENAR di Python?",
           opsi: ["2nama", "nama saya", "nama_saya", "nama-saya"],
           jawaban: 2,
@@ -7063,6 +7182,29 @@ Tahun depan umurmu 18</span>
           },
         },
         {
+          pertanyaan:
+            "Buat variable nilai bernilai 90. Lalu tampilkan dengan f-string: nilai saya = 90.",
+          kodeAwal: "",
+          petunjuk: 'Huruf f ditaruh di depan tanda kutip: print(f"nilai saya = {nilai}")',
+          cek: function (jawaban) {
+            var bersih = jawaban.replace(/\s+/g, " ").trim();
+            var adaNilai = /nilai\s*=\s*90/.test(bersih);
+            var adaFString = /print\s*\(\s*f\s*["'][^"']*\{\s*nilai\s*\}[^"']*["']\s*\)/.test(bersih);
+
+            if (!adaNilai) return { benar: false, pesan: "Jangan lupa membuat variable nilai = 90." };
+            if (!adaFString)
+              return {
+                benar: false,
+                pesan:
+                  'Sekarang tampilkan dengan f-string: print(f"nilai saya = {nilai}"). Perhatikan huruf f di depan tanda kutip.',
+              };
+            return {
+              benar: true,
+              pesan: 'Benar! {nilai} diganti isi kotaknya, jadi yang tampil: nilai saya = 90.',
+            };
+          },
+        },
+        {
           pertanyaan: "Buat variable nilai bernilai 80. Kalau nilai >= 75, tampilkan tulisan Lulus.",
           kodeAwal: "nilai = 80\n",
           petunjuk: "Pakai if, akhiri barisnya dengan titik dua, lalu jorokkan print ke dalam.",
@@ -7193,6 +7335,13 @@ Tahun depan umurmu 18</span>
           arti: "String = tulisan atau teks.",
           analogi:
             "Seperti kalimat yang ditulis di kertas. Karena hanya kertas, isinya tidak bisa langsung dipakai untuk berhitung.",
+        },
+        {
+          istilah: "f-string",
+          arti:
+            "f-string = tulisan yang punya lubang { } untuk diisi data, ditandai huruf f di depan tanda kutip.",
+          analogi:
+            "Seperti template undangan yang sudah ada kolom kosongnya. Kamu tinggal mengisi kolom {nama} dan {hadiah} dengan orang yang berbeda-beda.",
         },
         {
           istilah: "Integer",
@@ -7339,6 +7488,22 @@ Tahun depan umurmu 18</span>
           ],
         },
         {
+          tanya: "Kenapa print saya butuh huruf f di depannya?",
+          jawab: [
+            "Huruf f adalah singkatan dari formatted string. Fungsinya memberi tahu Python: “di dalam tulisan ini ada bagian yang harus diganti dengan isi variable”.",
+            "Bagian yang diganti ditulis di dalam kurung kurawal, misalnya print(f\"Nilai = {nilai}\").",
+            "Kalau huruf f dihapus, Python menganggap kurung kurawalnya tulisan biasa. Karena itu yang muncul justru apa adanya: Nilai = {nilai}.",
+          ],
+        },
+        {
+          tanya: "Kapan sebaiknya memakai f-string, kapan memakai koma?",
+          jawab: [
+            "print(\"Umur saya\", 17) dan print(f\"Umur saya {17}\") sama-sama benar. Cara koma lebih cepat ditulis untuk hal sederhana, dan Python otomatis memberi spasi di antara isinya.",
+            "f-string lebih unggul kalau tulisanmu panjang, isinya banyak, atau butuh perapian angka seperti {harga:,} dan {nilai:.2f}.",
+            "Saran praktis: pakai koma untuk latihan awal, lalu biasakan f-string mulai sekarang — hampir semua kode Python modern menuliskannya begitu.",
+          ],
+        },
+        {
           tanya: "Kenapa string harus menggunakan tanda kutip?",
           jawab: [
             "Karena tanpa tanda kutip, Python mengira tulisan itu adalah nama variable atau perintah.",
@@ -7400,6 +7565,9 @@ Tahun depan umurmu 18</span>
          - print(...) dengan beberapa argumen
          - variable: nama = nilai (termasuk += -= *=)
          - tipe data: string, integer, float, boolean, None, list
+         - f-string: f"Halo {nama}" lengkap dengan format sederhana
+           seperti {harga:,} (pemisah ribuan) dan {nilai:.2f} (dua
+           angka di belakang koma), serta {nama:>8} untuk perataan
          - operator: + - * / // % **, bitwise & | ^ ~ << >>,
            dan perbandingan == != < > <= >=
          - operator logika: and, or, not
@@ -8512,21 +8680,186 @@ Tahun depan umurmu 18</span>
         }
       };
 
-      /* f-string: mengganti {isi} dengan nilai variable */
+      /* f-string: mengganti {isi} dengan nilai variable.
+         Mendukung juga format sederhana: {harga:,} dan {nilai:.2f}.
+         Dua kurung kurawal berurutan ({{ dan }}) ditampilkan sebagai
+         satu kurung kurawal, sama seperti di Python. */
       Interpreter.prototype.renderFString = function (template) {
         var self = this;
-        return template.replace(/\{([^{}]*)\}/g, function (_, inner) {
-          var trimmed = inner.trim();
+
+        /* Kurung kurawal harus berpasangan, sama seperti di Python. */
+        var tanpaGanda = template.replace(/\{\{|\}\}/g, "");
+        var jumlahBuka = (tanpaGanda.match(/\{/g) || []).length;
+        var jumlahTutup = (tanpaGanda.match(/\}/g) || []).length;
+
+        if (jumlahBuka > jumlahTutup) {
+          throw new PyError(
+            "SyntaxError: f-string: ada tanda { yang belum ditutup dengan }. Tulis pasangan {variable} dengan lengkap."
+          );
+        }
+        if (jumlahTutup > jumlahBuka) {
+          throw new PyError(
+            "SyntaxError: f-string: ada tanda } tanpa pasangan {. Kalau ingin menampilkan kurung kurawal, tulis dua kali: {{ atau }}."
+          );
+        }
+
+        return template.replace(/\{\{|\}\}|\{([^{}]*)\}/g, function (utuh, inner) {
+          if (utuh === "{{") return "{";
+          if (utuh === "}}") return "}";
+
+          if (inner.trim() === "") {
+            throw new PyError("SyntaxError: f-string: isi { } tidak boleh kosong");
+          }
+
+          var bagian = pisahFormatFString(inner);
+
           try {
-            var tokens = tokenize(trimmed);
+            var tokens = tokenize(bagian.ekspresi.trim());
             var parser = new Parser(tokens);
             var expr = parser.parseExpression();
-            return pyStr(self.evaluasi(expr));
+            var nilai = self.evaluasi(expr);
+
+            if (bagian.format) return formatFString(nilai, bagian.format);
+            return pyStr(nilai);
           } catch (err) {
+            /* Error dari format (misalnya :d untuk angka desimal)
+               diteruskan supaya pengguna tahu kesalahannya. */
+            if (err instanceof PyError) throw err;
             return "{" + inner + "}";
           }
         });
       };
+
+      /* Memisahkan {ekspresi:format}. Titik dua di dalam tanda kurung
+         atau kutip — misalnya data[1:3] — bukan pemisah format. */
+      function pisahFormatFString(teks) {
+        var kedalaman = 0;
+        var kutip = null;
+
+        for (var i = 0; i < teks.length; i += 1) {
+          var huruf = teks.charAt(i);
+
+          if (kutip) {
+            if (huruf === "\\") {
+              i += 1;
+              continue;
+            }
+            if (huruf === kutip) kutip = null;
+            continue;
+          }
+
+          if (huruf === '"' || huruf === "'") {
+            kutip = huruf;
+          } else if (huruf === "(" || huruf === "[" || huruf === "{") {
+            kedalaman += 1;
+          } else if (huruf === ")" || huruf === "]" || huruf === "}") {
+            kedalaman -= 1;
+          } else if (huruf === ":" && kedalaman === 0) {
+            return { ekspresi: teks.slice(0, i), format: teks.slice(i + 1).trim() };
+          }
+        }
+
+        return { ekspresi: teks, format: "" };
+      }
+
+      /* Menerapkan format f-string. Yang didukung:
+         perataan < > ^, lebar, pengisi nol, pemisah ribuan (,),
+         presisi (.2) dan tipe f / d / %. */
+      function formatFString(nilai, spec) {
+        var cocok = /^([<>^]?)(0?)(\d*)(,?)(?:\.(\d+))?([fFdD%]?)$/.exec(spec);
+
+        if (!cocok) {
+          throw new PyError('ValueError: format "{:' + spec + '}" belum didukung playground ini');
+        }
+
+        var rata = cocok[1];
+        var pengisiNol = cocok[2] === "0";
+        var lebar = parseInt(cocok[3] || "0", 10);
+        var pemisahRibuan = cocok[4] === ",";
+        var presisi = cocok[5] === undefined ? null : parseInt(cocok[5], 10);
+        var tipe = (cocok[6] || "").toLowerCase();
+        var apakahAngka = typeof nilai === "number";
+
+        if ((tipe === "f" || tipe === "d" || tipe === "%") && !apakahAngka) {
+          throw new PyError(
+            'ValueError: format ":' + spec + '" hanya untuk angka, sedangkan isinya ' + pyNamaTipe(nilai)
+          );
+        }
+        if (tipe === "d" && !Number.isInteger(nilai)) {
+          throw new PyError(
+            'ValueError: format ":d" hanya untuk angka bulat. Untuk angka desimal, pakai ":f", misalnya {:.2f}'
+          );
+        }
+
+        /* 1. Bentuk teks dasarnya dulu. */
+        var teks;
+        if (tipe === "f") {
+          teks = nilai.toFixed(presisi === null ? 6 : presisi);
+        } else if (tipe === "%") {
+          teks = (nilai * 100).toFixed(presisi === null ? 6 : presisi) + "%";
+        } else if (tipe === "d") {
+          teks = String(nilai);
+        } else if (apakahAngka && presisi !== null) {
+          teks = nilai.toFixed(presisi);
+        } else {
+          teks = pyStr(nilai);
+        }
+
+        /* 2. Pemisah ribuan dipasang sebelum dirapikan lebarnya. */
+        if (pemisahRibuan && apakahAngka) teks = beriPemisahRibuan(teks);
+
+        /* 3. Perataan dan lebar minimum. */
+        if (lebar > teks.length) {
+          var selisih = lebar - teks.length;
+          var arah = rata || (apakahAngka ? ">" : "<");
+          var pengisi = pengisiNol && apakahAngka ? "0" : " ";
+          var tambahan = new Array(selisih + 1).join(pengisi);
+
+          if (arah === "<") {
+            teks = teks + tambahan;
+          } else if (arah === "^") {
+            var kiri = Math.floor(selisih / 2);
+            teks =
+              new Array(kiri + 1).join(pengisi) + teks + new Array(selisih - kiri + 1).join(pengisi);
+          } else if (pengisi === "0" && teks.charAt(0) === "-") {
+            /* Tanda minus tetap di depan, nol menyusul setelahnya. */
+            teks = "-" + tambahan + teks.slice(1);
+          } else {
+            teks = tambahan + teks;
+          }
+        }
+
+        return teks;
+      }
+
+      /* Menambahkan pemisah ribuan pada bagian bulat sebuah angka:
+         45000 -> 45,000 dan -1234567.5 -> -1,234,567.5 */
+      function beriPemisahRibuan(teks) {
+        var akhiran = "";
+        if (teks.slice(-1) === "%") {
+          akhiran = "%";
+          teks = teks.slice(0, -1);
+        }
+
+        var tanda = "";
+        if (teks.charAt(0) === "-" || teks.charAt(0) === "+") {
+          tanda = teks.charAt(0);
+          teks = teks.slice(1);
+        }
+
+        var posisiTitik = teks.indexOf(".");
+        var bulat = posisiTitik === -1 ? teks : teks.slice(0, posisiTitik);
+        var sisa = posisiTitik === -1 ? "" : teks.slice(posisiTitik);
+
+        var hasil = "";
+        for (var i = bulat.length - 1; i >= 0; i -= 1) {
+          hasil = bulat.charAt(i) + hasil;
+          var sisaDepan = i;
+          if ((bulat.length - sisaDepan) % 3 === 0 && sisaDepan > 0) hasil = "," + hasil;
+        }
+
+        return tanda + hasil + sisa + akhiran;
+      }
 
       /* Mengambil anggota sederhana seperti math.pi */
       Interpreter.prototype.ambilMember = function (object, prop) {
