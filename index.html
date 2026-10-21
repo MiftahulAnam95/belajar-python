@@ -4933,6 +4933,102 @@ Tahun depan umurmu 18</span>
           latihan: "Tampilkan angka 1 sampai 10, tapi lewati angka 4 dan 8.",
           playground: 'for i in range(1, 11):\n    if i == 4 or i == 8:\n        continue\n    print("Angka:", i)\n\nprint("Selesai")',
         },
+        {
+          id: "while-else",
+          level: 5,
+          judul: "while ... else",
+          pertanyaan:
+            "Bagaimana cara tahu apakah while berhenti karena kondisinya habis atau karena break?",
+          penjelasan: [
+            "Python membolehkan while punya blok else. Cara menulisnya: tulis else: sejajar dengan while, tepat setelah blok while selesai.",
+            "Blok else dijalankan kalau while berhenti dengan wajar, yaitu saat kondisinya menjadi False. Kalau while dihentikan paksa oleh break, blok else dilewati.",
+            "Arti else di sini berbeda dengan else pada if. Pada if, else berarti “kalau kondisinya salah”. Pada while, else berarti “kalau perulangannya tidak pernah di-break”.",
+            "continue tidak menghentikan perulangan, jadi blok else tetap dijalankan. Hanya break yang membuat else dilewati.",
+            "Kalau di dalam while tidak ada break sama sekali, else tidak memberi efek tambahan — hasilnya sama saja dengan menulis kodenya setelah while selesai.",
+            "Karena aturan itu, while ... else paling sering dipakai untuk mencari sesuatu: break kalau ketemu, lalu else untuk mengabarkan bahwa semua data sudah dicek tanpa hasil. for juga punya else dengan aturan yang persis sama.",
+          ],
+          analogi: [
+            "Bayangkan kamu berkeliling warung untuk mencari gula.",
+            "Selama gula belum ketemu, kamu terus masuk ke warung berikutnya. Itu bagian while-nya.",
+            "Begitu gula ketemu, kamu langsung pulang dan tidak mampir ke warung sisanya. Itu break — kabar “gula tidak ada” tidak perlu diucapkan, karena blok else dilewati.",
+            "Tapi kalau semua warung sudah kamu masuki tanpa hasil, barulah kamu pulang sambil bilang “ternyata gula tidak ada”. Itu blok else-nya.",
+          ],
+          kode: 'daftar = [7, 13, 21, 34]\ncari = 21\ni = 0\n\nwhile i < len(daftar):\n    if daftar[i] == cari:\n        print("Ketemu di urutan", i)\n        break\n    i += 1\nelse:\n    print("Tidak ketemu")\n\nprint("Selesai mencari")',
+          penjelasanKode: [
+            {
+              kode: "daftar = [7, 13, 21, 34]",
+              arti: "Kumpulan angka yang akan kita periksa satu per satu.",
+            },
+            {
+              kode: "cari = 21",
+              arti: "Angka yang dicari. Angka ini ada di dalam daftar, tepatnya di urutan ke-2 karena indeks di Python dimulai dari 0.",
+            },
+            {
+              kode: "i = 0",
+              arti: "i menyimpan nomor urut yang sedang diperiksa. Dimulai dari 0 sesuai aturan indeks di Python.",
+            },
+            {
+              kode: "while i < len(daftar):",
+              arti: "Selama nomor urut masih lebih kecil dari jumlah isi daftar, periksa terus.",
+            },
+            {
+              kode: "    if daftar[i] == cari:",
+              arti: "Cek apakah angka di urutan i sama dengan angka yang dicari.",
+            },
+            {
+              kode: '        print("Ketemu di urutan", i)',
+              arti: "Dijalankan kalau angkanya cocok. Di sini yang tampil adalah: Ketemu di urutan 2.",
+            },
+            {
+              kode: "        break",
+              arti: "Berhenti seketika. Karena angkanya sudah ketemu, sisa daftar tidak perlu diperiksa lagi.",
+            },
+            {
+              kode: "    i += 1",
+              arti: "Maju ke urutan berikutnya. Tanpa baris ini, while akan berputar selamanya.",
+            },
+            {
+              kode: "else:",
+              arti: "Sejajar dengan while, bukan menjorok. Blok ini hanya jalan kalau while berhenti tanpa break.",
+            },
+            {
+              kode: '    print("Tidak ketemu")',
+              arti: "Karena 21 ketemu dan loop di-break, baris ini dilewati. Coba ubah cari menjadi 99, maka baris inilah yang tampil.",
+            },
+            {
+              kode: 'print("Selesai mencari")',
+              arti: "Tidak menjorok, jadi selalu dijalankan apa pun hasil pencariannya.",
+            },
+          ],
+          contohKasus: {
+            judul: "Cek apakah username sudah dipakai",
+            kode: 'username_terdaftar = ["ani", "budi", "citra"]\ncari = "dodi"\ni = 0\n\nwhile i < len(username_terdaftar):\n    if username_terdaftar[i] == cari:\n        print("Username sudah dipakai, coba yang lain")\n        break\n    i += 1\nelse:\n    print("Username tersedia")',
+            kapan: "while ... else dipakai saat satu perulangan bisa menghasilkan dua kesimpulan berbeda: ketemu di tengah jalan (break) atau sudah diperiksa semua tanpa hasil (else). Cocok untuk cek ketersediaan username, cek stok barang, cek kode voucher, atau mengecek apakah ada nilai di bawah KKM.",
+          },
+          kesalahan: [
+            {
+              salah: 'i = 0\nwhile i < 5:\n    if i == 3:\n        break\n    i += 1\nelse:\n    print("Perulangan selesai")',
+              benar: 'i = 0\nwhile i < 5:\n    if i == 3:\n        break\n    i += 1\n\nprint("Perulangan selesai")',
+              catatan:
+                "else hanya jalan kalau tidak ada break. Kalau pesannya harus selalu tampil apa pun hasilnya, tulis di luar while tanpa else.",
+            },
+            {
+              salah: 'i = 0\nwhile i < 3:\n    print(i)\n    i += 1\n    else:\n        print("Selesai")',
+              benar: 'i = 0\nwhile i < 3:\n    print(i)\n    i += 1\nelse:\n    print("Selesai")',
+              catatan:
+                "else harus sejajar dengan while. Kalau menjorok ke dalam, Python menganggapnya bukan pasangan while dan muncul SyntaxError.",
+            },
+            {
+              salah: 'daftar = [7, 13, 21]\ncari = 13\ni = 0\n\nwhile i < len(daftar):\n    if daftar[i] == cari:\n        print(\"Ketemu\")\n        break\n    else:\n        print(\"Tidak ketemu\")\n    i += 1',
+              benar: 'daftar = [7, 13, 21]\ncari = 13\ni = 0\n\nwhile i < len(daftar):\n    if daftar[i] == cari:\n        print(\"Ketemu\")\n        break\n    i += 1\nelse:\n    print(\"Tidak ketemu\")',
+              catatan:
+                "Kalau else menjorok ke dalam while, dia menjadi pasangan if: pesan “Tidak ketemu” tampil lebih awal, yaitu setiap kali ada data yang belum cocok. Yang kita mau: pesan itu tampil sekali, setelah semua data selesai diperiksa.",
+            },
+          ],
+          latihan:
+            "Buat list berisi lima nama buah. Pakai while untuk mencari “durian”. Kalau ketemu, tampilkan “Durian ada di urutan ...” lalu hentikan perulangan dengan break. Kalau tidak ketemu, tampilkan “Durian tidak ada” lewat blok else.",
+          playground: 'buah = ["apel", "mangga", "pisang", "jeruk"]\ncari = "durian"\ni = 0\n\nwhile i < len(buah):\n    if buah[i] == cari:\n        print("Ketemu:", cari)\n        break\n    i += 1\nelse:\n    print(cari, "tidak ada di dalam list")\n\nprint("Pengecekan selesai")',
+        },
       ];
 
       /* =========================================================
@@ -7852,6 +7948,7 @@ Tahun depan umurmu 18</span>
       };
 
       Parser.prototype.parseFor = function () {
+        var forKolom = this.lihat().kolom;
         this.makan("NAME", "for");
 
         /* Target boleh lebih dari satu: for nama, nilai in data.items(): */
@@ -7865,20 +7962,43 @@ Tahun depan umurmu 18</span>
         var iterable = this.parseExpression();
         this.makan("OP", ":");
         var body = this.parseBlok();
+
+        /* for juga boleh punya else: jalan kalau loop tidak dihentikan break */
+        var orelse = null;
+        this.lewatiBarisBaru();
+        if (this.adalah("NAME", "else") && this.lihat().kolom === forKolom) {
+          this.makan("NAME", "else");
+          this.makan("OP", ":");
+          orelse = this.parseBlok();
+        }
+
         return {
           tipe: "For",
           target: target.length === 1 ? target[0] : target,
           iterable: iterable,
           body: body,
+          orelse: orelse,
         };
       };
 
+      /* while kondisi: blok  — boleh diikuti  else: blok
+         Blok else hanya dijalankan kalau while berhenti dengan normal
+         (kondisi menjadi False), BUKAN karena break. */
       Parser.prototype.parseWhile = function () {
+        var whileKolom = this.lihat().kolom;
         this.makan("NAME", "while");
         var test = this.parseExpression();
         this.makan("OP", ":");
         var body = this.parseBlok();
-        return { tipe: "While", test: test, body: body };
+        var orelse = null;
+
+        this.lewatiBarisBaru();
+        if (this.adalah("NAME", "else") && this.lihat().kolom === whileKolom) {
+          this.makan("NAME", "else");
+          this.makan("OP", ":");
+          orelse = this.parseBlok();
+        }
+        return { tipe: "While", test: test, body: body, orelse: orelse };
       };
 
       Parser.prototype.parseSimpleStatement = function () {
@@ -8493,6 +8613,10 @@ Tahun depan umurmu 18</span>
             /* Target tunggal atau banyak (for nama, nilai in data.items()) */
             var targets = Array.isArray(stmt.target) ? stmt.target : [stmt.target];
 
+            /* dihentikan jadi True kalau loop keluar karena break,
+               supaya blok else bisa dilewati (aturan for ... else). */
+            var dihentikan = false;
+
             for (var i = 0; i < daftar.length; i += 1) {
               if (targets.length === 1) {
                 this.vars[targets[0]] = daftar[i];
@@ -8511,16 +8635,24 @@ Tahun depan umurmu 18</span>
               try {
                 this.jalankanBlok(stmt.body);
               } catch (sinyal) {
-                if (sinyal === "break") break;
+                if (sinyal === "break") {
+                  dihentikan = true;
+                  break;
+                }
                 if (sinyal === "continue") continue;
                 throw sinyal;
               }
             }
+
+            /* else pada for: hanya jalan kalau loop selesai tanpa break */
+            if (!dihentikan && stmt.orelse) this.jalankanBlok(stmt.orelse);
             break;
           }
 
           case "While": {
             var jaga = 0;
+            var berhentiKarenaBreak = false;
+
             while (this.truthy(this.evaluasi(stmt.test))) {
               jaga += 1;
               if (jaga > BATAS_ITERASI) {
@@ -8531,11 +8663,18 @@ Tahun depan umurmu 18</span>
               try {
                 this.jalankanBlok(stmt.body);
               } catch (sinyal2) {
-                if (sinyal2 === "break") break;
+                if (sinyal2 === "break") {
+                  berhentiKarenaBreak = true;
+                  break;
+                }
                 if (sinyal2 === "continue") continue;
                 throw sinyal2;
               }
             }
+
+            /* else pada while: hanya jalan kalau loop selesai dengan normal,
+               yaitu kondisinya menjadi False. Kalau keluar karena break, dilewati. */
+            if (!berhentiKarenaBreak && stmt.orelse) this.jalankanBlok(stmt.orelse);
             break;
           }
 
