@@ -16,7 +16,7 @@ Lalu buka `http://localhost:8000`. Progress belajar tersimpan di `localStorage` 
 
 - 10 level, 68 materi, dari `print()` sampai mini project.
 - **Level 4–10** (konsep yang paling sulit) dilengkapi:
-  - **Versi paling sederhana** — penjelasan ulang tanpa istilah asing, ditaruh paling atas.
+  - **Versi paling sederhana** — penjelasan ulang tanpa istilah asing, ditaruh tepat setelah **Penjelasan sederhana**.
   - **Kamus kecil** — arti setiap istilah teknis di materi itu.
   - **Pertanyaan yang sering muncul** — FAQ untuk kebingungan yang paling umum.
   - Materi jembatan/rangkuman di tiap level supaya tidak ada lompatan konsep.

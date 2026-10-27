@@ -3146,8 +3146,9 @@ Tahun depan umurmu 18</span>
                 <span class="feature-icon" aria-hidden="true">🧠</span>
                 <h3>Bahasa Manusia</h3>
                 <p>
-                  Konsep programming dijelaskan seperti ngobrol bersama teman. Di level 4–10 ada bagian
-                  <strong>Versi paling sederhana</strong> dan <strong>Kamus kecil</strong> untuk setiap istilah asing.
+                  Konsep programming dijelaskan seperti ngobrol bersama teman. Di level 4–10, setelah
+                  <strong>Penjelasan sederhana</strong> ada <strong>Versi paling sederhana</strong> dan
+                  <strong>Kamus kecil</strong> untuk setiap istilah asing.
                 </p>
               </article>
               <article class="card feature-card">
@@ -3399,7 +3400,7 @@ Tahun depan umurmu 18</span>
             </p>
             <p>
               Khusus Level 4 sampai 10 yang konsepnya mulai terasa berat, tiap materi ditambahi
-              <strong>Versi paling sederhana</strong> (penjelasan tanpa istilah asing),
+              <strong>Versi paling sederhana</strong> tepat setelah Penjelasan sederhana (penjelasan tanpa istilah asing),
               <strong>Kamus kecil</strong> untuk menerjemahkan istilahnya, dan
               <strong>Pertanyaan yang sering muncul</strong>. Di akhir materi ada satu soal kecil:
               kamu baru bisa lanjut ke materi berikutnya setelah menjawabnya dengan benar.
@@ -3409,7 +3410,7 @@ Tahun depan umurmu 18</span>
             <h2>Cara pakai website ini</h2>
             <ol>
               <li>Buka halaman <a href="#materi">Belajar</a> dan mulai dari Level 1.</li>
-              <li>Baca materi sampai selesai. Mulai Level 4, awali dengan bagian <strong>Versi paling sederhana</strong> dan <strong>Kamus kecil</strong>.</li>
+              <li>Baca materi sampai selesai. Mulai Level 4, awali dengan <strong>Penjelasan sederhana</strong>, lanjut ke <strong>Versi paling sederhana</strong> dan <strong>Kamus kecil</strong>.</li>
               <li>Kerjakan latihan kecil, lalu jawab satu <strong>pertanyaan cek pemahaman</strong> di bagian bawah materi.</li>
               <li>Kalau jawabanmu benar dan kamu sudah yakin, tekan <strong>Sudah paham, lanjut</strong> untuk membuka materi berikutnya.</li>
               <li>Masih bingung? Tekan <strong>Baca lagi penjelasannya</strong>, atau cek <a href="#bingung">Kamus Programming</a>.</li>
@@ -13351,8 +13352,8 @@ Tahun depan umurmu 18</span>
           '<p class="materi-intro">Pilih salah satu materi di daftar sebelah kiri. ' +
           "Di ponsel, tekan tombol <strong>☰ Daftar Materi</strong> untuk membuka daftarnya.</p>" +
           '<div class="callout callout-tip"><div class="callout-title">💡 Cara belajar di sini</div>' +
-          "<p>Mulai Level 4, setiap materi punya <strong>Versi paling sederhana</strong> dan " +
-          "<strong>Kamus kecil</strong> di bagian atas. Di bagian bawah ada satu pertanyaan cek pemahaman — " +
+          "<p>Mulai Level 4, tiap materi diawali <strong>Penjelasan sederhana</strong>, lalu " +
+          "<strong>Versi paling sederhana</strong> dan <strong>Kamus kecil</strong>. Di bagian bawah ada satu pertanyaan cek pemahaman — " +
           "jawab dulu dengan benar sebelum lanjut ke materi berikutnya. Kalau salah, baca lagi penjelasannya, tidak apa-apa.</p></div>" +
           "</div>" +
           '<div class="card">' +
@@ -13569,8 +13570,9 @@ Tahun depan umurmu 18</span>
           .join("");
 
         /* ---------- Versi bahasa sehari-hari (level 4-10) ----------
-           Bagian ini sengaja ditaruh paling atas supaya orang awam
-           membaca penjelasan paling sederhana lebih dulu. */
+           Ditampilkan SETELAH "Penjelasan sederhana": pembaca mencoba
+           penjelasan utamanya dulu, lalu bagian ini jadi penyederhana
+           tanpa istilah asing kalau masih terasa sulit. */
         var versiMudahHtml = "";
         var kamusKecilHtml = "";
         var faqHtml = "";
@@ -13578,7 +13580,7 @@ Tahun depan umurmu 18</span>
           var vm = materi.versiMudah;
           versiMudahHtml =
             '<section class="materi-section versi-mudah-section" id="versiMudah">' +
-            '<h2><span class="sec-icon" aria-hidden="true">🟢</span>Versi paling sederhana — baca ini dulu</h2>' +
+            '<h2><span class="sec-icon" aria-hidden="true">🟢</span>Versi paling sederhana — baca kalau masih bingung</h2>' +
             '<div class="vm-card">' +
             '<p class="vm-label">Intinya</p>' +
             '<p class="vm-inti">' + escapeHtml(vm.inti) + "</p>" +
@@ -13833,12 +13835,12 @@ Tahun depan umurmu 18</span>
           escapeHtml(materi.pertanyaan) +
           "</p></header>" +
 
-          versiMudahHtml +
-
           '<section class="materi-section">' +
           '<h2><span class="sec-icon" aria-hidden="true">🧠</span>Penjelasan sederhana</h2>' +
           materi.penjelasan.map(function (p) { return "<p>" + escapeHtml(p) + "</p>"; }).join("") +
           "</section>" +
+
+          versiMudahHtml +
 
           kamusKecilHtml +
 
