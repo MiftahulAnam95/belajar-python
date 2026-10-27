@@ -2954,6 +2954,114 @@
       .cp-feedback-actions {
         margin-top: 0.85rem;
       }
+
+      /* ---------- Latihan kecil dengan validasi jawaban ---------- */
+      .lat-target {
+        margin: 0 0 1rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--surface);
+      }
+      .lat-target-head {
+        padding: 0.55rem 0.9rem;
+        font-size: 0.84rem;
+        font-weight: 700;
+        color: var(--primary);
+        background: var(--primary-soft);
+        border-bottom: 1px solid var(--border);
+      }
+      .lat-target pre {
+        margin: 0;
+        padding: 0.85rem 0.9rem;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-family: var(--font-mono);
+        font-size: 0.84rem;
+        line-height: 1.6;
+      }
+      .lat-input-note {
+        margin: 0;
+        padding: 0 0.9rem 0.8rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+      .lat-input-note code {
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        padding: 0.1rem 0.35rem;
+        border-radius: 5px;
+        background: var(--bg-soft-2);
+      }
+      .btn-cek {
+        background: var(--secondary);
+        color: #fff;
+        border-color: var(--secondary);
+      }
+      .btn-cek:hover { filter: brightness(1.1); color: #fff; }
+      .lat-feedback {
+        margin-top: 0.85rem;
+        padding: 0.85rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        font-size: 0.9rem;
+        background: var(--bg-soft);
+      }
+      .lat-feedback p { margin: 0 0 0.45rem; }
+      .lat-feedback p:last-child { margin-bottom: 0; }
+      .lat-feedback.is-bad { border-color: var(--danger); background: var(--danger-soft); }
+      .lat-feedback.is-good { border-color: var(--primary); background: var(--primary-soft); }
+      .lat-feedback.is-info { border-color: var(--warn); background: var(--warn-soft); }
+      .lat-feedback pre {
+        margin: 0.4rem 0 0;
+        padding: 0.6rem 0.75rem;
+        border-radius: var(--radius-sm);
+        background: var(--editor-bg);
+        color: var(--editor-foreground);
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+      .lat-user-output-title { font-size: 0.8rem; color: var(--text-muted); }
+      .lat-feedback-actions { margin-top: 0.65rem; }
+      .lat-jawaban {
+        margin-top: 0.85rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .lat-jawaban-head {
+        padding: 0.55rem 0.9rem;
+        font-size: 0.84rem;
+        font-weight: 700;
+        background: var(--bg-soft);
+        border-bottom: 1px solid var(--border);
+      }
+      .lat-jawaban pre {
+        margin: 0;
+        padding: 0.85rem 0.9rem;
+        overflow-x: auto;
+        background: var(--editor-bg);
+        color: var(--editor-foreground);
+        font-family: var(--font-mono);
+        font-size: 0.84rem;
+        line-height: 1.6;
+      }
+      .lat-jawaban-note {
+        margin: 0;
+        padding: 0.6rem 0.9rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        border-top: 1px solid var(--border);
+      }
+      .lat-status { margin-top: 0.7rem; font-size: 0.86rem; color: var(--text-muted); }
+      .lat-status.is-ok { color: var(--primary); font-weight: 600; }
+      .gate-note a { color: inherit; font-weight: 600; text-decoration: underline; }
+      .gate-note[hidden] { display: none; }
+      @media (max-width: 640px) {
+        .lat-target pre, .lat-jawaban pre { font-size: 0.78rem; }
+      }
       .cp-status {
         font-size: 0.86rem;
         color: var(--text-muted);
@@ -3171,8 +3279,9 @@ Tahun depan umurmu 18</span>
                 <span class="feature-icon" aria-hidden="true">🧪</span>
                 <h3>Langsung Latihan</h3>
                 <p>
-                  Di akhir setiap materi ada satu pertanyaan cek pemahaman. Tombol lanjut baru terbuka
-                  setelah kamu menjawab benar dan yakin sudah paham.
+                  Tiap materi punya latihan kode tanpa kode jawaban di awal: kamu menulis sendiri,
+                  lalu hasilnya dicek otomatis. Lanjut ke materi berikutnya baru terbuka setelah
+                  latihan benar dan pertanyaan cek pemahaman terjawab.
                 </p>
               </article>
             </div>
@@ -3402,17 +3511,21 @@ Tahun depan umurmu 18</span>
               Khusus Level 4 sampai 10 yang konsepnya mulai terasa berat, tiap materi ditambahi
               <strong>Versi paling sederhana</strong> tepat setelah Penjelasan sederhana (penjelasan tanpa istilah asing),
               <strong>Kamus kecil</strong> untuk menerjemahkan istilahnya, dan
-              <strong>Pertanyaan yang sering muncul</strong>. Di akhir materi ada satu soal kecil:
-              kamu baru bisa lanjut ke materi berikutnya setelah menjawabnya dengan benar.
-              Tujuannya bukan untuk menguji, tapi supaya tidak ada konsep yang terlewat begitu saja.
+              <strong>Pertanyaan yang sering muncul</strong>. Di bagian <strong>Latihan kecil</strong>,
+              kode jawabannya sengaja tidak ditampilkan. Yang terlihat hanyalah soal, hasil output yang
+              diharapkan, dan editor berisi kode awal. Tulis sendiri, tekan <strong>Periksa jawaban</strong>,
+              dan coba terus sampai benar — petunjuk baru muncul kalau kamu sudah beberapa kali mencoba.
+              Di akhir materi ada satu soal cek pemahaman; materi berikutnya baru terbuka setelah
+              latihan dan soal ini beres. Tujuannya bukan untuk menguji, tapi supaya tidak ada konsep
+              yang terlewat begitu saja.
             </p>
 
             <h2>Cara pakai website ini</h2>
             <ol>
               <li>Buka halaman <a href="#materi">Belajar</a> dan mulai dari Level 1.</li>
               <li>Baca materi sampai selesai. Mulai Level 4, awali dengan <strong>Penjelasan sederhana</strong>, lanjut ke <strong>Versi paling sederhana</strong> dan <strong>Kamus kecil</strong>.</li>
-              <li>Kerjakan latihan kecil, lalu jawab satu <strong>pertanyaan cek pemahaman</strong> di bagian bawah materi.</li>
-              <li>Kalau jawabanmu benar dan kamu sudah yakin, tekan <strong>Sudah paham, lanjut</strong> untuk membuka materi berikutnya.</li>
+              <li>Kerjakan <strong>Latihan kecil</strong>: tulis kode di editor (kode jawaban tidak ditampilkan), cocokkan dengan "Hasil yang diharapkan", lalu tekan <strong>Periksa jawaban</strong> sampai benar.</li>
+              <li>Jawab satu <strong>pertanyaan cek pemahaman</strong> di bagian bawah materi, lalu tekan <strong>Sudah paham, lanjut</strong> atau tombol <strong>Tandai selesai &amp; lanjut</strong>.</li>
               <li>Masih bingung? Tekan <strong>Baca lagi penjelasannya</strong>, atau cek <a href="#bingung">Kamus Programming</a>.</li>
               <li>Coba juga halaman <a href="#latihan">Latihan</a> dan ulangi besoknya — progress kamu tersimpan otomatis di browser.</li>
             </ol>
@@ -9249,6 +9362,522 @@ Tahun depan umurmu 18</span>
         },
       };
 
+
+      /* ---------------------------------------------------------
+         DATA TAMBAHAN: LATIHAN KECIL YANG DIVALIDASI
+
+         Kunci object = id materi. Tiap entry berisi:
+         soal     = instruksi yang hasilnya pasti (deterministik)
+         awal     = kode awal di editor (HANYA data + petunjuk, tanpa jawaban)
+         jawaban  = kode referensi (TIDAK ditampilkan, dipakai untuk
+                    menghitung output yang diharapkan & tombol Lihat jawaban)
+         petunjuk = bantuan saat jawaban masih salah
+         butuh    = konsep yang wajib muncul di kode user
+         input    = isian tetap untuk soal yang memakai input() (opsional)
+         --------------------------------------------------------- */
+      var LATIHAN_KODE = {
+        /* ===================== LEVEL 1 ===================== */
+        "apa-itu-python": {
+          soal: "Tampilkan satu baris tulisan persis seperti pada kotak 'Hasil yang diharapkan' memakai print().",
+          awal: "# Tulis kode print() di bawah ini\n",
+          jawaban: 'print("Halo, saya sedang belajar Python")',
+          petunjuk: "Tulis print, lalu taruh tulisannya di antara tanda kutip di dalam kurung.",
+          butuh: ["print"],
+        },
+        "cara-kerja-python": {
+          soal: 'Buat variable nama berisi "Anam" dan kota berisi "Bandung". Tampilkan keduanya dengan print(), urut nama dulu baru kota.',
+          awal: "# Buat dua variable, lalu tampilkan\n",
+          jawaban: 'nama = "Anam"\nprint(nama)\n\nkota = "Bandung"\nprint(kota)',
+          petunjuk: "Variable harus dibuat lebih dulu sebelum dipakai di print(). Urutannya: nama, lalu kota.",
+          butuh: ["print"],
+        },
+        "print": {
+          soal: "Tampilkan tiga baris persis seperti pada target memakai tiga print() terpisah.",
+          awal: "# Tulis tiga print() di bawah ini\n",
+          jawaban: 'print("Nama saya Anam")\nprint("Umur saya 17")\nprint("Saya dari Bandung")',
+          petunjuk: "Satu baris keluaran berasal dari satu print(). Perhatikan tanda kutip dan huruf besar/kecilnya.",
+          butuh: ["print"],
+        },
+        "comment": {
+          soal: "Tambahkan komentar (tanda #) di atas tiap baris, lalu tampilkan hasil x + y.",
+          awal: "x = 5\ny = 3\n\n# Tulis komentar dan print() di bawah ini\n",
+          jawaban: "# Simpan angka pertama\nx = 5\n# Simpan angka kedua\ny = 3\n# Tampilkan hasil penjumlahan\nprint(x + y)",
+          petunjuk: "Komentar diawali #, lalu print(x + y) menghasilkan 8.",
+          butuh: ["print"],
+        },
+        "sintaks-dasar": {
+          soal: "Lengkapi kode: buat if dengan titik dua dan isi yang menjorok 4 spasi, lalu tampilkan 'Program selesai' di luar if.",
+          awal: "umur = 17\n\n# Tulis blok if di bawah ini\n",
+          jawaban: 'umur = 17\n\nif umur >= 17:\n    print("Boleh membuat KTP")\n    print("Selamat!")\n\nprint("Program selesai")',
+          petunjuk: "Baris if diakhiri titik dua. Dua print pertama menjorok 4 spasi, print terakhir tidak menjorok.",
+          butuh: ["if"],
+        },
+
+        /* ===================== LEVEL 2 ===================== */
+        "variable": {
+          soal: 'Buat tiga variable: nama = "Anam", umur = 17, dan sudah_makan = True. Tampilkan ketiganya dengan satu print().',
+          awal: "# Buat tiga variable, lalu tampilkan dengan satu print()\n",
+          jawaban: 'nama = "Anam"\numur = 17\nsudah_makan = True\n\nprint(nama, umur, sudah_makan)',
+          petunjuk: "Satu print() boleh menerima banyak nilai yang dipisah koma; hasilnya dipisah spasi.",
+          butuh: ["print"],
+        },
+        "string": {
+          soal: 'Buat salam berisi "Selamat pagi" dan nama berisi "Anam". Gabungkan keduanya dengan satu spasi, lalu tampilkan.',
+          awal: 'salam = "Selamat pagi"\nnama = "Anam"\n\n# Gabungkan lalu tampilkan\n',
+          jawaban: 'salam = "Selamat pagi"\nnama = "Anam"\n\nprint(salam + " " + nama)',
+          petunjuk: "Gunakan tanda + untuk menggabungkan tulisan, dan sisipkan \" \" (spasi) di tengahnya.",
+          butuh: ["print"],
+        },
+        "f-string": {
+          soal: 'Buat nama = "Anam" dan nilai = 90. Tampilkan kalimat persis pada target memakai satu f-string.',
+          awal: 'nama = "Anam"\nnilai = 90\n\n# Tulis satu print(f"...") di bawah ini\n',
+          jawaban: 'nama = "Anam"\nnilai = 90\n\nprint(f"Nama saya {nama}, nilai saya {nilai}")',
+          petunjuk: 'Tulis huruf f tepat sebelum tanda kutip. Nama variable ditaruh di dalam { }.',
+          butuh: ["f-string"],
+        },
+        "integer": {
+          soal: "Buat harga = 15000 dan jumlah = 3. Tampilkan hasil harga dikali jumlah.",
+          awal: "harga = 15000\njumlah = 3\n\n# Tampilkan hasil perkaliannya\n",
+          jawaban: "harga = 15000\njumlah = 3\n\nprint(harga * jumlah)",
+          petunjuk: "Perkalian di Python memakai tanda bintang *.",
+          butuh: ["print"],
+        },
+        "float": {
+          soal: "Buat nilai_akhir = 87.5 dan tambahan = 2.25. Tampilkan hasil penjumlahannya.",
+          awal: "nilai_akhir = 87.5\ntambahan = 2.25\n\n# Tampilkan hasil penjumlahannya\n",
+          jawaban: "nilai_akhir = 87.5\ntambahan = 2.25\n\nprint(nilai_akhir + tambahan)",
+          petunjuk: "Cukup jumlahkan kedua variable dengan + lalu bungkus dengan print().",
+          butuh: ["print"],
+        },
+        "boolean": {
+          soal: "Buat lulus = True dan remedial = False. Tampilkan keduanya, lalu tampilkan hasil perbandingan 8 > 12.",
+          awal: "lulus = True\nremedial = False\n\n# Tampilkan tiga baris\n",
+          jawaban: "lulus = True\nremedial = False\n\nprint(lulus)\nprint(remedial)\nprint(8 > 12)",
+          petunjuk: "True dan False ditulis tanpa tanda kutip. Hasil 8 > 12 adalah False.",
+          butuh: ["print"],
+        },
+        "type": {
+          soal: 'Buat nilai = 90 (angka) dan nilai_teks = "90" (tulisan). Tampilkan type() keduanya.',
+          awal: 'nilai = 90\nnilai_teks = "90"\n\n# Tampilkan type() keduanya\n',
+          jawaban: 'nilai = 90\nnilai_teks = "90"\n\nprint(type(nilai))\nprint(type(nilai_teks))',
+          petunjuk: "Bungkus tiap variable dengan type() di dalam print().",
+          butuh: ["type"],
+        },
+        "konversi-tipe-data": {
+          soal: 'Buat harga_teks = "15000". Ubah menjadi angka, kalikan 2, lalu tampilkan hasilnya.',
+          awal: 'harga_teks = "15000"\n\n# Ubah ke angka lalu kalikan 2\n',
+          jawaban: 'harga_teks = "15000"\nharga = int(harga_teks)\n\nprint(harga * 2)',
+          petunjuk: "Gunakan int() untuk mengubah tulisan angka menjadi angka bulat.",
+          butuh: ["int"],
+        },
+        "input": {
+          soal: 'Minta nama dan kota dengan input(), lalu tampilkan "Halo, [nama] dari [kota]". Isian saat diperiksa ada di bawah target.',
+          awal: "# Minta dua isian dengan input()\n",
+          jawaban: 'nama = input("Nama: ")\nkota = input("Kota: ")\n\nprint("Halo,", nama, "dari", kota)',
+          petunjuk: "Simpan tiap input() ke variable, lalu pakai kedua variable itu di dalam print().",
+          butuh: ["input"],
+          input: ["Anam", "Bandung"],
+        },
+
+        /* ===================== LEVEL 3 ===================== */
+        "operator-matematika": {
+          soal: "Hitung luas persegi panjang dengan panjang = 12 dan lebar = 8, lalu tampilkan hasilnya.",
+          awal: "panjang = 12\nlebar = 8\n\n# Tampilkan luasnya\n",
+          jawaban: "panjang = 12\nlebar = 8\n\nprint(panjang * lebar)",
+          petunjuk: "Luas = panjang * lebar.",
+          butuh: ["print"],
+        },
+        "operator-perbandingan": {
+          soal: "Buat nilai = 75. Tampilkan hasil dari: nilai >= 75, nilai > 90, dan nilai != 75 (tiga baris, urut begitu).",
+          awal: "nilai = 75\n\n# Tampilkan tiga hasil perbandingan\n",
+          jawaban: "nilai = 75\n\nprint(nilai >= 75)\nprint(nilai > 90)\nprint(nilai != 75)",
+          petunjuk: "Setiap perbandingan menghasilkan True atau False. Tulis ketiganya di dalam print() terpisah.",
+          butuh: ["print"],
+        },
+        "operator-logika": {
+          soal: "Dengan saldo = 50000, harga = 75000, dan barang_tersedia = True, buat bisa_beli bernilai True hanya jika saldo >= harga DAN barang tersedia. Tampilkan bisa_beli.",
+          awal: "saldo = 50000\nharga = 75000\nbarang_tersedia = True\n\n# Buat bisa_beli lalu tampilkan\n",
+          jawaban: "saldo = 50000\nharga = 75000\nbarang_tersedia = True\n\nbisa_beli = saldo >= harga and barang_tersedia\nprint(bisa_beli)",
+          petunjuk: "Gabungkan dua syarat memakai kata and.",
+          butuh: ["and"],
+        },
+        "assignment-operator": {
+          soal: "Buat pohon = 0. Tambahkan 3, lalu tambahkan 2 lagi memakai +=, lalu tampilkan hasil akhirnya.",
+          awal: "pohon = 0\n\n# Tambahkan 3 lalu 2 memakai +=\n",
+          jawaban: "pohon = 0\npohon += 3\npohon += 2\n\nprint(pohon)",
+          petunjuk: "+= menambahkan nilai ke variable yang sudah ada. Dipakai dua kali.",
+          butuh: ["+="],
+        },
+        "operator-bitwise": {
+          soal: "Gunakan a = 12 dan b = 10. Tampilkan berurutan hasil a & b, a | b, a ^ b, a << 1, dan a >> 1.",
+          awal: "a = 12\nb = 10\n\n# Tampilkan lima hasil, satu per baris\n",
+          jawaban: "a = 12\nb = 10\n\nprint(a & b)\nprint(a | b)\nprint(a ^ b)\nprint(a << 1)\nprint(a >> 1)",
+          petunjuk: "Urutannya: &, |, ^, <<, >>. Semua dibungkus print().",
+          butuh: ["&"],
+        },
+        "operator-identitas": {
+          soal: "Buat a = [10, 20], b = a, dan c = [10, 20]. Tampilkan hasil a is b, a is c, a == c, dan c is not a.",
+          awal: "a = [10, 20]\nb = a\nc = [10, 20]\n\n# Tampilkan empat hasil pengecekan\n",
+          jawaban: "a = [10, 20]\nb = a\nc = [10, 20]\n\nprint(a is b)\nprint(a is c)\nprint(a == c)\nprint(c is not a)",
+          petunjuk: "is mengecek benda yang sama; == mengecek nilai yang sama.",
+          butuh: ["is"],
+        },
+        "operator-keanggotaan": {
+          soal: 'Buat warna = ["merah", "biru", "hijau"]. Tampilkan hasil "biru" in warna dan "kuning" not in warna.',
+          awal: 'warna = ["merah", "biru", "hijau"]\n\n# Tampilkan dua hasil pengecekan\n',
+          jawaban: 'warna = ["merah", "biru", "hijau"]\n\nprint("biru" in warna)\nprint("kuning" not in warna)',
+          petunjuk: "in menanyakan 'apakah ada di dalam'. not in adalah kebalikannya.",
+          butuh: ["in"],
+        },
+
+        /* ===================== LEVEL 4 ===================== */
+        "if": {
+          soal: 'Buat nilai = 80. Kalau nilai >= 75 tampilkan "Lulus" di dalam if, lalu tampilkan "Selesai" di luar if.',
+          awal: "nilai = 80\n\n# Tulis blok if di bawah ini\n",
+          jawaban: 'nilai = 80\n\nif nilai >= 75:\n    print("Lulus")\n\nprint("Selesai")',
+          petunjuk: 'print("Lulus") menjorok 4 spasi; print("Selesai") tidak menjorok.',
+          butuh: ["if"],
+        },
+        "elif": {
+          soal: 'Dengan suhu = 28, tampilkan "Panas" kalau suhu > 30, "Hangat" kalau suhu > 20, dan "Dingin" untuk sisanya.',
+          awal: "suhu = 28\n\n# Tulis if / elif / else di bawah ini\n",
+          jawaban: 'suhu = 28\n\nif suhu > 30:\n    print("Panas")\nelif suhu > 20:\n    print("Hangat")\nelse:\n    print("Dingin")',
+          petunjuk: "elif ditulis di antara if dan else, sejajar dengan if.",
+          butuh: ["elif"],
+        },
+        "else": {
+          soal: 'Dengan umur = 15, tampilkan "Boleh buat SIM" kalau umur >= 17, selain itu "Belum boleh".',
+          awal: "umur = 15\n\n# Tulis if / else di bawah ini\n",
+          jawaban: 'umur = 15\n\nif umur >= 17:\n    print("Boleh buat SIM")\nelse:\n    print("Belum boleh")',
+          petunjuk: "else tidak punya syarat, tapi tetap diakhiri titik dua.",
+          butuh: ["else"],
+        },
+        "nested-if": {
+          soal: "Dengan saldo = 100000 dan harga = 75000: kalau saldo cukup tampilkan 'Saldo cukup', lalu cek harga > 50000 untuk menampilkan 'Dapat diskon'. Kalau saldo tidak cukup tampilkan 'Saldo tidak cukup'.",
+          awal: "saldo = 100000\nharga = 75000\n\n# Tulis if di dalam if\n",
+          jawaban: 'saldo = 100000\nharga = 75000\n\nif saldo >= harga:\n    print("Saldo cukup")\n    if harga > 50000:\n        print("Dapat diskon")\n    else:\n        print("Tidak dapat diskon")\nelse:\n    print("Saldo tidak cukup")',
+          petunjuk: "If kedua berada di dalam if pertama, jadi butuh 8 spasi untuk isinya.",
+          butuh: ["if"],
+        },
+        "conditional-sederhana": {
+          soal: 'Buat harga = 120000. Buat label berisi "Mahal" kalau harga > 100000, selain itu "Terjangkau". Tampilkan label.',
+          awal: "harga = 120000\n\n# Tulis dalam satu baris: nilai if kondisi else nilai\n",
+          jawaban: 'harga = 120000\n\nlabel = "Mahal" if harga > 100000 else "Terjangkau"\nprint(label)',
+          petunjuk: "Urutannya: nilai_benar, if, syarat, else, nilai_salah. Bagian else wajib ada.",
+          butuh: ["else"],
+        },
+        "rangkuman-percabangan": {
+          soal: 'Dengan total = 650000, tentukan diskon: > 1000000 jadi "20%", > 500000 jadi "10%", selainnya "tidak ada". Tampilkan "Kamu mendapat diskon" diikuti hasilnya.',
+          awal: "total = 650000\n\n# Tulis if / elif / else di bawah ini\n",
+          jawaban: 'total = 650000\n\nif total > 1000000:\n    diskon = "20%"\nelif total > 500000:\n    diskon = "10%"\nelse:\n    diskon = "tidak ada"\n\nprint("Kamu mendapat diskon", diskon)',
+          petunjuk: "Tulis syarat yang paling besar lebih dulu, baru yang lebih kecil.",
+          butuh: ["elif"],
+        },
+
+        /* ===================== LEVEL 5 ===================== */
+        "for": {
+          soal: 'Tampilkan semua isi list buah memakai satu for, lalu tampilkan "Semua buah sudah ditampilkan" di luar perulangan.',
+          awal: 'buah = ["apel", "mangga", "pisang"]\n\n# Tulis perulangan for di bawah ini\n',
+          jawaban: 'buah = ["apel", "mangga", "pisang"]\n\nfor item in buah:\n    print(item)\n\nprint("Semua buah sudah ditampilkan")',
+          petunjuk: "for item in buah: lalu print(item) yang menjorok 4 spasi.",
+          butuh: ["for"],
+        },
+        "while": {
+          soal: 'Buat hitungan = 5. Pakai while untuk menampilkan 5 sampai 1, lalu tampilkan "Selesai".',
+          awal: "hitungan = 5\n\n# Tulis while di bawah ini\n",
+          jawaban: 'hitungan = 5\n\nwhile hitungan > 0:\n    print(hitungan)\n    hitungan -= 1\n\nprint("Selesai")',
+          petunjuk: "Jangan lupa mengubah nilai hitungan di dalam while, kalau tidak perulangannya tidak berhenti.",
+          butuh: ["while"],
+        },
+        "range": {
+          soal: 'Tampilkan angka 1 sampai 10 memakai range(), lalu tampilkan "---", lalu angka genap 2 sampai 10.',
+          awal: "# Tulis dua perulangan range() di bawah ini\n",
+          jawaban: 'for i in range(1, 11):\n    print(i)\n\nprint("---")\n\nfor i in range(2, 11, 2):\n    print(i)',
+          petunjuk: "range(awal, akhir) tidak menyertakan akhir. Angka loncatan ditulis sebagai argumen ketiga.",
+          butuh: ["range"],
+        },
+        "nested-loop": {
+          soal: 'Buat tabel perkalian 1 sampai 3 (baris) dikali 1 sampai 3 (kolom). Tampilkan tiap hasil dengan format "1 x 1 = 1", lalu "---" setelah tiap baris selesai.',
+          awal: "# Tulis perulangan bersarang di bawah ini\n",
+          jawaban: 'for baris in range(1, 4):\n    for kolom in range(1, 4):\n        print(baris, "x", kolom, "=", baris * kolom)\n    print("---")',
+          petunjuk: 'print("---") ditulis sejajar dengan for yang kedua, bukan di dalamnya.',
+          butuh: ["for"],
+        },
+        "break": {
+          soal: 'Ulangi angka 1 sampai 20. Sebelum angka 7 tampilkan "Belum ketemu: i". Saat i = 7 tampilkan "Angka 7 ditemukan" lalu hentikan dengan break.',
+          awal: "# Tulis for, if, dan break di bawah ini\n",
+          jawaban: 'for i in range(1, 21):\n    if i == 7:\n        print("Angka 7 ditemukan")\n        break\n    print("Belum ketemu:", i)',
+          petunjuk: "Pengecekan i == 7 ditaruh sebelum print terakhir, supaya angka 7 tidak ikut tercetak sebagai 'Belum ketemu'.",
+          butuh: ["break"],
+        },
+        "continue": {
+          soal: 'Tampilkan "Angka: i" untuk 1 sampai 10, tapi lewati 4 dan 8 memakai continue, lalu akhiri dengan "Selesai".',
+          awal: "# Tulis for, if, dan continue di bawah ini\n",
+          jawaban: 'for i in range(1, 11):\n    if i == 4 or i == 8:\n        continue\n    print("Angka:", i)\n\nprint("Selesai")',
+          petunjuk: "continue membuat perulangan langsung lompat ke angka berikutnya.",
+          butuh: ["continue"],
+        },
+        "while-else": {
+          soal: 'Cari "durian" dalam list buah memakai while. Kalau ketemu tampilkan "Ketemu: durian" lalu break. Kalau tidak ketemu tampilkan lewat blok else. Akhiri dengan "Pengecekan selesai".',
+          awal: 'buah = ["apel", "mangga", "pisang", "jeruk"]\ncari = "durian"\ni = 0\n\n# Tulis while ... else di bawah ini\n',
+          jawaban: 'buah = ["apel", "mangga", "pisang", "jeruk"]\ncari = "durian"\ni = 0\n\nwhile i < len(buah):\n    if buah[i] == cari:\n        print("Ketemu:", cari)\n        break\n    i += 1\nelse:\n    print(cari, "tidak ada di dalam list")\n\nprint("Pengecekan selesai")',
+          petunjuk: "Blok else milik while, jadi sejajar dengan while. break membuat else dilewati.",
+          butuh: ["while", "else"],
+        },
+        "pilih-for-atau-while": {
+          soal: 'Dari list hari, tampilkan "Jadwal: [nama_hari]" memakai for. Lalu "---", lalu hitung mundur 3, 2, 1 dengan "Mulai dalam i" memakai while, dan akhiri "Sekarang!".',
+          awal: 'hari = ["Senin", "Selasa", "Rabu"]\n\n# Tulis for dan while di bawah ini\n',
+          jawaban: 'hari = ["Senin", "Selasa", "Rabu"]\nfor nama_hari in hari:\n    print("Jadwal:", nama_hari)\n\nprint("---")\n\nhitungan = 3\nwhile hitungan > 0:\n    print("Mulai dalam", hitungan)\n    hitungan -= 1\nprint("Sekarang!")',
+          petunjuk: "for lebih pas untuk list, while lebih pas untuk hitungan mundur.",
+          butuh: ["for", "while"],
+        },
+
+        /* ===================== LEVEL 6 ===================== */
+        "list": {
+          soal: 'Dari list belanja, tampilkan isinya, item pertamanya, jumlah isinya, lalu tambahkan "keju" dan tampilkan lagi.',
+          awal: 'belanja = ["telur", "susu", "roti"]\n\n# Tulis kodemu di bawah ini\n',
+          jawaban: 'belanja = ["telur", "susu", "roti"]\n\nprint(belanja)\nprint(belanja[0])\nprint(len(belanja))\n\nbelanja.append("keju")\nprint(belanja)',
+          petunjuk: "append() dipakai untuk menambah satu item di akhir list, tepat sebelum print terakhir.",
+          butuh: ["append"],
+        },
+        "tuple": {
+          soal: 'Buat tuple warna = ("merah", "hijau", "biru"). Tampilkan item pertama dan item terakhir.',
+          awal: "# Buat tuple warna, lalu tampilkan dua itemnya\n",
+          jawaban: 'warna = ("merah", "hijau", "biru")\n\nprint(warna[0])\nprint(warna[2])',
+          petunjuk: "Tuple memakai tanda kurung biasa (). Indeks dimulai dari 0.",
+          butuh: ["print"],
+        },
+        "set": {
+          soal: 'Buat set kota berisi empat nama dengan satu nama sengaja ditulis dua kali. Tampilkan set-nya, lalu jumlah isinya.',
+          awal: "# Buat set kota, lalu tampilkan isi dan jumlahnya\n",
+          jawaban: 'kota = {"Bandung", "Jakarta", "Bandung", "Surabaya"}\n\nprint(kota)\nprint(len(kota))',
+          petunjuk: "Set memakai tanda kurung kurawal {}. Data rangkap otomatis hilang, jadi len() bukan 4.",
+          butuh: ["len"],
+        },
+        "dictionary": {
+          soal: 'Buat dictionary buku dengan kunci "judul", "penulis", dan "tahun". Tampilkan ketiga nilainya.',
+          awal: "# Buat dictionary buku, lalu tampilkan tiga nilainya\n",
+          jawaban: 'buku = {"judul": "Laskar Pelangi", "penulis": "Andrea Hirata", "tahun": 2005}\n\nprint(buku["judul"])\nprint(buku["penulis"])\nprint(buku["tahun"])',
+          petunjuk: "Dictionary memakai {kunci: nilai}. Mengambil nilai dengan nama kunci di dalam [].",
+          butuh: ["judul"],
+        },
+        "index": {
+          soal: 'Dari list buah, tampilkan item pertama, item terakhir memakai indeks negatif, dan dua item pertama memakai irisan (slice).',
+          awal: 'buah = ["apel", "mangga", "pisang", "jeruk"]\n\n# Tulis kodemu di bawah ini\n',
+          jawaban: 'buah = ["apel", "mangga", "pisang", "jeruk"]\n\nprint(buah[0])\nprint(buah[-1])\nprint(buah[:2])',
+          petunjuk: "Indeks -1 berarti item paling akhir. Irisan [:2] berarti ambil dari awal sampai sebelum indeks 2.",
+          butuh: ["print"],
+        },
+        "looping-collection": {
+          soal: 'Dari dictionary nilai, tampilkan tiap pasangan nama dan nilai memakai for dengan format "Nama : angka".',
+          awal: 'nilai = {"Anam": 90, "Budi": 85, "Citra": 88}\n\n# Tulis perulangan for di bawah ini\n',
+          jawaban: 'nilai = {"Anam": 90, "Budi": 85, "Citra": 88}\n\nfor nama in nilai:\n    print(nama, ":", nilai[nama])',
+          petunjuk: "for nama in nilai: mengambil kuncinya; nilainya didapat dengan nilai[nama].",
+          butuh: ["for"],
+        },
+        "memilih-collection": {
+          soal: 'Dari dictionary harga, tambahkan data "gula": 13000, lalu tampilkan harga gula memakai kuncinya.',
+          awal: 'harga = {"beras": 12000, "minyak": 15000}\n\n# Tambah data gula, lalu tampilkan harganya\n',
+          jawaban: 'harga = {"beras": 12000, "minyak": 15000}\n\nharga["gula"] = 13000\nprint(harga["gula"])',
+          petunjuk: "Menambah data dictionary cukup dengan nama_dict[kunci_baru] = nilai.",
+          butuh: ["gula"],
+        },
+
+        /* ===================== LEVEL 7 ===================== */
+        "apa-itu-function": {
+          soal: 'Buat function sapa() yang menampilkan "Halo!" dan "Selamat belajar Python". Panggil dua kali.',
+          awal: "# Tulis def sapa(): di bawah ini\n",
+          jawaban: 'def sapa():\n    print("Halo!")\n    print("Selamat belajar Python")\n\nsapa()\nsapa()',
+          petunjuk: "Isi function menjorok 4 spasi. Pemanggilan sapa() ditulis dua kali di luar function.",
+          butuh: ["def"],
+        },
+        "membuat-function": {
+          soal: 'Buat function judul() yang menampilkan 20 tanda sama dengan. Panggil, lalu tampilkan "Isi halaman", lalu panggil lagi.',
+          awal: "# Tulis def judul(): di bawah ini\n",
+          jawaban: 'def judul():\n    print("====================")\n\njudul()\nprint("Isi halaman")\njudul()',
+          petunjuk: "Function cukup berisi satu print(). Urutan pemanggilannya: judul(), print(), judul().",
+          butuh: ["def"],
+        },
+        "parameter": {
+          soal: 'Buat function sapa(nama) yang menampilkan "Halo, [nama]". Panggil dengan "Anam" dan "Budi".',
+          awal: "# Tulis def sapa(nama): di bawah ini\n",
+          jawaban: 'def sapa(nama):\n    print("Halo,", nama)\n\nsapa("Anam")\nsapa("Budi")',
+          petunjuk: "Parameter ditulis di dalam kurung def. Isi function memakai parameter itu, bukan tulisan tetap.",
+          butuh: ["def"],
+        },
+        "argument": {
+          soal: "Buat function kali(a, b) yang menampilkan a * b. Panggil dengan 6 dan 7, lalu 3 dan 9.",
+          awal: "# Tulis def kali(a, b): di bawah ini\n",
+          jawaban: "def kali(a, b):\n    print(a * b)\n\nkali(6, 7)\nkali(3, 9)",
+          petunjuk: "Dua parameter dipisah koma; dua argument juga dipisah koma.",
+          butuh: ["def"],
+        },
+        "return": {
+          soal: "Buat function luas_persegi(sisi) yang mengembalikan sisi * sisi. Panggil dengan 5, simpan di hasil, lalu tampilkan hasil dan hasil + 10.",
+          awal: "# Tulis function memakai return di bawah ini\n",
+          jawaban: "def luas_persegi(sisi):\n    return sisi * sisi\n\nhasil = luas_persegi(5)\nprint(hasil)\nprint(hasil + 10)",
+          petunjuk: "return mengirim nilai keluar dari function; hasilnya harus ditampung dulu di variable.",
+          butuh: ["return"],
+        },
+        "default-parameter": {
+          soal: "Buat function pangkat(angka, p=2) yang mengembalikan angka ** p. Panggil dengan 4 saja, lalu dengan 4 dan 3. Tampilkan keduanya.",
+          awal: "# Tulis function dengan parameter bawaan di bawah ini\n",
+          jawaban: "def pangkat(angka, p=2):\n    return angka ** p\n\nprint(pangkat(4))\nprint(pangkat(4, 3))",
+          petunjuk: "Nilai bawaan ditulis langsung di dalam tanda kurung def. Pangkat memakai tanda **.",
+          butuh: ["return"],
+        },
+        "function-sederhana": {
+          soal: 'Buat function status_kelulusan(nilai) yang mengembalikan "Lulus" kalau nilai >= 75, selainnya "Tidak lulus". Tampilkan hasilnya untuk 80 dan 60.',
+          awal: "# Tulis function di bawah ini\n",
+          jawaban: 'def status_kelulusan(nilai):\n    if nilai >= 75:\n        return "Lulus"\n    return "Tidak lulus"\n\nprint(status_kelulusan(80))\nprint(status_kelulusan(60))',
+          petunjuk: "return kedua boleh ditulis tanpa else karena kalau if terpenuhi function sudah selesai.",
+          butuh: ["return"],
+        },
+        "rangkuman-function": {
+          soal: 'Buat function hitung_total(harga, jumlah) yang mengembalikan harga * jumlah. Panggil dengan 12000 dan 3, lalu tampilkan "Total belanja: 36000" dan "Ditambah ongkir: 41000".',
+          awal: "# Tulis function di bawah ini\n",
+          jawaban: 'def hitung_total(harga, jumlah):\n    total = harga * jumlah\n    return total\n\nhasil = hitung_total(12000, 3)\nprint("Total belanja:", hasil)\nprint("Ditambah ongkir:", hasil + 5000)',
+          petunjuk: "Simpan hasil pemanggilan function ke variable, lalu pakai variable itu untuk dua print().",
+          butuh: ["return"],
+        },
+
+        /* ===================== LEVEL 8 ===================== */
+        "syntax-error": {
+          soal: "Perbaiki kode di editor yang masih salah tulis. Tujuannya: umur = 17, lalu if/else yang benar menampilkan pesan kelayakan KTP.",
+          awal: "umur = 17\n\nif umur >= 17\nprint(\"Boleh membuat KTP\")\n",
+          jawaban: 'umur = 17\n\nif umur >= 17:\n    print("Boleh membuat KTP")\nelse:\n    print("Belum boleh")',
+          petunjuk: "Ada titik dua yang hilang setelah syarat if, dan print() harus menjorok 4 spasi.",
+          butuh: ["if"],
+        },
+        "name-error": {
+          soal: 'Perbaiki NameError di editor: buat variable kota berisi "Bandung" sebelum print(kota) dipanggil.',
+          awal: "# Perbaiki error ini\nprint(kota)\n",
+          jawaban: 'kota = "Bandung"\nprint(kota)',
+          petunjuk: "Python membaca dari atas ke bawah; variable harus dibuat sebelum dipakai.",
+          butuh: ["kota"],
+        },
+        "type-error": {
+          soal: 'Ubah harga = "15000" menjadi angka, lalu tampilkan harga dikali 2 berupa angka 30000.',
+          awal: 'harga = "15000"\n\n# Ubah ke angka, lalu tampilkan hasil kali 2\n',
+          jawaban: 'harga = "15000"\nharga_angka = int(harga)\n\nprint(harga_angka * 2)',
+          petunjuk: 'int("15000") menghasilkan angka 15000. Kalikan angka itu, bukan tulisannya.',
+          butuh: ["int"],
+        },
+        "index-error": {
+          soal: "Dari list buah, tampilkan item pertama (indeks 0), item terakhir (indeks -1), dan jumlah isinya.",
+          awal: 'buah = ["apel", "mangga", "pisang"]\n\n# Tulis kodemu di bawah ini\n',
+          jawaban: 'buah = ["apel", "mangga", "pisang"]\n\nprint(buah[0])\nprint(buah[-1])\nprint(len(buah))',
+          petunjuk: "Indeks -1 selalu aman untuk mengambil item terakhir. Indeks 3 di sini akan error.",
+          butuh: ["len"],
+        },
+        "membaca-error": {
+          soal: 'Perbaiki kode di editor: buat variable nama berisi "Anam" sebelum print(nama) agar tidak ada NameError.',
+          awal: "# Ada error di sini. Perbaiki.\nprint(nama)\n",
+          jawaban: 'nama = "Anam"\nprint(nama)',
+          petunjuk: "Baca nama error, nomor baris, lalu perbaiki penyebabnya. Di sini penyebabnya variable belum ada.",
+          butuh: ["nama"],
+        },
+        "mencari-kesalahan": {
+          soal: 'Perbaiki perhitungan di editor. harga = 15000 dan jumlah = 3 seharusnya menghasilkan "Total: 45000".',
+          awal: "harga = 15000\njumlah = 3\n\n# Hasilnya masih salah, perbaikilah\ntotal = harga + jumlah\nprint(\"Total:\", total)\n",
+          jawaban: 'harga = 15000\njumlah = 3\n\ntotal = harga * jumlah\nprint("Total:", total)',
+          petunjuk: "Tambahkan print() sementara untuk melihat nilai total. Operator yang salah adalah +.",
+          butuh: ["*"],
+        },
+        "error-lainnya": {
+          soal: 'Ubah tulisan "17" menjadi angka memakai int(), lalu tampilkan hasilnya ditambah 3.',
+          awal: 'teks = "17"\n\n# Ubah ke angka lalu tambah 3\n',
+          jawaban: 'teks = "17"\nangka = int(teks)\n\nprint(angka + 3)',
+          petunjuk: 'int("17") berhasil, tapi int("halo") memicu ValueError.',
+          butuh: ["int"],
+        },
+
+        /* ===================== LEVEL 9 ===================== */
+        "import": {
+          soal: "Import module math, lalu tampilkan math.sqrt(16) dan hasil 2 pangkat 10 memakai operator **.",
+          awal: "# Import math, lalu tampilkan dua hasil\n",
+          jawaban: "import math\n\nprint(math.sqrt(16))\nprint(2 ** 10)",
+          petunjuk: "Tulis import math di baris paling atas. Pangkat memakai tanda **.",
+          butuh: ["import"],
+        },
+        "module": {
+          soal: "Playground tidak bisa membuat file. Simulasikan saja: buat function luas_persegi(sisi) dan keliling_persegi(sisi) yang memakai return, lalu tampilkan keduanya untuk sisi 5.",
+          awal: "# Tulis dua function memakai return\n",
+          jawaban: "def luas_persegi(sisi):\n    return sisi * sisi\n\ndef keliling_persegi(sisi):\n    return 4 * sisi\n\nprint(luas_persegi(5))\nprint(keliling_persegi(5))",
+          petunjuk: "Luas = sisi * sisi; keliling = 4 * sisi. Keduanya memakai return.",
+          butuh: ["return"],
+        },
+        "membaca-file": {
+          soal: "Playground tidak bisa membaca file asli, jadi pakai list baris yang sudah disediakan. Tampilkan tiap barisnya memakai for.",
+          awal: 'baris = ["Baris pertama\\n", "Baris kedua\\n", "Baris ketiga\\n"]\n\n# Tampilkan tiap baris dengan for\n',
+          jawaban: 'baris = ["Baris pertama\\n", "Baris kedua\\n", "Baris ketiga\\n"]\n\nfor b in baris:\n    print(b.strip())',
+          petunjuk: "readlines() menyisakan \\n di akhir tiap baris, jadi pakai strip() sebelum print().",
+          butuh: ["for"],
+        },
+        "menulis-file": {
+          soal: 'Playground tidak bisa menulis file asli. Simulasikan: tampilkan semua isi catatan, lalu "---", tambahkan "Beli apel", lalu tampilkan lagi semuanya.',
+          awal: 'catatan = ["Beli susu", "Beli roti", "Beli keju"]\n\n# Tulis kodemu di bawah ini\n',
+          jawaban: 'catatan = ["Beli susu", "Beli roti", "Beli keju"]\n\nfor item in catatan:\n    print(item)\n\nprint("---")\n\ncatatan.append("Beli apel")\nfor item in catatan:\n    print(item)',
+          petunjuk: "append() menambah item di akhir list, mirip mode 'a' pada file.",
+          butuh: ["append"],
+        },
+        "try-except": {
+          soal: 'Buat try/except yang menangani ValueError dari int(input(...)). Tampilkan "Maaf, umur harus angka" saat isian bukan angka, lalu tetap tampilkan "Program tetap lanjut".',
+          awal: "# Tulis try / except di bawah ini\n",
+          jawaban: 'try:\n    umur = int(input("Umur: "))\n    print("Tahun depan", umur + 1)\nexcept ValueError:\n    print("Maaf, umur harus angka")\n\nprint("Program tetap lanjut")',
+          petunjuk: "int(input(...)) ditaruh di dalam try; pesan cadangan ditaruh di dalam except.",
+          butuh: ["try", "except", "int"],
+          input: ["abc"],
+        },
+
+        /* ===================== LEVEL 10 ===================== */
+        "kalkulator": {
+          soal: 'Buat function kalkulator(a, b, operasi) untuk +, -, *, dan /. Minta dua angka dengan float(input()) dan operator dengan input(), lalu tampilkan "Hasil: ...". Isian saat diperiksa ada di bawah target.',
+          awal: "# Tulis function dan tiga input() di bawah ini\n",
+          jawaban: 'def kalkulator(a, b, operasi):\n    if operasi == "+":\n        return a + b\n    elif operasi == "-":\n        return a - b\n    elif operasi == "*":\n        return a * b\n    elif operasi == "/":\n        if b == 0:\n            return "Tidak bisa dibagi nol"\n        return a / b\n    return "Operasi tidak dikenal"\n\na = float(input("Angka pertama: "))\nb = float(input("Angka kedua: "))\nop = input("Pilih operasi: ")\n\nprint("Hasil:", kalkulator(a, b, op))',
+          petunjuk: "Function mengembalikan hasil dengan return. Tiga input() di luar function; hasil pemanggilan dibungkus print().",
+          butuh: ["def", "input"],
+          input: ["7", "2", "/"],
+        },
+        "tebak-angka": {
+          soal: 'Angka rahasia = 3. Pakai while untuk meminta tebakan dengan int(input()) sampai benar. Tampilkan "Terlalu kecil" atau "Terlalu besar", lalu "Benar! 3". Isian saat diperiksa ada di bawah target.',
+          awal: "rahasia = 3\ntebakan = 0\n\n# Tulis perulangan while di bawah ini\n",
+          jawaban: 'rahasia = 3\ntebakan = 0\n\nwhile tebakan != rahasia:\n    tebakan = int(input("Tebak angka 1-10: "))\n    if tebakan < rahasia:\n        print("Terlalu kecil")\n    elif tebakan > rahasia:\n        print("Terlalu besar")\n\nprint("Benar!", rahasia)',
+          petunjuk: "Syarat while: tebakan != rahasia. Di dalamnya, ubah tebakan dengan int(input()).",
+          butuh: ["while", "input"],
+          input: ["1", "3"],
+        },
+        "data-siswa": {
+          soal: 'Dari list siswa, minta nama dengan input() lalu cari. Kalau ketemu tampilkan "Ditemukan: [nama] - [kelas]", kalau tidak tampilkan "Tidak ditemukan". Isian saat diperiksa ada di bawah target.',
+          awal: 'siswa = [{"nama": "Ani", "kelas": "A"}, {"nama": "Budi", "kelas": "B"}]\n\n# Tulis pencarian di bawah ini\n',
+          jawaban: 'siswa = [{"nama": "Ani", "kelas": "A"}, {"nama": "Budi", "kelas": "B"}]\ncari = input("Cari nama: ")\nketemu = False\n\nfor data in siswa:\n    if data["nama"] == cari:\n        print("Ditemukan:", data["nama"], "-", data["kelas"])\n        ketemu = True\n\nif not ketemu:\n    print("Tidak ditemukan")',
+          petunjuk: "Pakai for untuk memeriksa tiap dictionary. Penanda ketemu dibutuhkan agar pesan 'Tidak ditemukan' hanya muncul sekali.",
+          butuh: ["for", "input"],
+          input: ["Budi"],
+        },
+        "todo-list": {
+          soal: 'Dari list tugas, tampilkan "Sebelum: [list]", lalu hapus tugas ke-2 memakai pop(1). Tampilkan "Selesai: [tugas]" dan "Sisa: [list]".',
+          awal: 'tugas = ["Beli susu", "Beli roti", "Cuci piring"]\n\n# Tulis kodemu di bawah ini\n',
+          jawaban: 'tugas = ["Beli susu", "Beli roti", "Cuci piring"]\nprint("Sebelum:", tugas)\n\nselesai = tugas.pop(1)\nprint("Selesai:", selesai)\nprint("Sisa:", tugas)',
+          petunjuk: "pop(1) mengeluarkan item berindeks 1 sekaligus mengembalikan nilainya.",
+          butuh: ["pop"],
+        },
+        "kasir": {
+          soal: 'Dari dictionary harga dan list belanja, hitung total. Untuk tiap item tampilkan "nama x jumlah = subtotal", lalu akhiri dengan "Total: [angka]".',
+          awal: 'harga = {"beras": 12000, "minyak": 15000}\nbelanja = [("beras", 2), ("minyak", 1)]\n\n# Tulis kodemu di bawah ini\n',
+          jawaban: 'harga = {"beras": 12000, "minyak": 15000}\nbelanja = [("beras", 2), ("minyak", 1)]\ntotal = 0\n\nfor item in belanja:\n    nama = item[0]\n    jumlah = item[1]\n    subtotal = harga[nama] * jumlah\n    total += subtotal\n    print(nama, "x", jumlah, "=", subtotal)\n\nprint("Total:", total)',
+          petunjuk: "Tiap item adalah tuple: item[0] berisi nama, item[1] berisi jumlah. Jumlahkan subtotal ke total dengan +=.",
+          butuh: ["for"],
+        },
+        "rangkuman-akhir": {
+          soal: 'Buat function kategori(nilai): >= 90 jadi "A", >= 75 jadi "B", selainnya "C". Tampilkan predikat Ani (88) dan Budi (72) memakai for.',
+          awal: 'siswa = [{"nama": "Ani", "nilai": 88}, {"nama": "Budi", "nilai": 72}]\n\n# Tulis function dan for di bawah ini\n',
+          jawaban: 'def kategori(nilai):\n    if nilai >= 90:\n        return "A"\n    elif nilai >= 75:\n        return "B"\n    return "C"\n\nsiswa = [{"nama": "Ani", "nilai": 88}, {"nama": "Budi", "nilai": 72}]\n\nfor data in siswa:\n    print(data["nama"], "mendapat", kategori(data["nilai"]))',
+          petunjuk: "Function memakai return. Perulangan memanggil kategori(data[\"nilai\"]) di dalam print().",
+          butuh: ["def", "for"],
+        },
+      };
+
       /* =========================================================
          BAGIAN 3 — DATA LATIHAN
 
@@ -12093,6 +12722,7 @@ Tahun depan umurmu 18</span>
       PDN.materi = MATERI_1.concat(MATERI_2).map(function (m) {
         if (VERSI_MUDAH[m.id]) m.versiMudah = VERSI_MUDAH[m.id];
         if (CEK_PAHAM[m.id]) m.cekPaham = CEK_PAHAM[m.id];
+        if (LATIHAN_KODE[m.id]) m.latihanKode = LATIHAN_KODE[m.id];
         return m;
       });
       PDN.levels = LEVELS_1.concat(LEVELS_2).sort(function (a, b) {
@@ -12111,17 +12741,19 @@ Tahun depan umurmu 18</span>
       function bacaProgress() {
         try {
           var raw = localStorage.getItem(KUNCI_PROGRESS);
-          if (!raw) return { selesai: {}, paham: {}, terakhir: null };
+          if (!raw) return { selesai: {}, paham: {}, latihan: {}, terakhir: null };
           var data = JSON.parse(raw);
           return {
             selesai: data.selesai || {},
             /* paham = materi yang sudah lolos cek pemahaman */
             paham: data.paham || {},
+            /* latihan = materi yang "Latihan kecil"nya sudah lolos validasi */
+            latihan: data.latihan || {},
             terakhir: data.terakhir || null,
           };
         } catch (err) {
           /* Kalau localStorage diblokir browser, website tetap jalan. */
-          return { selesai: {}, paham: {}, terakhir: null };
+          return { selesai: {}, paham: {}, latihan: {}, terakhir: null };
         }
       }
 
@@ -12145,6 +12777,7 @@ Tahun depan umurmu 18</span>
         var data = bacaProgress();
         delete data.selesai[id];
         delete data.paham[id];
+        delete data.latihan[id];
         simpanProgress(data);
         return data;
       }
@@ -12171,6 +12804,58 @@ Tahun depan umurmu 18</span>
         /* Materi yang sudah pernah ditandai selesai dianggap sudah paham,
            supaya pembaca lama tidak terkunci oleh aturan baru ini. */
         return Boolean(data.paham[id] || data.selesai[id]);
+      }
+
+
+      /* ---------- Status kelulusan "Latihan kecil" ----------
+         Kode jawaban tidak pernah ditampilkan di awal. Status "lulus"
+         baru disimpan setelah output kode user cocok dengan target. */
+      function tandaiLatihanSelesai(id) {
+        var data = bacaProgress();
+        data.latihan[id] = true;
+        simpanProgress(data);
+        return data;
+      }
+
+      function sudahLulusLatihan(id) {
+        var data = bacaProgress();
+        /* Materi lama yang sudah ditandai selesai tidak dikunci ulang. */
+        return Boolean(data.latihan[id] || data.selesai[id]);
+      }
+
+      /* Samakan bentuk output supaya spasi di akhir baris tidak bikin gagal. */
+      function normalisasiOutput(teks) {
+        var baris = String(teks == null ? "" : teks).replace(/\r/g, "").split("\n");
+        while (baris.length && baris[baris.length - 1].trim() === "") baris.pop();
+        return baris
+          .map(function (b) { return b.replace(/\s+$/, ""); })
+          .join("\n");
+      }
+
+      /* Output target dihitung sekali dari kode jawaban referensi. */
+      function targetLatihan(materi) {
+        var e = materi.latihanKode;
+        if (!e) return "";
+        if (e.__target !== undefined) return e.__target;
+        var hasil;
+        try {
+          hasil = runPython(e.jawaban, e.input || [], { nilai: e.acak || [] });
+        } catch (err) {
+          hasil = { output: "", error: String(err) };
+        }
+        e.__target = normalisasiOutput(hasil.output);
+        return e.__target;
+      }
+
+      /* Pastikan konsep yang diajarkan benar-benar dipakai, bukan cuma
+         print() hasil akhirnya. */
+      function kodeMengandung(kode, token) {
+        /* f-string boleh memakai tanda kutip tunggal maupun ganda. */
+        if (token === "f-string") return /\bf["']/.test(kode);
+        if (/^\w+$/.test(token)) {
+          return new RegExp("(^|[^\\w])" + token + "($|[^\\w])").test(kode);
+        }
+        return kode.indexOf(token) !== -1;
       }
 
       function catatTerakhirDibuka(id) {
@@ -12510,13 +13195,14 @@ Tahun depan umurmu 18</span>
 
       siapkanDialogInputModern();
 
-      function buatPlayground(kodeAwal, judul) {
+      function buatPlayground(kodeAwal, judul, opts) {
+        var o = opts || {};
         var id = "pg-" + Math.random().toString(36).slice(2, 9);
         return (
           '<div class="playground" data-playground="' + id + '">' +
           '<div class="playground-head">' +
           "<h3>🧪 " + escapeHtml(judul || "Coba sendiri") + "</h3>" +
-          '<span class="hint">Ubah kodenya, lalu tekan “Jalankan”</span>' +
+          '<span class="hint">' + escapeHtml(o.petunjuk || "Ubah kodenya, lalu tekan “Jalankan”") + "</span>" +
           "</div>" +
           '<div class="playground-body">' +
           '<div class="playground-editor">' +
@@ -12536,7 +13222,10 @@ Tahun depan umurmu 18</span>
           '<div class="playground-foot">' +
           '<button class="btn btn-primary btn-sm" type="button" data-run="' + id + '">▶ Jalankan</button>' +
           '<button class="btn btn-ghost btn-sm" type="button" data-reset="' + id + '">↺ Reset</button>' +
-          '<p class="playground-note">Tab menambahkan 4 spasi; tanda petik dan kurung otomatis ditutup. Playground ini simulasi Python dasar; input() akan membuka dialog modern.</p>' +
+          (o.tombol || "") +
+          '<p class="playground-note">' +
+          escapeHtml(o.catatan || "Tab menambahkan 4 spasi; tanda petik dan kurung otomatis ditutup. Playground ini simulasi Python dasar; input() akan membuka dialog modern.") +
+          "</p>" +
           "</div>" +
           "</div>"
         );
@@ -12724,6 +13413,16 @@ Tahun depan umurmu 18</span>
         }
 
         jalankanKodePlayground(kotak, input, output);
+      });
+
+      /* Tautan penggulir: cegah hash berubah supaya router tidak pindah halaman. */
+      document.addEventListener("click", function (event) {
+        var tautan = event.target.closest("[data-gulir-ke]");
+        if (!tautan) return;
+        var tujuan = document.getElementById(tautan.dataset.gulirKe);
+        if (!tujuan) return;
+        event.preventDefault();
+        tujuan.scrollIntoView({ behavior: "smooth", block: "start" });
       });
 
       /* Simpan kode awal setiap playground supaya tombol Reset berfungsi. */
@@ -13390,26 +14089,292 @@ Tahun depan umurmu 18</span>
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
-      function bukaKunciLanjut(wadah) {
+      /* ---------- Gerbang lanjut: latihan kecil + cek pemahaman ----------
+         Tombol lanjut baru aktif kalau dua-duanya sudah beres. Fungsi ini
+         dipanggil ulang setiap salah satu gerbang berhasil dilewati. */
+      function perbaruiGerbang(wadah, materi) {
+        var progress = bacaProgress();
+        var kurangLatihan =
+          Boolean(materi.latihanKode) &&
+          !Boolean(progress.latihan[materi.id] || progress.selesai[materi.id]);
+        var kurangCek =
+          Boolean(materi.cekPaham) &&
+          !Boolean(progress.paham[materi.id] || progress.selesai[materi.id]);
+        var terkunci = kurangLatihan || kurangCek;
+
         var btn = document.getElementById("btnTandaiSelesai");
-        if (btn) btn.disabled = false;
+        if (btn) btn.disabled = terkunci;
 
-        var catatan = wadah.querySelector(".gate-note");
-        if (catatan) catatan.remove();
-
-        var status = wadah.querySelector(".cp-status");
-        if (status) {
-          status.textContent = "✓ Sudah paham — tombol lanjut aktif.";
-          status.classList.add("is-ok");
+        var statusCek = wadah.querySelector(".cp-status");
+        if (statusCek && !kurangCek) {
+          statusCek.textContent = terkunci
+            ? "✓ Sudah paham — tinggal selesaikan latihan kecil."
+            : "✓ Sudah paham — tombol lanjut aktif.";
+          statusCek.classList.add("is-ok");
         }
 
         var nav = wadah.querySelector(".materi-nav-link.next");
         if (nav) {
-          nav.classList.remove("is-locked");
-          nav.removeAttribute("data-butuh-cek");
-          nav.removeAttribute("aria-disabled");
+          nav.classList.toggle("is-locked", terkunci);
+          if (terkunci) {
+            nav.setAttribute("data-butuh-cek", "1");
+            nav.setAttribute("aria-disabled", "true");
+          } else {
+            nav.removeAttribute("data-butuh-cek");
+            nav.removeAttribute("aria-disabled");
+          }
           var kunci = nav.querySelector(".nav-lock");
-          if (kunci) kunci.remove();
+          if (terkunci && !kunci) {
+            nav.insertAdjacentHTML(
+              "beforeend",
+              '<span class="nav-lock">🔒 Selesaikan latihan & cek pemahaman dulu</span>'
+            );
+          } else if (terkunci && kunci) {
+            kunci.textContent = "🔒 Selesaikan latihan & cek pemahaman dulu";
+          } else if (!terkunci && kunci) {
+            kunci.remove();
+          }
+        }
+
+        var catatan = wadah.querySelector(".gate-note");
+        if (terkunci) {
+          var bagian = [];
+          if (kurangLatihan) bagian.push('<a href="#" data-gulir-ke="latihanKecil">latihan kecil</a>');
+          if (kurangCek) bagian.push('<a href="#" data-gulir-ke="cekPaham">cek pemahaman</a>');
+          var teks = "🔒 Selesaikan dulu " + bagian.join(" dan ") + " untuk membuka tombol ini";
+          if (!catatan) {
+            catatan = document.createElement("span");
+            catatan.className = "gate-note";
+            var row = wadah.querySelector(".mark-done-row");
+            if (row) row.appendChild(catatan);
+          }
+          catatan.innerHTML = teks;
+        } else if (catatan) {
+          catatan.remove();
+        }
+      }
+
+      function bukaKunciLanjut(wadah, materi) {
+        perbaruiGerbang(wadah, materi);
+      }
+
+      /* ---------- Pembuat tampilan "Latihan kecil" ---------- */
+      function bangunLatihan(materi, sudah) {
+        var e = materi.latihanKode;
+        if (!e) return "";
+        var target = targetLatihan(materi);
+        var daftarInput = e.input || [];
+        var inputHtml = daftarInput.length
+          ? '<p class="lat-input-note">⌨️ Isian yang dipakai saat diperiksa: ' +
+            daftarInput
+              .map(function (v) { return "<code>" + escapeHtml(v) + "</code>"; })
+              .join(" · ") +
+            "</p>"
+          : "";
+        var catatanPg = daftarInput.length
+          ? "Tab menambahkan 4 spasi. Tombol “Periksa jawaban” mengisi input() otomatis sesuai daftar di atas; tombol “Jalankan” akan memintamu mengetik sendiri."
+          : "Tab menambahkan 4 spasi; tanda petik dan kurung otomatis ditutup. Tulis kodemu sendiri, lalu tekan “Periksa jawaban”.";
+        var pg = buatPlayground(e.awal, "Kerjakan latihan ini", {
+          petunjuk: "Tulis kodemu, lalu tekan “Periksa jawaban”",
+          catatan: catatanPg,
+          tombol:
+            '<button class="btn btn-cek btn-sm" type="button" id="btnPeriksaLatihan">✅ Periksa jawaban</button>' +
+            '<button class="btn btn-ghost btn-sm" type="button" id="btnPetunjukLatihan" hidden>💡 Petunjuk</button>' +
+            '<button class="btn btn-ghost btn-sm" type="button" id="btnLihatJawaban"' +
+            (sudah ? "" : " hidden") + ">" +
+            (sudah ? "👀 Lihat contoh jawaban" : "👀 Lihat jawaban") + "</button>",
+        });
+
+        return (
+          '<section class="materi-section latihan-section" id="latihanKecil">' +
+          '<h2><span class="sec-icon" aria-hidden="true">🧪</span>Latihan kecil</h2>' +
+          '<div class="callout callout-exercise"><div class="callout-title">Coba kerjakan ini</div>' +
+          "<p>" + escapeHtml(e.soal || materi.latihan) + "</p></div>" +
+          '<div class="lat-target"><div class="lat-target-head">🎯 Hasil yang diharapkan</div>' +
+          "<pre>" + escapeHtml(target || "(tidak ada keluaran)") + "</pre>" +
+          inputHtml + "</div>" +
+          pg +
+          '<div class="lat-feedback" id="latFeedback" hidden></div>' +
+          '<div class="lat-jawaban" id="latJawabanBox" hidden>' +
+          '<div class="lat-jawaban-head">👀 Kode jawaban (kamu yang meminta membukanya)</div>' +
+          '<pre><code id="latJawabanKode"></code></pre>' +
+          '<p class="lat-jawaban-note">Ini salah satu contoh jawaban, bukan satu-satunya. ' +
+          "Jalankan atau periksa kodemu sendiri supaya latihan ini tercatat benar.</p></div>" +
+          '<div class="lat-status' + (sudah ? " is-ok" : "") + '" id="latStatus">' +
+          (sudah
+            ? "✓ Latihan ini sudah kamu kerjakan dengan benar."
+            : "🔒 Kode jawaban sengaja disembunyikan. Tulis sendiri, lalu tekan “Periksa jawaban”.") +
+          "</div></section>"
+        );
+      }
+
+      /* ---------- Logika validasi "Latihan kecil" ---------- */
+      function siapkanLatihan(wadah, materi) {
+        var e = materi.latihanKode;
+        if (!e) return;
+        var bagian = wadah.querySelector("#latihanKecil");
+        if (!bagian) return;
+
+        var kotak = bagian.querySelector("[data-playground]");
+        var input = kotak ? document.getElementById(kotak.dataset.playground + "-input") : null;
+        var output = kotak ? document.getElementById(kotak.dataset.playground + "-output") : null;
+        var btnPeriksa = bagian.querySelector("#btnPeriksaLatihan");
+        var btnPetunjuk = bagian.querySelector("#btnPetunjukLatihan");
+        var btnJawaban = bagian.querySelector("#btnLihatJawaban");
+        var feedback = bagian.querySelector("#latFeedback");
+        var status = bagian.querySelector("#latStatus");
+        var boxJawaban = bagian.querySelector("#latJawabanBox");
+        var isiJawaban = bagian.querySelector("#latJawabanKode");
+        var target = targetLatihan(materi);
+        var gagal = 0;
+
+        function tampilFeedback(kelas, html) {
+          feedback.hidden = false;
+          feedback.className = "lat-feedback " + kelas;
+          feedback.innerHTML = html;
+        }
+
+        function bukaBantuan() {
+          if (gagal >= 2 && btnPetunjuk) btnPetunjuk.hidden = false;
+          if (gagal >= 3 && btnJawaban) btnJawaban.hidden = false;
+        }
+
+        function keGagalan(pesan, keluaran) {
+          gagal += 1;
+          var html =
+            "<p><strong>❌ " + pesan + "</strong></p>" +
+            "<p>Tidak apa-apa — coba lagi, tidak ada batas percobaan.</p>";
+          if (keluaran !== null && keluaran !== undefined) {
+            html +=
+              '<p class="lat-user-output-title">Keluaran kodemu saat ini:</p><pre>' +
+              escapeHtml(keluaran || "(kosong)") +
+              "</pre>";
+          }
+          tampilFeedback("is-bad", html);
+          if (status) {
+            status.className = "lat-status";
+            status.textContent = "🔒 Belum cocok dengan hasil yang diharapkan. Coba lagi, ya.";
+          }
+          bukaBantuan();
+        }
+
+        if (btnPeriksa) {
+          btnPeriksa.addEventListener("click", function () {
+            if (!input) return;
+            var kode = input.value;
+            if (!kode.trim()) {
+              keGagalan("Editornya masih kosong. Tulis dulu kodemu.", null);
+              return;
+            }
+
+            /* Cek konsep yang memang harus dipakai di materi ini. */
+            var butuh = e.butuh || [];
+            for (var i = 0; i < butuh.length; i += 1) {
+              if (!kodeMengandung(kode, butuh[i])) {
+                keGagalan(
+                  "Kodenya belum memakai konsep yang diminta: pastikan ada <code>" +
+                    escapeHtml(butuh[i]) + "</code> di kodemu.",
+                  null
+                );
+                return;
+              }
+            }
+
+            var hasil;
+            try {
+              hasil = runPython(kode, e.input || [], { nilai: e.acak || [] });
+            } catch (err) {
+              keGagalan("Kodenya belum bisa dijalankan: " + escapeHtml(String(err)), null);
+              return;
+            }
+
+            if (hasil.inputRequired) {
+              keGagalan(
+                "Kodenya meminta terlalu banyak input(). Cek lagi berapa kali kamu memanggil input().",
+                normalisasiOutput(hasil.output)
+              );
+              return;
+            }
+            if (hasil.error) {
+              keGagalan(
+                "Ada error saat kode dijalankan: " + escapeHtml(hasil.error),
+                normalisasiOutput(hasil.output)
+              );
+              return;
+            }
+
+            var keluaran = normalisasiOutput(hasil.output);
+            if (keluaran !== target) {
+              var harap = target.split("\n");
+              var punya = keluaran.split("\n");
+              var beda = 0;
+              for (var j = 0; j < Math.max(harap.length, punya.length); j += 1) {
+                if (harap[j] !== punya[j]) { beda = j + 1; break; }
+              }
+              keGagalan(
+                beda > 0
+                  ? "Baris ke-" + beda + " belum cocok dengan hasil yang diharapkan."
+                  : "Hasilnya belum cocok dengan hasil yang diharapkan.",
+                keluaran
+              );
+              return;
+            }
+
+            /* Berhasil: simpan status, buka gerbang. */
+            tandaiLatihanSelesai(materi.id);
+            tampilFeedback(
+              "is-good",
+              "<p><strong>✅ Benar! Hasil kodemu sudah cocok dengan target.</strong></p>" +
+                "<p>Bagus. Kamu boleh lanjut ke cek pemahaman di bawah.</p>" +
+                '<div class="lat-feedback-actions">' +
+                '<button class="btn btn-primary btn-sm" type="button" id="latKeCekPaham">Lanjut ke cek pemahaman ↓</button>' +
+                "</div>"
+            );
+            var btnLanjut = feedback.querySelector("#latKeCekPaham");
+            if (btnLanjut) {
+              btnLanjut.addEventListener("click", function () {
+                var tujuan = document.getElementById("cekPaham");
+                if (tujuan) tujuan.scrollIntoView({ behavior: "smooth", block: "start" });
+              });
+            }
+            if (status) {
+              status.className = "lat-status is-ok";
+              status.textContent = "✓ Latihan ini sudah kamu kerjakan dengan benar.";
+            }
+            if (output) {
+              output.textContent = hasil.output || "(tidak ada keluaran)";
+              output.classList.remove("is-error", "is-waiting");
+            }
+            if (btnPetunjuk) btnPetunjuk.hidden = true;
+            /* Setelah benar, kode jawaban baru boleh dibuka untuk dibandingkan. */
+            if (btnJawaban) {
+              btnJawaban.hidden = false;
+              btnJawaban.textContent = "👀 Lihat contoh jawaban";
+            }
+            perbaruiGerbang(wadah, materi);
+          });
+        }
+
+        if (btnPetunjuk) {
+          btnPetunjuk.addEventListener("click", function () {
+            tampilFeedback(
+              "is-info",
+              "<p><strong>💡 Petunjuk</strong></p><p>" +
+                escapeHtml(e.petunjuk || "Baca lagi bagian Penjelasan sederhana di atas.") +
+                "</p>"
+            );
+          });
+        }
+
+        if (btnJawaban) {
+          btnJawaban.addEventListener("click", function () {
+            /* Kode jawaban baru disisipkan ke DOM saat tombol ini ditekan. */
+            if (isiJawaban) isiJawaban.innerHTML = highlightPython(e.jawaban);
+            if (boxJawaban) {
+              boxJawaban.hidden = false;
+              boxJawaban.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+          });
         }
       }
 
@@ -13465,11 +14430,21 @@ Tahun depan umurmu 18</span>
 
         if (btnBacaLagi) btnBacaLagi.addEventListener("click", bacaLagi);
 
-        /* Kalau link "Berikutnya" masih terkunci, arahkan ke soalnya. */
-        var navTerkunci = wadah.querySelector("[data-butuh-cek]");
+        /* Kalau link "Berikutnya" masih terkunci, arahkan ke bagian
+           yang belum selesai. Kalau sudah terbuka, biarkan link bekerja. */
+        var navTerkunci = wadah.querySelector(".materi-nav-link.next");
         if (navTerkunci) {
           navTerkunci.addEventListener("click", function (event) {
+            if (!this.hasAttribute("data-butuh-cek")) return;
             event.preventDefault();
+            var progress = bacaProgress();
+            var kurangLatihan =
+              Boolean(materi.latihanKode) &&
+              !Boolean(progress.latihan[materi.id] || progress.selesai[materi.id]);
+            if (kurangLatihan) {
+              gulirKeBagian("latihanKecil");
+              return;
+            }
             kartu.classList.add("cp-attention");
             window.setTimeout(function () {
               kartu.classList.remove("cp-attention");
@@ -13505,7 +14480,7 @@ Tahun depan umurmu 18</span>
                 '<button class="btn btn-ghost btn-sm" type="button" id="cpBacaUlangi">↺ Baca lagi dulu</button>' +
                 "</div>";
 
-              bukaKunciLanjut(wadah);
+              bukaKunciLanjut(wadah, materi);
 
               var btnLanjut = feedback.querySelector("#cpLanjut");
               if (btnLanjut) {
@@ -13549,10 +14524,13 @@ Tahun depan umurmu 18</span>
         var selesai = Boolean(progress.selesai[materi.id]);
         var hitung = hitungProgress();
 
-        /* Gerbang cek pemahaman: kalau materinya punya soal dan belum
-           lolos, tombol lanjut dikunci dulu. */
+        /* Gerbang lanjut: latihan kecil HARUS lolos validasi dan cek
+           pemahaman harus benar sebelum tombol lanjut dibuka. */
         var lulusCek = sudahPaham(materi.id);
+        var lulusLatihan = sudahLulusLatihan(materi.id);
         var butuhCek = Boolean(materi.cekPaham) && !lulusCek;
+        var butuhLatihan = Boolean(materi.latihanKode) && !lulusLatihan;
+        var terkunci = butuhCek || butuhLatihan;
 
         /* Penjelasan kode baris demi baris */
         var barisKode = (materi.penjelasanKode || [])
@@ -13653,7 +14631,7 @@ Tahun depan umurmu 18</span>
             '<span class="cp-status' + (lulusCek ? " is-ok" : "") + '">' +
             (lulusCek
               ? "✓ Sudah paham — tombol lanjut aktif."
-              : "🔒 Tombol lanjut baru aktif setelah jawabanmu benar.") +
+              : "🔒 Tombol lanjut aktif setelah latihan dan pertanyaan ini beres.") +
             "</span></div></div></section>";
         }
 
@@ -13764,10 +14742,21 @@ Tahun depan umurmu 18</span>
             "</p></div></div></section>"
           : "";
 
-        /* Playground hanya dibuat kalau materi punya kode awal */
-        var playground = materi.playground
-          ? buatPlayground(materi.playground, "Coba kode " + materi.judul)
-          : "";
+        /* Latihan kecil sekarang memakai editor kosong (tanpa kode
+           jawaban) dan divalidasi. Kalau tidak ada data validasinya,
+           fallback ke playground lama supaya tidak ada materi yang hilang. */
+        var latihanHtml = materi.latihanKode
+          ? bangunLatihan(materi, lulusLatihan)
+          : '<section class="materi-section"><h2>' +
+            '<span class="sec-icon" aria-hidden="true">🧪</span>Latihan kecil</h2>' +
+            '<div class="callout callout-exercise">' +
+            '<div class="callout-title">Coba kerjakan ini</div><p>' +
+            escapeHtml(materi.latihan) +
+            "</p></div>" +
+            (materi.playground
+              ? buatPlayground(materi.playground, "Coba kode " + materi.judul)
+              : "") +
+            "</section>";
 
         /* Tombol tandai selesai.
            Kalau masih ada materi berikutnya, tombolnya sekaligus
@@ -13780,12 +14769,16 @@ Tahun depan umurmu 18</span>
           ? '<button class="btn btn-ghost" type="button" id="btnBatalSelesai">↺ Batalkan tanda selesai</button>' +
             '<span class="done-flag">✓ Materi ini sudah kamu selesaikan</span>'
           : '<button class="btn btn-primary" type="button" id="btnTandaiSelesai"' +
-            (butuhCek ? " disabled" : "") +
+            (terkunci ? " disabled" : "") +
             ">" +
             labelSelesai +
             "</button>" +
-            (butuhCek
-              ? '<a class="gate-note" href="#cekPaham">🔒 Jawab dulu cek pemahaman di atas untuk membuka tombol ini</a>'
+            (terkunci
+              ? '<span class="gate-note">🔒 Selesaikan dulu ' +
+                (butuhLatihan ? '<a href="#" data-gulir-ke="latihanKecil">latihan kecil</a>' : "") +
+                (butuhLatihan && butuhCek ? " dan " : "") +
+                (butuhCek ? '<a href="#" data-gulir-ke="cekPaham">cek pemahaman</a>' : "") +
+                " untuk membuka tombol ini</span>"
               : "") +
             (berikutnya
               ? '<span class="next-hint">Berikutnya: ' +
@@ -13802,13 +14795,13 @@ Tahun depan umurmu 18</span>
           : '<span class="materi-nav-link placeholder"><span class="dir">← Sebelumnya</span><span class="title">Ini materi pertama</span></span>';
 
         var navBerikutnya = berikutnya
-          ? '<a class="materi-nav-link next' + (butuhCek ? " is-locked" : "") + '" href="#materi/' +
+          ? '<a class="materi-nav-link next' + (terkunci ? " is-locked" : "") + '" href="#materi/' +
             berikutnya.id +
-            '"' + (butuhCek ? ' data-butuh-cek="1" aria-disabled="true"' : "") +
+            '"' + (terkunci ? ' data-butuh-cek="1" aria-disabled="true"' : "") +
             '><span class="dir">Berikutnya →</span><span class="title">' +
             escapeHtml(berikutnya.judul) +
             "</span>" +
-            (butuhCek ? '<span class="nav-lock">🔒 Jawab cek pemahaman dulu</span>' : "") +
+            (terkunci ? '<span class="nav-lock">🔒 Selesaikan latihan & cek pemahaman dulu</span>' : "") +
             "</a>"
           : '<span class="materi-nav-link placeholder"><span class="dir">Berikutnya →</span><span class="title">Ini materi terakhir</span></span>';
 
@@ -13871,15 +14864,7 @@ Tahun depan umurmu 18</span>
 
           faqHtml +
 
-          '<section class="materi-section">' +
-          '<h2><span class="sec-icon" aria-hidden="true">🧪</span>Latihan kecil</h2>' +
-          '<div class="callout callout-exercise">' +
-          '<div class="callout-title">Coba kerjakan ini</div>' +
-          "<p>" +
-          escapeHtml(materi.latihan) +
-          "</p></div>" +
-          playground +
-          "</section>" +
+          latihanHtml +
 
           cekPahamHtml +
 
@@ -13939,7 +14924,8 @@ Tahun depan umurmu 18</span>
         /* Siapkan playground supaya tombol Reset berfungsi */
         siapkanPlaygroundAwal(wadah);
 
-        /* Siapkan gerbang cek pemahaman sebelum lanjut */
+        /* Siapkan validasi latihan kecil, lalu gerbang cek pemahaman */
+        siapkanLatihan(wadah, materi);
         siapkanCekPaham(wadah, materi);
 
         /* Tandai link aktif di sidebar */
