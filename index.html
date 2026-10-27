@@ -2686,6 +2686,326 @@
         }
       }
 
+      /* =========================================================
+         18. PERBAIKAN MATERI LEVEL 4-10 & CEK PEMAHAMAN
+         Komponen: versi sederhana, kamus kecil, FAQ, gerbang soal.
+         Semua warna memakai variabel tema supaya dark mode ikut.
+         ========================================================= */
+
+      /* ---------- Tombol yang sedang dikunci ---------- */
+      .btn:disabled,
+      .btn[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+      }
+      .btn:disabled:hover,
+      .btn[disabled]:hover {
+        transform: none;
+        background: var(--primary);
+        color: var(--primary-contrast);
+      }
+
+      .materi-lead {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        margin: -0.3rem 0 1rem;
+      }
+
+      /* ---------- Versi paling sederhana ---------- */
+      .versi-mudah-section .vm-card {
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--primary);
+        border-radius: var(--radius);
+        background: var(--bg-soft);
+        padding: 1.3rem 1.4rem 1.1rem;
+      }
+      .vm-label {
+        font-size: 0.73rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--primary);
+        margin: 0 0 0.45rem;
+      }
+      .vm-card .vm-label:not(:first-child) {
+        margin-top: 1.25rem;
+        padding-top: 1.05rem;
+        border-top: 1px dashed var(--border-strong);
+      }
+      .vm-inti {
+        font-size: 1.12rem;
+        font-weight: 600;
+        line-height: 1.55;
+        margin: 0 0 0.4rem;
+        color: var(--text);
+      }
+      .vm-cerita {
+        font-size: 0.98rem;
+        line-height: 1.75;
+        color: var(--text);
+        margin: 0 0 0.7rem;
+      }
+      .vm-card .vm-ingat {
+        margin: 1.3rem 0 0;
+      }
+      .vm-card .vm-ingat p {
+        margin: 0;
+        font-weight: 600;
+      }
+
+      /* ---------- Kamus kecil ---------- */
+      .kk-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+      }
+      .kk-item {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+        padding: 0.85rem 1rem;
+      }
+      .kk-kata {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 0.83rem;
+        font-weight: 600;
+        color: var(--secondary);
+        background: var(--secondary-soft);
+        border-radius: var(--radius-sm);
+        padding: 0.15rem 0.5rem;
+        margin-bottom: 0.5rem;
+        word-break: break-word;
+      }
+      .kk-item p {
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: var(--text-muted);
+      }
+
+      /* ---------- FAQ per materi ---------- */
+      .faq-list {
+        display: grid;
+        gap: 0.6rem;
+      }
+      .faq-item {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+        padding: 0.15rem 1.05rem;
+      }
+      .faq-item summary {
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        padding: 0.85rem 1.4rem 0.85rem 0;
+        position: relative;
+        list-style: none;
+      }
+      .faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq-item summary::after {
+        content: "▾";
+        position: absolute;
+        right: 0;
+        top: 0.75rem;
+        color: var(--primary);
+        transition: transform 0.18s ease;
+      }
+      .faq-item[open] summary::after {
+        transform: rotate(180deg);
+      }
+      .faq-item summary:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+      .faq-item p {
+        margin: 0 0 0.95rem;
+        font-size: 0.93rem;
+        line-height: 1.7;
+        color: var(--text-muted);
+      }
+
+      /* ---------- Cek pemahaman ---------- */
+      .cek-paham-section .cp-card {
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius);
+        background: var(--surface);
+        padding: 1.3rem 1.4rem;
+        box-shadow: var(--shadow-sm);
+        transition: box-shadow 0.25s ease, border-color 0.25s ease;
+      }
+      .cp-card.cp-attention {
+        border-color: var(--warn);
+        box-shadow: 0 0 0 4px var(--warn-soft);
+      }
+      .cp-intro {
+        font-size: 0.93rem;
+        line-height: 1.7;
+        color: var(--text-muted);
+        margin: 0 0 1.1rem;
+      }
+      .cp-question {
+        font-size: 1.05rem;
+        font-weight: 700;
+        line-height: 1.55;
+        margin: 0 0 0.9rem;
+      }
+      .cp-badge {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--primary);
+        background: var(--primary-soft);
+        border-radius: 999px;
+        padding: 0.2rem 0.6rem;
+        margin-right: 0.55rem;
+      }
+      .cp-options {
+        display: grid;
+        gap: 0.55rem;
+        margin-bottom: 1rem;
+      }
+      .cp-option {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.7rem;
+        width: 100%;
+        text-align: left;
+        font: inherit;
+        font-size: 0.94rem;
+        line-height: 1.55;
+        color: var(--text);
+        background: var(--bg-soft);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 0.75rem 0.9rem;
+        cursor: pointer;
+        transition: border-color 0.15s ease, background-color 0.15s ease;
+      }
+      .cp-option:hover {
+        border-color: var(--primary);
+      }
+      .cp-option:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+      }
+      .cp-option.is-selected {
+        border-color: var(--primary);
+        background: var(--primary-soft);
+      }
+      .cp-key {
+        font-family: var(--font-mono);
+        font-weight: 700;
+        color: var(--primary);
+        flex: 0 0 auto;
+      }
+      .cp-feedback {
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        border-left-width: 4px;
+        padding: 0.9rem 1.05rem;
+        margin-bottom: 1rem;
+        font-size: 0.93rem;
+        line-height: 1.65;
+      }
+      .cp-feedback p {
+        margin: 0 0 0.5rem;
+      }
+      .cp-feedback p:last-child {
+        margin-bottom: 0;
+      }
+      .cp-feedback.is-info {
+        border-left-color: var(--secondary);
+        background: var(--secondary-soft);
+      }
+      .cp-feedback.is-good {
+        border-left-color: var(--primary);
+        background: var(--primary-soft);
+      }
+      .cp-feedback.is-bad {
+        border-left-color: var(--danger);
+        background: var(--danger-soft);
+      }
+      .cp-tanya-yakin {
+        font-weight: 500;
+      }
+      .cp-bantuan {
+        background: var(--warn-soft);
+        border-radius: var(--radius-sm);
+        padding: 0.6rem 0.75rem;
+      }
+      .cp-feedback-actions,
+      .cp-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+      .cp-feedback-actions {
+        margin-top: 0.85rem;
+      }
+      .cp-status {
+        font-size: 0.86rem;
+        color: var(--text-muted);
+      }
+      .cp-status.is-ok {
+        font-weight: 600;
+        color: var(--primary);
+      }
+
+      /* ---------- Penanda gerbang di footer materi ---------- */
+      .gate-note {
+        display: inline-block;
+        font-size: 0.86rem;
+        color: var(--warn);
+        background: var(--warn-soft);
+        border-radius: 999px;
+        padding: 0.35rem 0.75rem;
+      }
+      .gate-note:hover {
+        color: var(--warn);
+        text-decoration: underline;
+      }
+      .materi-nav-link.is-locked {
+        border-style: dashed;
+      }
+      .materi-nav-link.is-locked .title {
+        color: var(--text-muted);
+      }
+      .nav-lock {
+        display: block;
+        margin-top: 0.45rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--warn);
+      }
+
+      @media (max-width: 768px) {
+        .kk-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .versi-mudah-section .vm-card,
+        .cek-paham-section .cp-card {
+          padding: 1.1rem 1rem;
+        }
+        .vm-inti {
+          font-size: 1.05rem;
+        }
+        .cp-actions .btn {
+          flex: 1 1 auto;
+        }
+      }
+
       @media print {
         .site-header,
         .site-footer,
@@ -2816,7 +3136,8 @@ Tahun depan umurmu 18</span>
               <p class="eyebrow">Cara belajar</p>
               <h2 id="cara-heading">Belajar dengan cara sederhana</h2>
               <p class="section-sub">
-                Setiap materi disusun dengan pola yang sama, supaya kamu selalu tahu apa yang sedang dipelajari.
+                Setiap materi disusun dengan pola yang sama — dan di level yang lebih sulit ada penjelasan
+                versi bahasa sehari-hari plus satu pertanyaan kecil sebelum kamu lanjut.
               </p>
             </header>
 
@@ -2825,8 +3146,8 @@ Tahun depan umurmu 18</span>
                 <span class="feature-icon" aria-hidden="true">🧠</span>
                 <h3>Bahasa Manusia</h3>
                 <p>
-                  Konsep programming dijelaskan seperti ngobrol bersama teman. Tidak ada istilah aneh
-                  yang dibiarkan menggantung tanpa penjelasan.
+                  Konsep programming dijelaskan seperti ngobrol bersama teman. Di level 4–10 ada bagian
+                  <strong>Versi paling sederhana</strong> dan <strong>Kamus kecil</strong> untuk setiap istilah asing.
                 </p>
               </article>
               <article class="card feature-card">
@@ -2849,8 +3170,8 @@ Tahun depan umurmu 18</span>
                 <span class="feature-icon" aria-hidden="true">🧪</span>
                 <h3>Langsung Latihan</h3>
                 <p>
-                  Setelah belajar teori, kamu langsung mencoba soal sederhana untuk memastikan
-                  materi benar-benar paham.
+                  Di akhir setiap materi ada satu pertanyaan cek pemahaman. Tombol lanjut baru terbuka
+                  setelah kamu menjawab benar dan yakin sudah paham.
                 </p>
               </article>
             </div>
@@ -3076,14 +3397,23 @@ Tahun depan umurmu 18</span>
               lalu penjelasan kode baris demi baris, lalu kesalahan yang sering terjadi, lalu latihan kecil.
               Urutan itu sengaja dibuat selalu sama supaya mudah diikuti.
             </p>
+            <p>
+              Khusus Level 4 sampai 10 yang konsepnya mulai terasa berat, tiap materi ditambahi
+              <strong>Versi paling sederhana</strong> (penjelasan tanpa istilah asing),
+              <strong>Kamus kecil</strong> untuk menerjemahkan istilahnya, dan
+              <strong>Pertanyaan yang sering muncul</strong>. Di akhir materi ada satu soal kecil:
+              kamu baru bisa lanjut ke materi berikutnya setelah menjawabnya dengan benar.
+              Tujuannya bukan untuk menguji, tapi supaya tidak ada konsep yang terlewat begitu saja.
+            </p>
 
             <h2>Cara pakai website ini</h2>
             <ol>
               <li>Buka halaman <a href="#materi">Belajar</a> dan mulai dari Level 1.</li>
-              <li>Baca materi sampai selesai, lalu klik <strong>Tandai sebagai selesai</strong>.</li>
-              <li>Coba <a href="#latihan">Latihan</a> untuk memastikan materi benar-benar paham.</li>
-              <li>Kalau ada yang membingungkan, cek <a href="#bingung">Kamus Programming</a>.</li>
-              <li>Ulangi besoknya — progress kamu tersimpan otomatis di browser.</li>
+              <li>Baca materi sampai selesai. Mulai Level 4, awali dengan bagian <strong>Versi paling sederhana</strong> dan <strong>Kamus kecil</strong>.</li>
+              <li>Kerjakan latihan kecil, lalu jawab satu <strong>pertanyaan cek pemahaman</strong> di bagian bawah materi.</li>
+              <li>Kalau jawabanmu benar dan kamu sudah yakin, tekan <strong>Sudah paham, lanjut</strong> untuk membuka materi berikutnya.</li>
+              <li>Masih bingung? Tekan <strong>Baca lagi penjelasannya</strong>, atau cek <a href="#bingung">Kamus Programming</a>.</li>
+              <li>Coba juga halaman <a href="#latihan">Latihan</a> dan ulangi besoknya — progress kamu tersimpan otomatis di browser.</li>
             </ol>
 
             <h2>Teknologi yang dipakai</h2>
@@ -4787,6 +5117,51 @@ Tahun depan umurmu 18</span>
           playground: 'umur = 20\n\nstatus = "Dewasa" if umur >= 17 else "Anak-anak"\nprint(status)\n\nnilai = 60\nketerangan = "Lulus" if nilai >= 75 else "Tidak lulus"\nprint(keterangan)',
         },
 
+        {
+          id: "rangkuman-percabangan",
+          level: 4,
+          judul: "Rangkuman: Memilih Jalur dengan if / elif / else",
+          pertanyaan: "Bagaimana cara membaca dan menyusun if, elif, dan else supaya tidak membingungkan?",
+          penjelasan: [
+            "Materi ini adalah jembatan. Kita tidak menambah konsep baru, tapi merangkai if, elif, dan else menjadi satu cerita yang utuh supaya kamu lebih mantap sebelum masuk ke perulangan.",
+            "Aturan mainnya cuma satu: Python bertanya dari atas ke bawah dan berhenti di pertanyaan pertama yang jawabannya iya. Kalau tidak ada yang iya, barulah else yang jalan.",
+            "Cara paling ampuh membaca kode percabangan adalah mengubahnya jadi kalimat: 'Kalau ... maka ... . Kalau tidak, tapi ... maka ... . Kalau semuanya tidak, maka ... .'",
+            "Kalau kamu bisa menceritakan kode itu dengan kata-katamu sendiri, berarti kamu sudah paham — walaupun belum hafal tulisan kodenya.",
+          ],
+          analogi: [
+            "Bayangkan petugas di loket yang menentukan diskon. Dia bertanya berurutan: 'belanja di atas satu juta?' Kalau iya, langsung kasih diskon 20% dan selesai.",
+            "Kalau tidak, dia lanjut: 'di atas lima ratus ribu?' Kalau iya, diskon 10% dan selesai. Kalau tidak juga, ya tidak ada diskon.",
+            "Petugas tidak pernah menanyakan semua pertanyaan sekaligus. Dia berhenti begitu ada jawaban yang cocok. Persis seperti itulah if, elif, dan else.",
+          ],
+          kode: 'total = 650000\n\nif total > 1000000:\n    diskon = "20%"\nelif total > 500000:\n    diskon = "10%"\nelse:\n    diskon = "tidak ada"\n\nprint("Kamu mendapat diskon", diskon)',
+          penjelasanKode: [
+            { kode: "total = 650000", arti: "Data yang akan kita periksa: total belanja 650 ribu." },
+            { kode: "if total > 1000000:", arti: "Pertanyaan pertama. 650000 > 1000000? Tidak, jadi lanjut." },
+            { kode: "elif total > 500000:", arti: "Pertanyaan kedua. 650000 > 500000? Iya, berarti di sini kita berhenti." },
+            { kode: 'diskon = "10%"', arti: "Isi dari cabang yang benar. Karena cabang ini yang cocok, diskon diisi 10%." },
+            { kode: "else:", arti: "Tidak dijalankan, karena sudah ada cabang yang cocok di atasnya." },
+            { kode: 'print("Kamu mendapat diskon", diskon)', arti: "Menampilkan hasil akhir: Kamu mendapat diskon 10%." },
+          ],
+          contohKasus: {
+            judul: "Menentukan ongkos kirim dari berat paket",
+            kode: 'berat = 3\n\nif berat <= 1:\n    ongkir = 10000\nelif berat <= 5:\n    ongkir = 20000\nelse:\n    ongkir = 30000\n\nprint("Ongkos kirim:", ongkir)',
+            kapan: "Percabangan dipakai di hampir semua aplikasi: menentukan ongkir, kategori nilai, status pesanan, atau hak akses user. Pola pikirnya selalu sama — susun pertanyaan dari yang paling spesifik, lalu sediakan jalur terakhir.",
+          },
+          kesalahan: [
+            {
+              salah: 'if total > 500000:\n    diskon = "10%"\nelif total > 1000000:\n    diskon = "20%"',
+              benar: 'if total > 1000000:\n    diskon = "20%"\nelif total > 500000:\n    diskon = "10%"',
+              catatan: "Syarat yang lebih tinggi harus ditulis lebih dulu. Kalau tidak, belanja 2 juta akan keburu masuk ke cabang 10%.",
+            },
+            {
+              salah: 'if total > 500000\n    diskon = "10%"',
+              benar: 'if total > 500000:\n    diskon = "10%"',
+              catatan: "Dua kesalahan sekaligus: titik dua tertinggal dan isinya belum menjorok.",
+            },
+          ],
+          latihan: "Ubah nilai total di playground menjadi 1500000, lalu 200000. Jalankan dua kali dan ceritakan dengan kata-katamu sendiri kenapa hasilnya berbeda.",
+          playground: 'total = 650000\n\nif total > 1000000:\n    diskon = "20%"\nelif total > 500000:\n    diskon = "10%"\nelse:\n    diskon = "tidak ada"\n\nprint("Kamu mendapat diskon", diskon)',
+        },
         /* ===================== LEVEL 5 ===================== */
         {
           id: "for",
@@ -5282,6 +5657,51 @@ Tahun depan umurmu 18</span>
       ];
 
       var MATERI_2 = [
+        {
+          id: "pilih-for-atau-while",
+          level: 5,
+          judul: "Kapan Pakai for, Kapan Pakai while?",
+          pertanyaan: "Dua-duanya mengulang. Lalu bagaimana memilih yang tepat?",
+          penjelasan: [
+            "Materi ini adalah jembatan sebelum masuk ke Level 6. Kita sudah punya dua alat pengulang: for dan while. Sekarang saatnya tahu kapan sebaiknya memakai masing-masing.",
+            "Tanyakan satu hal saja pada dirimu: apakah aku sudah tahu berapa kali perintah ini harus diulang? Kalau iya, pakai for. Kalau tidak, dan berhentinya bergantung pada keadaan, pakai while.",
+            "for biasanya berpasangan dengan daftar atau range(). Kamu sudah punya datanya, tinggal menelusurinya. while biasanya berpasangan dengan pertanyaan yang terus dicek, misalnya 'sudah benar belum?'.",
+            "while punya satu tanggung jawab tambahan: di dalamnya harus ada sesuatu yang berubah supaya syaratnya akhirnya salah. Tanpa itu, program mengulang selamanya.",
+          ],
+          analogi: [
+            "Membacakan absen 30 siswa itu seperti for: daftarnya ada, jumlahnya jelas, kamu tinggal membaca satu per satu.",
+            "Menunggu air mendidih itu seperti while: kamu tidak tahu harus menunggu berapa lama, tapi kamu tahu syarat berhentinya — air sudah mendidih.",
+            "Kalau kamu menunggu air mendidih tapi tidak pernah mengecek pancinya, kamu akan menunggu selamanya. Begitu juga while yang tidak punya perubahan di dalamnya.",
+          ],
+          kode: '# for: jumlahnya sudah jelas\nhari = ["Senin", "Selasa", "Rabu"]\nfor nama_hari in hari:\n    print("Jadwal:", nama_hari)\n\nprint("---")\n\n# while: berhentinya bergantung pada keadaan\nhitungan = 3\nwhile hitungan > 0:\n    print("Mulai dalam", hitungan)\n    hitungan -= 1\nprint("Sekarang!")',
+          penjelasanKode: [
+            { kode: 'hari = ["Senin", "Selasa", "Rabu"]', arti: "Kita sudah punya daftar berisi 3 hari. Jumlah putarannya jelas." },
+            { kode: "for nama_hari in hari:", arti: "Karena daftarnya sudah ada, for adalah pilihan yang pas." },
+            { kode: 'print("Jadwal:", nama_hari)', arti: "Dijalankan tepat 3 kali, sekali untuk setiap hari." },
+            { kode: "hitungan = 3", arti: "Nilai awal untuk contoh while." },
+            { kode: "while hitungan > 0:", arti: "Terus ulang selama hitungan masih lebih dari 0." },
+            { kode: "    hitungan -= 1", arti: "Ini 'pintu keluar'-nya. Tanpa baris ini, while tidak akan pernah berhenti." },
+          ],
+          contohKasus: {
+            judul: "Menu aplikasi kasir",
+            kode: 'pilihan = ""\n\nwhile pilihan != "keluar":\n    pilihan = input("Pilih menu (barang / bayar / keluar): ")\n    if pilihan == "barang":\n        print("Daftar barang ditampilkan")\n    elif pilihan == "bayar":\n        print("Pembayaran diproses")',
+            kapan: "Program interaktif hampir selalu memakai while untuk menu utamanya, karena tidak ada yang tahu berapa lama user akan memakai aplikasi. Di dalamnya, for tetap dipakai untuk menelusuri daftar barang.",
+          },
+          kesalahan: [
+            {
+              salah: 'i = 0\nwhile i < 3:\n    print(i)',
+              benar: 'i = 0\nwhile i < 3:\n    print(i)\n    i += 1',
+              catatan: "Nilai yang dicek harus berubah, kalau tidak while berjalan selamanya (infinite loop).",
+            },
+            {
+              salah: 'for nama in daftar:\nprint(nama)',
+              benar: 'for nama in daftar:\n    print(nama)',
+              catatan: "Isi for wajib menjorok ke dalam, sama seperti while dan if.",
+            },
+          ],
+          latihan: "Di playground, tambahkan satu hari lagi ke dalam list hari, lalu jalankan. Berapa kali tulisan 'Jadwal' muncul sekarang? Coba jelaskan alasannya.",
+          playground: 'hari = ["Senin", "Selasa", "Rabu"]\nfor nama_hari in hari:\n    print("Jadwal:", nama_hari)\n\nprint("---")\n\nhitungan = 3\nwhile hitungan > 0:\n    print("Mulai dalam", hitungan)\n    hitungan -= 1\nprint("Sekarang!")',
+        },
         /* ===================== LEVEL 6 ===================== */
         {
           id: "list",
@@ -5646,6 +6066,51 @@ Tahun depan umurmu 18</span>
           playground: 'nilai = {"Anam": 90, "Budi": 85, "Citra": 88}\n\nfor nama in nilai:\n    print(nama, ":", nilai[nama])\n\nprint("---")\n\nfor nama, angka in nilai.items():\n    print(nama, "mendapat", angka)',
         },
 
+        {
+          id: "memilih-collection",
+          level: 6,
+          judul: "Memilih Tempat Menyimpan Data",
+          pertanyaan: "Ada list, tuple, set, dan dictionary. Mana yang harus dipakai?",
+          penjelasan: [
+            "Materi jembatan ini membantu kamu memilih wadah data tanpa harus menghafal semuanya. Mulailah dengan tiga pertanyaan sederhana.",
+            "Pertanyaan pertama: apakah datanya berpasangan, seperti nama dan nomor, atau nama barang dan harga? Kalau iya, pilih dictionary.",
+            "Pertanyaan kedua: apakah kamu hanya ingin data unik tanpa duplikat dan tidak peduli urutan? Kalau iya, pilih set. Kalau tidak, lanjut ke pertanyaan ketiga.",
+            "Pertanyaan ketiga: apakah isinya nanti perlu ditambah, diganti, atau dihapus? Kalau iya, pilih list. Kalau datanya harus tetap terkunci, pilih tuple.",
+          ],
+          analogi: [
+            "Bayangkan empat wadah di dapur: keranjang (list), kotak tersegel (tuple), saringan (set), dan rak berlabel (dictionary).",
+            "Keranjang bisa kamu isi dan kosongkan sesuka hati. Kotak tersegel tidak boleh dibuka lagi setelah ditutup. Saringan otomatis membuang butiran kembar.",
+            "Rak berlabel punya nama di tiap laci: kamu tidak perlu mengingat urutan, cukup membaca labelnya untuk mengambil isinya.",
+          ],
+          kode: '# 1. List: daftar belanja yang bisa berubah\nbelanja = ["beras", "minyak"]\nbelanja.append("gula")\n\n# 2. Tuple: titik lokasi yang tetap\ntoko = (-6.9, 107.6)\n\n# 3. Set: pengunjung unik (duplikat dibuang)\npengunjung = {"ani", "budi", "ani"}\n\n# 4. Dictionary: nama barang dan harga\nharga = {"beras": 12000, "minyak": 15000}\n\nprint(belanja)\nprint(toko)\nprint(pengunjung)\nprint(harga["beras"])',
+          penjelasanKode: [
+            { kode: 'belanja = ["beras", "minyak"]', arti: "List: daftar yang masih boleh ditambah." },
+            { kode: 'belanja.append("gula")', arti: "Buktinya: kita bisa menambah isi list kapan saja." },
+            { kode: "toko = (-6.9, 107.6)", arti: "Tuple: dua angka koordinat yang sebaiknya tidak berubah." },
+            { kode: 'pengunjung = {"ani", "budi", "ani"}', arti: "Set: 'ani' ditulis dua kali, tapi tetap dihitung satu." },
+            { kode: 'harga = {"beras": 12000, "minyak": 15000}', arti: "Dictionary: tiap nama barang punya harga." },
+            { kode: 'print(harga["beras"])', arti: "Ambil harga memakai kuncinya, bukan nomor urut." },
+          ],
+          contohKasus: {
+            judul: "Satu program, empat wadah sekaligus",
+            kode: 'menu = {"kopi": 15000, "teh": 10000}\npesanan = []\nmeja = ("A1", "A2", "A3")\nkategori = {"minuman", "makanan", "minuman"}\n\nfor nama, harga in menu.items():\n    pesanan.append(nama + " - " + str(harga))\n\nprint(pesanan)\nprint(meja[0], kategori)',
+            kapan: "Di program sungguhan, keempat wadah ini biasanya justru dipakai bersamaan. Yang penting bukan menghafal definisinya, tapi tahu 'data saya ini paling cocok ditaruh di mana'.",
+          },
+          kesalahan: [
+            {
+              salah: 'harga = {"beras": 12000}\nprint(harga[0])',
+              benar: 'harga = {"beras": 12000}\nprint(harga["beras"])',
+              catatan: "Dictionary tidak punya nomor urut. Ambil datanya dengan kunci, bukan index.",
+            },
+            {
+              salah: 'toko = (-6.9, 107.6)\ntoko[0] = -7.0',
+              benar: 'toko = (-6.9, 107.6)\ntoko = (-7.0, 107.6)',
+              catatan: "Isi tuple tidak bisa diganti. Kalau memang perlu berubah, pakai list atau buat tuple baru.",
+            },
+          ],
+          latihan: "Di playground, tambahkan satu barang baru beserta harganya ke dalam dictionary harga. Lalu tampilkan harganya memakai kunci, bukan nomor urut.",
+          playground: 'belanja = ["beras", "minyak"]\nbelanja.append("gula")\n\ntoko = (-6.9, 107.6)\n\npengunjung = {"ani", "budi", "ani"}\n\nharga = {"beras": 12000, "minyak": 15000}\n\nprint(belanja)\nprint(toko)\nprint(pengunjung)\nprint(harga["beras"])',
+        },
         /* ===================== LEVEL 7 ===================== */
         {
           id: "apa-itu-function",
@@ -6091,6 +6556,51 @@ Tahun depan umurmu 18</span>
           playground: 'def status_kelulusan(nilai):\n    if nilai >= 75:\n        return "Lulus"\n    return "Tidak lulus"\n\nprint(status_kelulusan(80))\nprint(status_kelulusan(60))',
         },
 
+        {
+          id: "rangkuman-function",
+          level: 7,
+          judul: "Rangkuman Function: Kirim, Olah, Terima",
+          pertanyaan: "Bagaimana cara membaca function dari awal sampai hasilnya keluar?",
+          penjelasan: [
+            "Materi jembatan ini merangkai parameter, argument, dan return jadi satu alur yang mudah diingat: kirim data, olah, terima hasilnya.",
+            "Langkah pertama: function menerima data. Nama tempatnya disebut parameter; isi yang benar-benar dikirim disebut argument.",
+            "Langkah kedua: data itu diolah di dalam isi function. Di sinilah tempatnya perhitungan, pengecekan if, atau perulangan.",
+            "Langkah ketiga: hasilnya diserahkan keluar dengan return. Tanpa return, hasilnya hanya bisa dilihat (kalau di-print), tidak bisa dipakai lagi.",
+          ],
+          analogi: [
+            "Bayangkan sebuah mesin jus. Buah yang kamu masukkan adalah argument. Lubang tempat buah masuk adalah parameter.",
+            "Mesin yang berputar dan menghaluskan buah adalah isi function — bagian yang mengolah.",
+            "Segelas jus yang keluar adalah return. Kalau jusnya hanya difoto dan ditunjukkan ke kamu, itu seperti print: kelihatan, tapi tidak bisa kamu bawa pulang.",
+          ],
+          kode: 'def hitung_total(harga, jumlah):\n    total = harga * jumlah\n    return total\n\nhasil = hitung_total(12000, 3)\nprint("Total belanja:", hasil)\nprint("Ditambah ongkir:", hasil + 5000)',
+          penjelasanKode: [
+            { kode: "def hitung_total(harga, jumlah):", arti: "Membuat function dengan dua 'tempat kosong': harga dan jumlah. Itulah parameternya." },
+            { kode: "    total = harga * jumlah", arti: "Bagian pengolahan: harga dikali jumlah." },
+            { kode: "    return total", arti: "Hasilnya diserahkan keluar supaya bisa dipakai lagi." },
+            { kode: "hasil = hitung_total(12000, 3)", arti: "Memanggil function. 12000 dan 3 itulah argument-nya, hasilnya disimpan di variable hasil." },
+            { kode: 'print("Total belanja:", hasil)', arti: "Menampilkan hasil: 36000." },
+            { kode: 'print("Ditambah ongkir:", hasil + 5000)', arti: "Buktinya hasilnya benar-benar bisa dipakai lagi untuk hitungan lain." },
+          ],
+          contohKasus: {
+            judul: "Menghitung gaji dari jam kerja",
+            kode: 'def hitung_gaji(jam, upah_per_jam=20000):\n    gaji = jam * upah_per_jam\n    if jam > 40:\n        gaji += (jam - 40) * 10000\n    return gaji\n\nprint(hitung_gaji(35))\nprint(hitung_gaji(45))',
+            kapan: "Hampir semua aplikasi memakai pola ini: terima data dari user atau database, olah dengan aturan bisnis, lalu kembalikan hasilnya untuk ditampilkan atau disimpan.",
+          },
+          kesalahan: [
+            {
+              salah: 'def hitung_total(harga, jumlah):\n    total = harga * jumlah\n    print(total)\n\nprint(hitung_total(12000, 3) + 5000)',
+              benar: 'def hitung_total(harga, jumlah):\n    total = harga * jumlah\n    return total\n\nprint(hitung_total(12000, 3) + 5000)',
+              catatan: "print hanya menampilkan, tidak menyerahkan nilai. Akibatnya hasilnya None dan tidak bisa dijumlahkan.",
+            },
+            {
+              salah: 'def hitung_total(harga, jumlah):\nreturn harga * jumlah',
+              benar: 'def hitung_total(harga, jumlah):\n    return harga * jumlah',
+              catatan: "Isi function harus menjorok ke dalam. Tanpa spasi, return dianggap berada di luar function.",
+            },
+          ],
+          latihan: "Di playground, ubah jumlah menjadi 5, lalu jalankan. Setelah itu tambahkan satu baris lagi yang menampilkan hasil ditambah ongkir 8000.",
+          playground: 'def hitung_total(harga, jumlah):\n    total = harga * jumlah\n    return total\n\nhasil = hitung_total(12000, 3)\nprint("Total belanja:", hasil)\nprint("Ditambah ongkir:", hasil + 5000)',
+        },
         /* ===================== LEVEL 8 ===================== */
         {
           id: "syntax-error",
@@ -6457,6 +6967,49 @@ Tahun depan umurmu 18</span>
           playground: 'def rata_rata(angka):\n    total = 0\n    for nilai in angka:\n        total += nilai\n    return total / len(angka)\n\nprint(rata_rata([80, 90, 100]))',
         },
 
+        {
+          id: "error-lainnya",
+          level: 8,
+          judul: "Error Lain yang Sering Muncul",
+          pertanyaan: "Selain SyntaxError, NameError, TypeError, dan IndexError, error apa lagi yang perlu dikenal pemula?",
+          penjelasan: [
+            "Materi tambahan ini memperkenalkan beberapa error umum lainnya. Kabar baiknya: kamu sudah tahu cara membacanya dari materi sebelumnya, jadi tidak perlu belajar ulang.",
+            "ValueError muncul saat jenis datanya benar tapi isinya tidak bisa dipakai. Contohnya int(\"halo\") — 'halo' jelas tulisan, tapi tidak ada angkanya.",
+            "KeyError muncul saat kamu meminta kunci yang tidak ada di dictionary. ZeroDivisionError muncul saat membagi dengan 0. IndentationError muncul saat spasi di awal baris tidak konsisten.",
+            "AttributeError muncul saat kamu memakai perintah yang tidak tersedia untuk jenis data itu, misalnya memanggil .append() pada angka.",
+          ],
+          analogi: [
+            "Bayangkan kamu memasak dan resepnya bilang 'masukkan 2 sendok gula'. Kalau kamu malah memasukkan sendok makan, itu ValueError: alatnya benar, isinya salah.",
+            "KeyError seperti mencari laci bernama 'Gula' padahal di lemari tidak ada laci itu. IndentationError seperti langkah resep yang ditulis miring ke samping sehingga koki bingung mana yang harus dulu.",
+            "Nama error itu sebenarnya sudah bercerita. Baca pelan-pelan: 'Key' berarti kunci, 'Value' berarti nilai, 'ZeroDivision' berarti bagi dengan nol.",
+          ],
+          kode: '# Contoh 1 — ValueError\n# angka = int("halo")  -> ValueError\n\n# Cara aman\nteks = "17"\nangka = int(teks)\nprint(angka + 3)\n\n# Contoh 2 — KeyError\nharga = {"beras": 12000}\nif "gula" in harga:\n    print(harga["gula"])\nelse:\n    print("Harga gula belum ada")\n\n# Contoh 3 — ZeroDivisionError\npembagi = 0\nif pembagi != 0:\n    print(100 / pembagi)\nelse:\n    print("Tidak bisa dibagi nol")',
+          penjelasanKode: [
+            { kode: '# angka = int("halo")  -> ValueError', arti: "Kalau dijalankan, ini error: tulisan 'halo' tidak bisa jadi angka." },
+            { kode: 'teks = "17"\nangka = int(teks)', arti: "Tulisan yang isinya angka aman dikonversi jadi 17." },
+            { kode: 'if "gula" in harga:', arti: "Cek dulu kuncinya sebelum mengambil, supaya tidak muncul KeyError." },
+            { kode: 'if pembagi != 0:', arti: "Cek dulu pembaginya, supaya tidak muncul ZeroDivisionError." },
+          ],
+          contohKasus: {
+            judul: "Formulir pendaftaran yang ramah",
+            kode: 'try:\n    umur = int(input("Umur kamu: "))\n    print("Tahun depan umurmu", umur + 1)\nexcept ValueError:\n    print("Maaf, umur harus ditulis dengan angka.")',
+            kapan: "Saat menerima masukan dari user, error seperti ValueError sangat sering terjadi. Program yang baik tidak berhenti mendadak, tapi memberi pesan yang mudah dipahami.",
+          },
+          kesalahan: [
+            {
+              salah: 'umur = int(input("Umur: "))\n# user mengetik "tujuh belas"',
+              benar: 'try:\n    umur = int(input("Umur: "))\nexcept ValueError:\n    print("Isikan angka, ya.")',
+              catatan: "User bebas mengetik apa saja. Selalu siap menghadapi isian yang tidak sesuai.",
+            },
+            {
+              salah: 'harga = {"beras": 12000}\nprint(harga["gula"])',
+              benar: 'harga = {"beras": 12000}\nprint(harga.get("gula", "Belum ada"))',
+              catatan: ".get() aman dipakai: kalau kuncinya tidak ada, dia tidak error dan bisa memberi nilai pengganti.",
+            },
+          ],
+          latihan: "Di playground, hapus tanda pagar pada baris pertama yang menyebabkan ValueError, jalankan, lalu baca pesan errornya. Setelah itu pasang kembali tanda pagarnya.",
+          playground: '# Coba hapus tanda # di baris bawah ini untuk melihat ValueError\n# angka = int("halo")\n\nteks = "17"\nangka = int(teks)\nprint(angka + 3)\n\nharga = {"beras": 12000}\nif "gula" in harga:\n    print(harga["gula"])\nelse:\n    print("Harga gula belum ada")\n\npembagi = 0\nif pembagi != 0:\n    print(100 / pembagi)\nelse:\n    print("Tidak bisa dibagi nol")',
+        },
         /* ===================== LEVEL 9 ===================== */
         {
           id: "import",
@@ -6714,6 +7267,51 @@ Tahun depan umurmu 18</span>
           playground: 'catatan = ["Beli susu", "Beli roti", "Beli keju"]\n\nfor item in catatan:\n    print(item)\n\nprint("---")\n\ncatatan.append("Beli apel")\nfor item in catatan:\n    print(item)',
         },
 
+        {
+          id: "try-except",
+          level: 9,
+          judul: "Menangani Error dengan try ... except",
+          pertanyaan: "Bagaimana caranya supaya program tidak berhenti mendadak saat ada kesalahan?",
+          penjelasan: [
+            "Sejauh ini kalau ada error, program berhenti dan menampilkan pesan merah. try ... except memberi kita pilihan lain: coba dulu, dan kalau gagal, tangani dengan tenang.",
+            "Caranya: taruh kode yang mungkin bermasalah di dalam blok try. Kalau kode itu berjalan normal, blok except dilewati begitu saja.",
+            "Kalau kode di dalam try menimbulkan error, Python tidak mematikan program. Dia langsung menjalankan perintah di dalam except — misalnya menampilkan pesan yang lebih ramah.",
+            "Sebaiknya sebut jenis errornya, misalnya except ValueError:. Dengan begitu, error lain tetap terlihat dan tidak tersembunyi diam-diam.",
+          ],
+          analogi: [
+            "Bayangkan kamu mencoba menyalakan kipas, tapi colokannya longgar. Kamu tidak langsung membuang kipasnya. Kamu cek colokan, pasang lagi, lalu coba menyala.",
+            "try adalah 'coba menyalakan'. except adalah 'kalau ternyata tidak menyala, lakukan ini'.",
+            "Tanpa except, satu colokan longgar membuat seluruh rumah panik. Dengan except, kamu tinggal bilang: 'colokannya dicek dulu ya', lalu tetap lanjut.",
+          ],
+          kode: 'try:\n    umur = int(input("Masukkan umur (angka): "))\n    print("Tahun depan umurmu", umur + 1)\nexcept ValueError:\n    print("Maaf, umur harus ditulis dengan angka.")\n\nprint("Program tetap lanjut sampai sini")',
+          penjelasanKode: [
+            { kode: "try:", arti: "Awal blok 'coba'. Semua perintah yang mungkin error ditaruh menjorok di bawahnya." },
+            { kode: 'umur = int(input("Masukkan umur (angka): "))', arti: "Bagian rawan: kalau user mengetik huruf, int() akan menimbulkan ValueError." },
+            { kode: 'print("Tahun depan umurmu", umur + 1)', arti: "Hanya jalan kalau konversi tadi berhasil." },
+            { kode: "except ValueError:", arti: "Kalau terjadi ValueError, jalankan perintah di bawah ini, jangan hentikan program." },
+            { kode: 'print("Maaf, umur harus ditulis dengan angka.")', arti: "Pesan ramah untuk user, jauh lebih mudah dipahami daripada pesan merah." },
+            { kode: 'print("Program tetap lanjut sampai sini")', arti: "Bukti bahwa program tidak mati: baris ini tetap dijalankan." },
+          ],
+          contohKasus: {
+            judul: "Membuka file yang belum tentu ada",
+            kode: 'try:\n    with open("catatan.txt", "r") as file:\n        print(file.read())\nexcept FileNotFoundError:\n    print("File belum ada. Akan dibuat saat kamu menyimpan nanti.")',
+            kapan: "try ... except dipakai untuk hal yang tidak sepenuhnya bisa kita kontrol: masukan user, file yang mungkin belum ada, koneksi internet, atau data dari luar aplikasi.",
+          },
+          kesalahan: [
+            {
+              salah: 'try:\n    angka = int("halo")\nexcept:\n    print("Salah")',
+              benar: 'try:\n    angka = int("halo")\nexcept ValueError:\n    print("Isikan angka, ya.")',
+              catatan: "except tanpa nama error menangkap semua error, termasuk yang seharusnya kamu ketahui. Lebih aman menyebut jenisnya.",
+            },
+            {
+              salah: 'try\n    angka = int("17")\nexcept ValueError:\n    print("Salah")',
+              benar: 'try:\n    angka = int("17")\nexcept ValueError:\n    print("Salah")',
+              catatan: "try juga wajib diakhiri titik dua, sama seperti if, for, while, dan def.",
+            },
+          ],
+          latihan: "Coba jalankan playground dengan mengetik angka, lalu jalankan lagi dengan mengetik huruf. Perhatikan bahwa kedua-duanya tetap menampilkan pesan dan program tidak berhenti.",
+          playground: 'try:\n    umur = int(input("Masukkan umur (angka): "))\n    print("Tahun depan umurmu", umur + 1)\nexcept ValueError:\n    print("Maaf, umur harus ditulis dengan angka.")\n\nprint("Program tetap lanjut sampai sini")',
+        },
         /* ===================== LEVEL 10 ===================== */
         {
           id: "kalkulator",
@@ -7202,7 +7800,1453 @@ Tahun depan umurmu 18</span>
           latihan: 'Tambahkan proses pembayaran: minta jumlah uang pelanggan dengan input() dan ubah dengan int(). Jika uang cukup, tampilkan kembalian; jika kurang, beri tahu jumlah kekurangannya.',
           playground: 'harga = {\n    "beras": 12000,\n    "minyak": 15000,\n    "gula": 13000\n}\nbelanja = []\n\nwhile True:\n    barang = input("Nama barang (ketik selesai untuk checkout): ").lower()\n    if barang == "selesai":\n        break\n    if barang in harga:\n        jumlah = int(input("Jumlah barang: "))\n        belanja.append({"nama": barang, "jumlah": jumlah})\n    else:\n        print("Barang tidak tersedia.")\n\ntotal = 0\nprint("\\n--- STRUK BELANJA ---")\nfor item in belanja:\n    subtotal = harga[item["nama"]] * item["jumlah"]\n    total += subtotal\n    print(item["nama"], "x", item["jumlah"], ":", subtotal)\n\nprint("Subtotal:", total)\nif total > 40000:\n    diskon = total * 0.1\n    total -= diskon\n    print("Diskon 10%:", diskon)\n\nprint("Total bayar:", total)',
         },
+        {
+          id: "rangkuman-akhir",
+          level: 10,
+          judul: "Rangkuman Akhir & Langkah Berikutnya",
+          pertanyaan: "Setelah sepuluh level ini, apa yang sebenarnya sudah saya punya dan apa yang harus dilakukan selanjutnya?",
+          penjelasan: [
+            "Materi penutup ini bukan ujian. Ini cuma ajakan untuk melihat ke belakang dan menyadari bahwa kamu sudah jauh melangkah.",
+            "Kamu sudah bisa menyimpan data (variable, list, dictionary), membuat keputusan (if/elif/else), mengulang pekerjaan (for/while), mengemas kode (function), membaca error, memakai module, dan menyimpan data ke file.",
+            "Tidak ada programmer yang hafal semuanya. Yang membedakan pemula dan yang sudah mahir bukan hafalannya, tapi keberaniannya untuk mencoba, membaca pesan error, dan mencari lagi saat lupa.",
+            "Langkah berikutnya yang paling bagus: ambil salah satu mini project di level ini, lalu ubah-ubah. Tambahkan satu fitur kecil. Biarkan error muncul, lalu perbaiki. Di situlah pemahaman benar-benar menguat.",
+          ],
+          analogi: [
+            "Belajar coding itu seperti belajar memasak. Setelah tahu cara memotong, menumis, dan mengatur api, kamu tidak perlu menghafal semua resep — kamu mulai bisa berkreasi.",
+            "Awalnya kamu mengikuti resep kata per kata. Lama-lama kamu berani mengganti bumbu, menambah bahan, dan memperbaiki rasa yang kurang pas.",
+            "Error itu seperti masakan yang terlalu asin: bukan tanda kamu gagal, tapi tanda kamu sedang mencicipi dan belajar.",
+          ],
+          kode: '# Rangkuman kecil: hampir semua konsep dalam satu program\ndef kategori(nilai):\n    if nilai >= 90:\n        return "A"\n    elif nilai >= 75:\n        return "B"\n    return "C"\n\nsiswa = [{"nama": "Ani", "nilai": 88}, {"nama": "Budi", "nilai": 72}]\n\nfor data in siswa:\n    try:\n        predikat = kategori(int(data["nilai"]))\n        print(data["nama"], "mendapat", predikat)\n    except (ValueError, KeyError):\n        print("Data", data["nama"], "perlu dicek lagi")',
+          penjelasanKode: [
+            { kode: "def kategori(nilai):", arti: "Function: satu tugas kecil, menerima satu nilai." },
+            { kode: "if nilai >= 90:", arti: "Percabangan: memilih hasil berdasarkan nilai." },
+            { kode: 'return "A"', arti: "return: menyerahkan hasil keluar dari function." },
+            { kode: 'siswa = [{"nama": "Ani", "nilai": 88}, ...]', arti: "List berisi dictionary: kumpulan data yang rapi." },
+            { kode: "for data in siswa:", arti: "Perulangan: memproses setiap siswa." },
+            { kode: "try:", arti: "Jaga-jaga kalau datanya tidak sesuai." },
+            { kode: "except (ValueError, KeyError):", arti: "Menangani dua jenis error sekaligus tanpa menghentikan program." },
+          ],
+          contohKasus: {
+            judul: "Rekap nilai sederhana",
+            kode: 'def kategori(nilai):\n    if nilai >= 90:\n        return "A"\n    elif nilai >= 75:\n        return "B"\n    return "C"\n\nfor nama, nilai in [("Ani", 88), ("Budi", 72), ("Citra", 95)]:\n    print(nama, "->", kategori(nilai))',
+            kapan: "Program kecil seperti ini sudah cukup untuk dipakai membantu kerjaan sehari-hari: rekap nilai, rekap penjualan, atau daftar tugas. Mulai dari yang kecil, lalu tambahkan fitur pelan-pelan.",
+          },
+          kesalahan: [
+            {
+              salah: 'def kategori(nilai):\nif nilai >= 90:\n    return "A"',
+              benar: 'def kategori(nilai):\n    if nilai >= 90:\n        return "A"\n    return "C"',
+              catatan: "Isi function harus menjorok. Juga siapkan nilai kembalian untuk semua kemungkinan, supaya tidak ada hasil None.",
+            },
+            {
+              salah: 'for data in siswa:\nprint(data["nama"])',
+              benar: 'for data in siswa:\n    print(data["nama"])',
+              catatan: "Kesalahan paling sering muncul sampai kapan pun: lupa spasi di awal baris.",
+            },
+          ],
+          latihan: "Jalankan kode di playground. Setelah itu tambahkan satu siswa baru ke dalam list siswa, lalu jalankan lagi. Kalau kamu berani, ubah batas nilai untuk predikat A menjadi 85.",
+          playground: 'def kategori(nilai):\n    if nilai >= 90:\n        return "A"\n    elif nilai >= 75:\n        return "B"\n    return "C"\n\nsiswa = [{"nama": "Ani", "nilai": 88}, {"nama": "Budi", "nilai": 72}]\n\nfor data in siswa:\n    try:\n        predikat = kategori(int(data["nilai"]))\n        print(data["nama"], "mendapat", predikat)\n    except (ValueError, KeyError):\n        print("Data", data["nama"], "perlu dicek lagi")',
+        },
       ];
+
+
+      /* =========================================================
+         BAGIAN 2B — DATA PENDAMPING MATERI
+
+         VERSI_MUDAH : penjelasan ulang dengan bahasa sehari-hari
+                       untuk materi level 4-10 (yang paling sulit
+                       dipahami orang awam).
+         CEK_PAHAM   : satu pertanyaan kecil per materi sebagai
+                       gerbang sebelum pindah ke materi berikutnya.
+         ========================================================= */
+
+      /* ---------------------------------------------------------
+         DATA TAMBAHAN: VERSI BAHASA SEHARI-HARI (LEVEL 4-10)
+
+         Tujuannya: orang yang belum pernah coding bisa membaca
+         materi level 4-10 tanpa merasa "ini bahasa apa?".
+         Semua istilah asing dijelaskan dengan kata-kata sehari-hari.
+         Kunci object = id materi.
+         --------------------------------------------------------- */
+      var VERSI_MUDAH = {
+        /* ===================== LEVEL 4 ===================== */
+        "if": {
+          inti: "if itu cuma kalimat 'kalau begini, lakukan begitu'. Kalau syaratnya tidak terpenuhi, perintahnya dilewati saja.",
+          cerita: [
+            "Setiap hari kamu sudah pakai 'if' tanpa sadar. Kalau hujan, bawa payung. Kalau lapar, makan. Kalau tidak, ya tidak usah. Tidak ada keputusan rumit di situ.",
+            "Di Python, kamu menulisnya seperti: if hujan: lalu di bawahnya kamu tulis apa yang harus dilakukan. Python akan bertanya, 'apakah hujan?' Kalau jawabannya iya, perintah di bawahnya dikerjakan. Kalau tidak, Python langsung lanjut ke baris berikutnya.",
+            "Yang paling sering bikin pemula bingung adalah spasi di depan baris perintah. Anggap saja spasi itu cara bilang 'ini masih bagian dari kalau tadi'. Begitu spasinya hilang, berarti perintahnya sudah lepas dari 'kalau' dan akan selalu dijalankan.",
+          ],
+          istilah: [
+            { kata: "if", arti: "Kata dalam bahasa Inggris yang artinya 'kalau' atau 'jika'." },
+            { kata: "kondisi / syarat", arti: "Pertanyaan yang jawabannya cuma iya atau tidak. Misalnya: apakah umur sudah lebih dari 17?" },
+            { kata: "indentasi", arti: "Spasi kosong di awal baris (biasanya 4 spasi). Tanda bahwa baris itu 'masuk ke dalam' perintah di atasnya." },
+            { kata: "True / False", arti: "Jawaban iya (True) atau tidak (False) dari sebuah pertanyaan." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kalau syaratnya salah, apakah program error?", jawab: "Tidak. Program diam saja, melewati bagian di dalam if, lalu lanjut ke baris setelahnya. Itu justru gunanya if: melakukan sesuatu hanya pada situasi tertentu." },
+            { tanya: "Kenapa harus pakai tanda titik dua (:)?", jawab: "Titik dua itu seperti tanda 'awal daftar'. Python membacanya sebagai: 'syaratnya selesai, sekarang masuk ke perintah-perintah yang harus dijalankan'." },
+          ],
+          ingat: "if = 'kalau'. Yang menjorok ke dalam ikut syarat, yang rata kiri selalu jalan.",
+        },
+        "elif": {
+          inti: "elif dipakai kalau pilihannya lebih dari dua. Python mengecek satu per satu dari atas, dan berhenti di pilihan pertama yang cocok.",
+          cerita: [
+            "Bayangkan kamu pesan minuman di kedai. Pelayannya bertanya berurutan: kopi? Bukan. Teh? Bukan. Susu? Iya. Begitu ada jawaban iya, dia tidak bertanya lagi dan langsung membuatkan susu.",
+            "elif adalah cara menulis pertanyaan lanjutan itu. Kalau pertanyaan pertama (if) jawabannya tidak, Python lanjut ke pertanyaan kedua (elif). Begitu seterusnya sampai ada yang jawabannya iya.",
+            "Karena berhenti di yang pertama cocok, urutan pertanyaan jadi penting. Kalau kamu tanya 'apakah nilainya lebih dari 60?' lebih dulu, maka nilai 90 akan langsung masuk ke kategori itu dan tidak pernah sampai ke kategori 'lebih dari 80'.",
+          ],
+          istilah: [
+            { kata: "elif", arti: "Singkatan dari 'else if', artinya 'kalau tidak, coba cek yang ini'." },
+            { kata: "berurutan", arti: "Dicek satu per satu dari atas ke bawah, tidak bersamaan." },
+            { kata: "cabang", arti: "Salah satu jalur pilihan yang bisa diambil program." },
+          ],
+          tanyaJawab: [
+            { tanya: "Bolehkah elif lebih dari satu?", jawab: "Boleh, sebanyak yang kamu butuhkan. Tapi kalau sudah terlalu banyak, biasanya kodenya mulai sulit dibaca — itu tanda kodenya perlu dirapikan." },
+            { tanya: "Kenapa nilai 85 malah dapat B, padahal juga lebih dari 70?", jawab: "Karena pertanyaan 'lebih dari 80' ditulis lebih dulu. Begitu jawabannya iya, Python berhenti dan tidak membaca pertanyaan 'lebih dari 70' lagi." },
+          ],
+          ingat: "Tulis syarat yang paling 'sulit' atau paling tinggi dulu, baru yang lebih longgar.",
+        },
+        "else": {
+          inti: "else adalah jalur terakhir: 'kalau semua syarat di atas tidak ada yang cocok, lakukan ini'.",
+          cerita: [
+            "Di sebuah toko selalu ada rak bertuliskan 'Lain-lain'. Barang yang tidak masuk ke rak mana pun ditaruh di situ. else adalah rak 'lain-lain' dalam program.",
+            "else tidak perlu pertanyaan. Dia tidak bertanya apa-apa, dia cuma bilang: 'semua kasus yang tadi tidak tertangkap, sini saya tangani'. Karena itu else selalu ditulis paling akhir dan tidak diikuti syarat.",
+            "Tanpa else, program bisa saja diam tidak melakukan apa pun saat semua syarat salah. Dengan else, program selalu punya jawaban. Inilah sebabnya else sering dipakai untuk pesan seperti 'password salah' atau 'data tidak ditemukan'.",
+          ],
+          istilah: [
+            { kata: "else", arti: "Bahasa Inggrisnya 'selain itu' atau 'kalau tidak'." },
+            { kata: "jalur terakhir", arti: "Pilihan yang dipakai kalau tidak ada pilihan lain yang cocok." },
+            { kata: "opsional", arti: "Boleh dipakai, boleh tidak. Tidak wajib." },
+          ],
+          tanyaJawab: [
+            { tanya: "Bolehkah else ditaruh sebelum elif?", jawab: "Tidak. else selalu paling akhir. Kalau ditaruh di tengah, Python bingung dan menampilkan error." },
+            { tanya: "Apa bedanya else dan elif?", jawab: "elif masih punya pertanyaan/syarat. else tidak punya syarat sama sekali — dia langsung menangkap semua sisa kemungkinan." },
+          ],
+          ingat: "else tidak pernah bertanya. Dia tinggal menampung semua yang tidak cocok.",
+        },
+        "nested-if": {
+          inti: "Nested if cuma berarti 'syarat di dalam syarat'. Pengecekan kedua baru dilakukan kalau pengecekan pertama sudah lolos.",
+          cerita: [
+            "Bayangkan masuk ke gedung kantor. Di gerbang, satpam bertanya: 'punya kartu karyawan?' Kalau tidak, kamu tidak usah lanjut. Kalau iya, baru di pintu dalam satpam kedua bertanya: 'kartunya masih berlaku?'",
+            "Jadi ada dua pertanyaan, tapi pertanyaan kedua hanya ditanyakan setelah jawaban pertama iya. Itulah if di dalam if.",
+            "Di kode, tiap 'tingkat' ditandai dengan spasi tambahan. If luar dimulai tanpa spasi, isinya 4 spasi, if di dalamnya ditulis di 4 spasi, dan isinya 8 spasi. Kalau spasinya sama, berarti mereka sejajar, bukan bertingkat.",
+          ],
+          istilah: [
+            { kata: "nested", arti: "Bahasa Inggrisnya 'bersarang' — sesuatu yang ada di dalam sesuatu yang sejenis." },
+            { kata: "tingkat / level", arti: "Kedalaman spasi. Makin ke dalam, makin banyak spasinya." },
+            { kata: "sejajar", arti: "Dua baris punya jumlah spasi depan yang sama, jadi mereka ada di tingkat yang sama." },
+          ],
+          tanyaJawab: [
+            { tanya: "Boleh bertingkat sampai berapa kali?", jawab: "Boleh banyak, tapi usahakan maksimal 2-3 tingkat. Kalau lebih, kodenya sulit dibaca dan sebaiknya dipecah." },
+            { tanya: "Kenapa spasi 8 itu penting?", jawab: "Karena spasi itulah satu-satunya cara Python tahu bahwa perintah itu milik if yang dalam. Tanpa itu, Python menganggap perintahnya milik if yang luar." },
+          ],
+          ingat: "Setiap kali masuk satu tingkat lebih dalam, tambah 4 spasi.",
+        },
+        "conditional-sederhana": {
+          inti: "Ini cara menulis 'kalau... maka... kalau tidak...' dalam satu baris. Cocok untuk memilih satu dari dua nilai.",
+          cerita: [
+            "Kadang kita cuma mau menentukan satu kata. Misalnya: kalau umurnya cukup, statusnya 'Dewasa'; kalau tidak, statusnya 'Anak-anak'. Menulis if-else lengkap untuk itu terasa panjang.",
+            "Python punya jalan pintas. Kamu tulis dulu hasil kalau benar, lalu kata if, lalu syaratnya, lalu kata else, lalu hasil kalau salah. Semuanya dalam satu baris.",
+            "Caranya membaca: 'Dewasa, kalau umur >= 17, kalau tidak ya Anak-anak'. Hasil akhirnya adalah sebuah nilai yang bisa langsung disimpan di variable. Ingat, ini hanya untuk dua pilihan sederhana — untuk keputusan panjang, pakai if biasa.",
+          ],
+          istilah: [
+            { kata: "expression / ekspresi", arti: "Bagian kode yang menghasilkan sebuah nilai. Misalnya 2 + 3 menghasilkan 5." },
+            { kata: "ringkas", arti: "Lebih pendek, lebih sedikit baris." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa bagian else wajib ada?", jawab: "Karena kalau syaratnya salah, program harus tetap tahu nilai apa yang dipakai. Tanpa else, Python bingung dan menampilkan SyntaxError." },
+            { tanya: "Apakah ini sama dengan if biasa?", jawab: "Hasilnya sama, bedanya cuma cara tulisnya. Versi singkat ini khusus untuk memilih nilai, bukan untuk menjalankan banyak perintah." },
+          ],
+          ingat: "Urutannya: nilai_benar, if, syarat, else, nilai_salah. Bukan 'if' di depan.",
+        },
+        "rangkuman-percabangan": {
+          inti: "if, elif, dan else itu satu paket alat untuk 'memilih jalan'. if mulai, elif menambah pilihan, else menangkap sisanya.",
+          cerita: [
+            "Anggap kamu sedang membuat program kasir yang menentukan diskon. Pertama kamu bertanya: belanjanya lebih dari satu juta? Kalau iya, diskon 20% dan selesai. Kalau tidak, lanjut bertanya: lebih dari lima ratus ribu? Kalau iya, diskon 10%. Kalau tidak juga, ya tidak ada diskon.",
+            "Itulah seluruh ide percabangan. Tidak ada matematika rumit. Kamu cuma menyusun pertanyaan secara berurutan, lalu menentukan apa yang terjadi untuk tiap jawaban.",
+            "Kalau kamu bingung saat membaca kode panjang, biasakan membacanya sebagai kalimat: 'Kalau ... maka ... , kalau tidak, kalau ... maka ... , terakhir kalau semua tidak, maka ...'. Begitu dibaca seperti cerita, kodenya jauh lebih masuk akal.",
+          ],
+          istilah: [
+            { kata: "percabangan", arti: "Bagian program yang bisa memilih jalan berbeda tergantung keadaan." },
+            { kata: "aliran program", arti: "Urutan baris yang benar-benar dijalankan komputer." },
+            { kata: "kasus", arti: "Satu kemungkinan keadaan yang bisa terjadi." },
+          ],
+          tanyaJawab: [
+            { tanya: "Mana yang dipakai duluan kalau ada if, elif, dan else?", jawab: "Selalu if dulu. elif boleh banyak di tengah. else (kalau ada) harus di akhir." },
+            { tanya: "Bolehkah hanya if tanpa elif dan else?", jawab: "Boleh sekali. Banyak program cukup dengan satu if. Tambahkan elif/else hanya kalau memang ada pilihan lain." },
+          ],
+          ingat: "Satu if, beberapa elif (opsional), satu else di akhir (opsional). Titik dua dan spasi jangan lupa.",
+        },
+
+        /* ===================== LEVEL 5 ===================== */
+        "for": {
+          inti: "for itu 'kerjakan ini untuk setiap isi daftar'. Kamu tidak perlu menulis perintah yang sama berulang kali.",
+          cerita: [
+            "Bayangkan kamu punya tiga kotak buah dan disuruh menulis nama isinya ke kertas. Tanpa for kamu menulis: tulis apel, tulis mangga, tulis pisang. Kalau ternyata ada 100 kotak, kamu capek.",
+            "Dengan for kamu cukup bilang: 'untuk setiap buah di dalam daftar, tulis namanya'. Python yang menghitung jumlahnya dan mengerjakan perintahnya satu per satu.",
+            "Kata setelah for (misalnya item) itu cuma nama sementara. Di putaran pertama isinya apel, putaran kedua mangga, dan seterusnya. Kamu bebas menamainya apa saja: buah, nama, angka — asal konsisten di baris perintah di bawahnya.",
+          ],
+          istilah: [
+            { kata: "loop / perulangan", arti: "Perintah yang dikerjakan berulang kali." },
+            { kata: "iterasi / putaran", arti: "Satu kali jalannya perintah di dalam loop." },
+            { kata: "list / daftar", arti: "Kumpulan data yang ditulis di dalam tanda kurung siku [ ]." },
+            { kata: "in", arti: "Kata yang artinya 'di dalam'. for item in buah = untuk setiap item di dalam buah." },
+          ],
+          tanyaJawab: [
+            { tanya: "Dari mana Python tahu harus berhenti?", jawab: "Dari daftarnya sendiri. Kalau isinya 3, perintah diulang 3 kali lalu selesai dengan sendirinya." },
+            { tanya: "Kenapa print terakhir hanya muncul satu kali?", jawab: "Karena print itu tidak menjorok ke dalam, jadi dia bukan bagian dari loop. Loop selesai, baru print itu dijalankan sekali." },
+          ],
+          ingat: "Yang menjorok ke dalam diulang. Yang rata kiri cuma dijalankan sekali.",
+        },
+        "while": {
+          inti: "while itu 'terus kerjakan selama syaratnya masih benar'. Begitu syaratnya salah, baru berhenti.",
+          cerita: [
+            "Bayangkan kamu menguras kolam dengan gayung. Kamu tidak tahu persis berapa kali harus menyendok. Yang kamu tahu: selama kolam masih ada air, terus sendok. Begitu habis, berhenti.",
+            "Seperti itulah while. Dia tidak menghitung jumlah putaran di awal; dia cuma mengecek syarat setiap kali mau memulai putaran berikutnya.",
+            "Syarat pentingnya: di dalam while harus ada sesuatu yang berubah, supaya syaratnya akhirnya menjadi salah. Kalau tidak ada yang berubah, program akan mengulang selamanya (disebut infinite loop). Kalau itu terjadi di playground, cukup segarkan halaman browser.",
+          ],
+          istilah: [
+            { kata: "while", arti: "Bahasa Inggrisnya 'selama' atau 'sementara'." },
+            { kata: "infinite loop", arti: "Perulangan yang tidak pernah berhenti karena syaratnya tidak berubah." },
+            { kata: "syarat berhenti", arti: "Keadaan yang membuat while akhirnya selesai." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kapan sebaiknya pakai while?", jawab: "Saat kamu tidak tahu berapa kali harus mengulang. Misalnya meminta password sampai benar, atau menunggu user mengetik 'selesai'." },
+            { tanya: "Apa bedanya dengan for?", jawab: "for mengulang sesuai isi daftar yang sudah ada. while mengulang berdasarkan syarat yang masih benar." },
+          ],
+          ingat: "Setiap while harus punya 'pintu keluar': sesuatu yang berubah di dalamnya.",
+        },
+        "range": {
+          inti: "range() membuat deretan angka supaya for bisa mengulang sebanyak angka yang kamu mau.",
+          cerita: [
+            "Bayangkan mesin antrian. Kalau kamu minta 5 nomor, mesinnya mengeluarkan 0, 1, 2, 3, 4. Bukan 1 sampai 5. Memang agak aneh, tapi itulah kebiasaan Python: hitungan mulai dari nol.",
+            "Jadi range(5) artinya 'buat 5 angka mulai dari 0'. Angka terakhirnya 4, karena angka 5 tidak ikut. Kalau kamu ingin 1 sampai 5, tulis range(1, 6): mulai dari 1, berhenti sebelum 6.",
+            "Angka ketiga (kalau ada) adalah besar lompatannya. range(0, 10, 2) berarti mulai 0, berhenti sebelum 10, lompat 2 — hasilnya 0, 2, 4, 6, 8.",
+          ],
+          istilah: [
+            { kata: "range", arti: "Bahasa Inggrisnya 'rentang' atau 'jangkauan'. Di Python: pembuat deretan angka." },
+            { kata: "mulai dari 0", arti: "Kebiasaan Python menghitung dari nol, bukan dari satu." },
+            { kata: "eksklusif", arti: "Angka batas akhir tidak ikut terhitung." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa angka akhirnya tidak ikut?", jawab: "Supaya jumlah angkanya pas dengan angka yang diminta. range(5) benar-benar menghasilkan 5 angka, yaitu 0 sampai 4." },
+            { tanya: "Bagaimana cara hitung mundur?", jawab: "Pakai lompatan negatif, misalnya range(5, 0, -1) menghasilkan 5, 4, 3, 2, 1. Untuk pemula, ini bisa dipelajari belakangan." },
+          ],
+          ingat: "range(a, b) = mulai a, berhenti sebelum b. Tanpa a, berarti mulai dari 0.",
+        },
+        "nested-loop": {
+          inti: "Nested loop adalah perulangan di dalam perulangan. Dipakai kalau datanya berbentuk 'baris dan kolom', seperti meja atau jadwal.",
+          cerita: [
+            "Bayangkan kursi bioskop. Ada beberapa baris, dan di setiap baris ada beberapa nomor kursi. Untuk menyebut semua kursi, kamu menyebut barisnya dulu, lalu satu per satu nomor kursi di baris itu. Setelah baris pertama habis, pindah ke baris kedua, dan seterusnya.",
+            "Loop luar berjalan untuk setiap baris. Loop dalam berjalan untuk setiap kolom di baris itu. Jadi loop dalam selesai lebih cepat, lalu loop luar maju satu langkah.",
+            "Hal yang paling sering bikin bingung: perintah di dalam loop dalam dijalankan paling banyak kali. Kalau ada 3 baris dan 4 kolom, perintah itu jalan 3 x 4 = 12 kali.",
+          ],
+          istilah: [
+            { kata: "loop luar", arti: "Perulangan yang ditulis paling kiri. Dia berjalan lebih lambat." },
+            { kata: "loop dalam", arti: "Perulangan yang ada di dalam loop lain. Dia ikut berulang setiap kali loop luar berputar." },
+            { kata: "baris x kolom", arti: "Cara membayangkan data dua arah, seperti tabel." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa hasilnya bisa jauh lebih banyak dari dugaan?", jawab: "Karena jumlahnya dikalikan. 3 baris x 4 kolom = 12 kali. Selalu kalikan jumlah putaran luar dan dalam." },
+            { tanya: "Bolehkah tiga perulangan bertingkat?", jawab: "Boleh, tapi makin dalam makin sulit dibaca. Untuk pemula, dua tingkat sudah cukup untuk banyak kasus." },
+          ],
+          ingat: "Loop dalam 'ikut' setiap putaran loop luar. Jumlah totalnya dikali, bukan ditambah.",
+        },
+        "break": {
+          inti: "break adalah tombol berhenti darurat: keluar dari perulangan saat itu juga, tidak peduli sisa putaran.",
+          cerita: [
+            "Bayangkan kamu mencari kunci di dalam laci berisi banyak barang. Begitu kunci ketemu, kamu berhenti mencari. Tidak ada gunanya memeriksa sisa barang, kan?",
+            "break bekerja persis seperti itu. Biasanya dia ditulis di dalam if: kalau kondisi yang dicari sudah tercapai, jalankan break, dan perulangan langsung selesai.",
+            "Perhatikan: break hanya menghentikan satu perulangan — yang paling dekat dengannya. Kalau ada loop di dalam loop, break hanya keluar dari loop dalam.",
+          ],
+          istilah: [
+            { kata: "break", arti: "Bahasa Inggrisnya 'patah' atau 'berhenti'. Perintah keluar dari loop." },
+            { kata: "keluar lebih awal", arti: "Berhenti sebelum semua putaran selesai." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apakah break menghentikan seluruh program?", jawab: "Tidak. Dia hanya keluar dari perulangan. Baris kode setelah perulangan tetap dijalankan seperti biasa." },
+            { tanya: "Bolehkah break dipakai di luar loop?", jawab: "Tidak. Kalau ditaruh di luar perulangan, Python menampilkan SyntaxError." },
+          ],
+          ingat: "break = 'cukup, berhenti'. Biasanya dipasangkan dengan if.",
+        },
+        "continue": {
+          inti: "continue itu 'lewati yang ini, lanjut ke berikutnya'. Perulangan tidak berhenti, cuma satu putaran yang dilompati.",
+          cerita: [
+            "Bayangkan kamu sedang memeriksa kiriman surat. Ada satu amplop yang alamatnya rusak. Kamu tidak membuang seluruh tumpukan surat — kamu cuma melewati amplop rusak itu, lalu lanjut ke amplop berikutnya.",
+            "Begitulah continue. Kalau ada data yang tidak memenuhi syarat, continue membuat Python melompati sisa perintah di putaran itu dan langsung lanjut ke putaran berikutnya.",
+            "Bedanya dengan break: break menghentikan seluruh perulangan, continue hanya melewati satu putaran. Sering tertukar, tapi perbedaan ini penting.",
+          ],
+          istilah: [
+            { kata: "continue", arti: "Bahasa Inggrisnya 'lanjutkan'. Perintah untuk melewati sisa putaran ini." },
+            { kata: "lompat", arti: "Tidak menjalankan sisa perintah, langsung ke putaran berikutnya." },
+            { kata: "data rusak", arti: "Data yang tidak valid, kosong, atau tidak sesuai aturan." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apakah perintah setelah continue di putaran itu tetap jalan?", jawab: "Tidak. Semua perintah di bawah continue di dalam loop dilewati untuk putaran itu." },
+            { tanya: "Mana yang lebih 'keras', break atau continue?", jawab: "break lebih keras: seluruh loop berhenti. continue lebih ringan: hanya satu putaran yang dilewati." },
+          ],
+          ingat: "break = berhenti semua. continue = lewati satu, lanjut lagi.",
+        },
+        "while-else": {
+          inti: "else pada while artinya: 'jalankan ini kalau perulangan selesai wajar, tidak dihentikan dengan break'.",
+          cerita: [
+            "Bayangkan kamu keliling warung mencari gula. Kalau di warung ketiga gula ketemu, kamu langsung pulang — tidak perlu bilang 'gula tidak ada'. Tapi kalau semua warung sudah kamu datangi dan tetap tidak ketemu, barulah kamu pulang sambil bilang 'ternyata gula habis di mana-mana'.",
+            "Blok else pada while adalah kalimat terakhir itu. Dia hanya muncul kalau semua data selesai diperiksa tanpa pernah bertemu break.",
+            "Ini memang bagian yang paling sering bikin bingung, dan tidak apa-apa kalau belum langsung paham. Banyak programmer pemula juga mengira else di sini sama seperti else pada if. Padahal beda: di while, else berarti 'tidak ada break'.",
+          ],
+          istilah: [
+            { kata: "berhenti wajar", arti: "Loop selesai karena syaratnya sudah tidak terpenuhi lagi." },
+            { kata: "di-break", arti: "Loop dihentikan paksa memakai break sebelum syaratnya habis." },
+            { kata: "pencarian", arti: "Kasus paling umum dipakainya while ... else: cari sesuatu di dalam daftar." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apakah continue membuat else batal?", jawab: "Tidak. continue hanya melewati satu putaran, loop tetap berjalan sampai selesai wajar, jadi else tetap dijalankan." },
+            { tanya: "Kalau tidak ada break sama sekali, apa gunanya else?", jawab: "Tidak ada gunanya. Hasilnya sama dengan menulis perintahnya setelah while tanpa else. else baru berguna kalau di dalam while ada break." },
+          ],
+          ingat: "else pada while = 'pesan kalau tidak ketemu'. Kalau ketemu (break), else dilewati.",
+        },
+        "pilih-for-atau-while": {
+          inti: "Tahu jumlahnya? Pakai for. Tidak tahu jumlahnya dan bergantung syarat? Pakai while.",
+          cerita: [
+            "Dua perulangan ini sering bikin bingung karena keduanya 'mengulang'. Cara paling gampang memilih: tanya pada dirimu, 'apakah aku sudah tahu berapa kali akan mengulang?'.",
+            "Kalau kamu sudah punya daftar (nama-nama siswa, barang belanja, angka 1 sampai 10), berarti jumlahnya jelas. Pakai for. Kalau kamu cuma punya aturan berhenti ('sampai user mengetik selesai', 'sampai tebakan benar'), pakai while.",
+            "Contoh sehari-hari: membacakan absen 30 siswa itu for (daftarnya ada). Menunggu air mendidih itu while (tidak ada yang tahu berapa menit, tapi ada syarat: sampai mendidih).",
+          ],
+          istilah: [
+            { kata: "jumlah pasti", arti: "Sudah diketahui berapa kali perintah akan diulang." },
+            { kata: "berbasis syarat", arti: "Berhenti atau lanjut ditentukan oleh keadaan, bukan hitungan." },
+            { kata: "daftar", arti: "Kumpulan data yang sudah tersedia, siap ditelusuri." },
+          ],
+          tanyaJawab: [
+            { tanya: "Mana yang lebih aman untuk pemula?", jawab: "for. Karena dia berhenti sendiri setelah daftarnya habis. while butuh 'pintu keluar' yang harus kamu siapkan sendiri." },
+            { tanya: "Bolehkah keduanya dipakai bersamaan?", jawab: "Boleh, dan itu wajar. Misalnya while untuk menjalankan menu, dan di dalamnya for untuk menampilkan daftar barang." },
+          ],
+          ingat: "Ada daftar → for. Ada syarat berhenti → while.",
+        },
+
+        /* ===================== LEVEL 6 ===================== */
+        "list": {
+          inti: "List adalah wadah berisi banyak data yang masih boleh diubah-ubah, ditambah, atau dihapus.",
+          cerita: [
+            "Bayangkan keranjang belanja. Kamu bisa memasukkan barang, mengganti isinya, membuang barang, dan menambah lagi. Urutannya juga jelas: barang yang masuk lebih dulu ada di depan.",
+            "List di Python persis seperti keranjang itu. Ditulis dengan tanda kurung siku, isinya dipisah koma: [\"beras\", \"minyak\", \"gula\"].",
+            "Begitu datanya masuk ke satu list, kamu bisa memperlakukan semuanya sekaligus — misalnya menampilkan semua isinya dengan satu perulangan for. Itu jauh lebih praktis daripada membuat variable terpisah untuk setiap barang.",
+          ],
+          istilah: [
+            { kata: "list", arti: "Bahasa Inggrisnya 'daftar'. Wadah data berurutan yang isinya bisa diubah." },
+            { kata: "elemen / item", arti: "Satu isi di dalam list." },
+            { kata: "tanda kurung siku [ ]", arti: "Tanda yang dipakai untuk membuat list." },
+            { kata: "append()", arti: "Perintah untuk menambah satu item ke akhir list." },
+          ],
+          tanyaJawab: [
+            { tanya: "Bolehkah isinya campur, angka dan tulisan?", jawab: "Boleh. Python mengizinkan list berisi jenis data yang berbeda-beda, walaupun biasanya lebih rapi kalau sejenis." },
+            { tanya: "Kenapa tidak pakai variable saja untuk tiap data?", jawab: "Bayangkan punya 100 nama siswa. Menulis 100 variable melelahkan. Cukup satu list, dan for bisa memproses semuanya." },
+          ],
+          ingat: "Butuh kumpulan data yang bisa berubah? List jawabannya.",
+        },
+        "tuple": {
+          inti: "Tuple itu seperti list, tapi isinya dikunci — setelah dibuat tidak bisa diganti.",
+          cerita: [
+            "Bayangkan kartu identitas. Nama dan tanggal lahir di sana tidak boleh kamu coret dan ganti seenaknya. Data seperti itu sebaiknya disimpan di wadah yang terkunci.",
+            "Tuple adalah wadah 'terkunci' itu. Cara menulisnya mirip list, tapi pakai tanda kurung biasa: (nama, umur). Isinya tetap berurutan dan tetap bisa dibaca berkali-kali — cuma tidak bisa diubah.",
+            "Kapan dipakai? Untuk data yang memang tidak boleh berubah, misalnya titik koordinat di peta, tanggal lahir, atau pengaturan tetap. Kalau datanya nanti perlu ditambah atau diganti, pakai list saja.",
+          ],
+          istilah: [
+            { kata: "tuple", arti: "Wadah data berurutan yang isinya tidak bisa diubah (immutable)." },
+            { kata: "immutable / kekal", arti: "Tidak bisa diubah setelah dibuat." },
+            { kata: "tanda kurung ( )", arti: "Tanda yang biasa dipakai untuk membuat tuple." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apakah tuple benar-benar tidak bisa diubah sama sekali?", jawab: "Isi dan jumlahnya tidak bisa diubah. Tapi kamu tetap bisa membuat tuple baru dari tuple lama, lalu menyimpannya dengan nama variable yang sama." },
+            { tanya: "Kenapa repot pakai tuple, bukannya list saja?", jawab: "Karena kadang kamu ingin memastikan data penting tidak tertimpa secara tidak sengaja. Tuple memberi 'pengaman' itu." },
+          ],
+          ingat: "List = bisa diubah. Tuple = dikunci. Keduanya sama-sama berurutan.",
+        },
+        "set": {
+          inti: "Set adalah wadah yang otomatis membuang data kembar. Dipakai kalau kamu cuma peduli 'apa saja yang ada'.",
+          cerita: [
+            "Bayangkan kamu mencatat siapa saja yang hadir rapat. Kalau satu orang ditulis dua kali, kamu tetap menghitungnya sebagai satu orang. Set melakukan hal itu secara otomatis.",
+            "Set ditulis dengan kurung kurawal { }. Isinya tidak berurutan, jadi jangan berharap urutannya sama persis seperti saat kamu menulisnya.",
+            "Karena tidak berurutan, set tidak punya 'nomor urut'. Untuk mengecek apakah sesuatu ada di dalamnya, pakai kata in: misalnya 'Ani' in hadir.",
+          ],
+          istilah: [
+            { kata: "set", arti: "Wadah berisi nilai unik (tidak ada duplikat)." },
+            { kata: "unik", arti: "Hanya muncul satu kali." },
+            { kata: "duplikat", arti: "Data yang sama muncul lebih dari satu kali." },
+            { kata: "kurung kurawal { }", arti: "Tanda yang dipakai untuk membuat set (dan dictionary)." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa urutannya acak?", jawab: "Karena set dirancang untuk kecepatan pencarian, bukan untuk menyimpan urutan. Kalau urutan penting, pakai list." },
+            { tanya: "Apakah set cocok untuk daftar belanja?", jawab: "Kurang cocok, karena daftar belanja biasanya butuh urutan dan jumlah. Set cocok untuk hal seperti 'pengunjung unik' atau 'kategori apa saja yang dipakai'." },
+          ],
+          ingat: "Butuh data tanpa duplikat dan tidak peduli urutan? Pakai set.",
+        },
+        "dictionary": {
+          inti: "Dictionary menyimpan data berpasangan: kunci dan isinya. Seperti kontak HP — nama sebagai kunci, nomor sebagai isinya.",
+          cerita: [
+            "Di buku telepon, kamu tidak mencari nomor berdasarkan urutan halaman. Kamu mencari nama 'Ani', lalu langsung dapat nomornya. Pasangan nama → nomor itulah ide dictionary.",
+            "Di Python, setiap pasangan ditulis 'kunci: nilai'. Misalnya {\"Ani\": \"0812...\", \"Budi\": \"0856...\"}. Kuncinya dipakai untuk mengambil nilainya: kontak[\"Ani\"].",
+            "Bedanya dengan list: list mengambil data berdasarkan nomor urut, dictionary berdasarkan nama kunci. Jadi kamu tidak perlu mengingat 'Ani ada di urutan ke-0', cukup panggil namanya.",
+          ],
+          istilah: [
+            { kata: "dictionary / dict", arti: "Bahasa Inggrisnya 'kamus'. Wadah data berpasangan kunci dan nilai." },
+            { kata: "key / kunci", arti: 'Nama yang dipakai untuk mencari data. Ditulis sebelum tanda titik dua.' },
+            { kata: "value / nilai", arti: "Isi data yang tersimpan di balik sebuah kunci." },
+            { kata: "kurung kurawal { }", arti: "Tanda yang dipakai untuk membuat dictionary." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apa bedanya dengan set, sama-sama pakai { }?", jawab: "Dictionary selalu berisi pasangan (ada tanda titik dua). Set hanya berisi nilai tunggal tanpa pasangan." },
+            { tanya: "Bolehkah kuncinya angka?", jawab: "Boleh. Yang penting kuncinya unik — jangan ada dua kunci dengan nama yang persis sama." },
+          ],
+          ingat: "Butuh data yang dicari berdasarkan nama? Dictionary jawabannya: kunci → nilai.",
+        },
+        "index": {
+          inti: "Index adalah nomor urut data. Di Python hitungannya mulai dari 0, bukan dari 1.",
+          cerita: [
+            "Bayangkan deretan kursi di bioskop. Kursi paling depan disebut kursi nomor 0, berikutnya nomor 1, lalu 2. Memang tidak lazim, tapi itulah aturan Python.",
+            "Jadi kalau ada tiga nama [\"Ani\", \"Budi\", \"Citra\"], maka Ani ada di index 0, Budi di index 1, Citra di index 2. Untuk mengambilnya, tulis nama_daftar[0].",
+            "Ada trik lain: index negatif dihitung dari belakang. -1 berarti data paling akhir, -2 berarti kedua dari belakang. Ini berguna kalau kamu tidak tahu persis jumlah datanya.",
+          ],
+          istilah: [
+            { kata: "index / indeks", arti: "Nomor urut posisi sebuah data di dalam kumpulan." },
+            { kata: "mulai dari 0", arti: "Aturan Python: data pertama berada di index 0." },
+            { kata: "index negatif", arti: "Cara mengakses data dihitung dari belakang." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa data pertama bukan index 1?", jawab: "Itu kebiasaan dari dunia komputer yang sudah lama dipakai banyak bahasa pemrograman. Awalnya memang terasa aneh, tapi lama-lama jadi otomatis." },
+            { tanya: "Apa yang terjadi kalau index-nya tidak ada?", jawab: "Python menampilkan IndexError. Itu tandanya kamu meminta nomor urut yang melebihi jumlah data." },
+          ],
+          ingat: "Data pertama = 0. Data terakhir = -1 atau jumlah data dikurang 1.",
+        },
+        "looping-collection": {
+          inti: "Semua wadah data (list, tuple, set, dictionary) bisa dibaca satu per satu memakai for — cuma caranya sedikit berbeda.",
+          cerita: [
+            "Sudah punya wadah data, sekarang mau membaca isinya. Kabar baiknya: satu perintah for bisa dipakai untuk semuanya.",
+            "Untuk list, tuple, dan set, for langsung memberikan isinya satu per satu. Untuk dictionary, for memberikan kuncinya — lalu dari kunci itu kamu ambil nilainya.",
+            "Kalau kamu ingin kunci dan nilainya sekaligus, pakai .items(). Ini tr kecil yang sangat sering dipakai: for nama, nomor in kontak.items().",
+          ],
+          istilah: [
+            { kata: "koleksi / collection", arti: "Sebutan umum untuk wadah yang bisa menampung banyak data." },
+            { kata: ".items()", arti: "Cara mengambil pasangan kunci dan nilai dari dictionary sekaligus." },
+            { kata: ".keys() / .values()", arti: "Mengambil hanya kunci saja, atau hanya nilainya saja." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa for pada dictionary yang keluar malah kuncinya?", jawab: "Karena kunci itulah 'identitas' data di dictionary. Dari kunci, kamu bisa mendapat nilainya dengan mudah." },
+            { tanya: "Bolehkah mengubah isi list saat sedang di-loop?", jawab: "Bisa, tapi berisiko bikin hasilnya aneh. Untuk pemula, lebih aman membaca dulu, lalu mengubah setelah loop selesai." },
+          ],
+          ingat: "for memberi isi (list/tuple/set), tapi memberi kunci (dictionary).",
+        },
+        "memilih-collection": {
+          inti: "List untuk daftar yang bisa berubah, tuple untuk data tetap, set untuk data unik, dictionary untuk data berpasangan.",
+          cerita: [
+            "Empat wadah ini memang terasa mirip di awal. Supaya tidak pusing, pakai pertanyaan ini: 'data saya ini bentuknya apa?'.",
+            "Kalau bentuknya cuma urutan biasa yang boleh berubah — daftar belanja, nilai siswa — pilih list. Kalau datanya tidak boleh berubah sama sekali — titik lokasi, tanggal lahir — pilih tuple.",
+            "Kalau kamu cuma ingin tahu 'apa saja yang pernah muncul' tanpa peduli urutan dan tanpa duplikat — pengunjung unik, kategori barang — pilih set. Kalau datanya selalu berpasangan seperti nama dan nomor, harga barang, atau username dan password — pilih dictionary.",
+          ],
+          istilah: [
+            { kata: "berurutan", arti: "Punya nomor urut yang tetap (list, tuple)." },
+            { kata: "bisa diubah", arti: "Isinya boleh ditambah, diganti, atau dihapus (list, set, dictionary)." },
+            { kata: "berpasangan", arti: "Setiap data punya 'nama' dan 'isi' (dictionary)." },
+            { kata: "tanpa duplikat", arti: "Data kembar otomatis dibuang (set)." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kalau masih ragu, pilih apa?", jawab: "Pilih list dulu. List paling fleksibel dan paling sering dipakai. Nanti kalau butuh kekhususan lain, baru ganti." },
+            { tanya: "Apakah salah pilih wadah bikin program error?", jawab: "Seringnya tidak error, tapi jadi tidak nyaman dipakai. Misalnya butuh nama kunci tapi malah pakai list, akhirnya kamu harus mengingat nomor urutnya." },
+          ],
+          ingat: "Tanya dulu: butuh urutan? butuh bisa diubah? butuh nama kunci? Jawabannya menentukan wadahnya.",
+        },
+        /* ===================== LEVEL 7 ===================== */
+        "apa-itu-function": {
+          inti: "Function adalah sekumpulan perintah yang diberi nama, supaya bisa dipakai berkali-kali tanpa ditulis ulang.",
+          cerita: [
+            "Bayangkan kamu punya resep andalan. Setiap kali mau membuatnya, kamu tidak menulis ulang resepnya dari nol — kamu tinggal bilang 'buat resep nasi goreng'. Nama itu sudah mewakili seluruh langkahnya.",
+            "Function bekerja begitu. Kamu kumpulkan beberapa baris perintah, beri nama, lalu kapan pun butuh, kamu tinggal memanggil namanya.",
+            "Keuntungannya bukan cuma hemat ketikan. Kalau ada yang salah, kamu cukup memperbaiki di satu tempat, dan semua pemanggilan ikut benar. Ini salah satu kebiasaan paling penting dalam coding.",
+          ],
+          istilah: [
+            { kata: "function / fungsi", arti: "Kumpulan perintah yang diberi nama dan bisa dipanggil kapan saja." },
+            { kata: "memanggil", arti: "Menyuruh Python menjalankan isi function dengan menulis namanya diikuti tanda kurung ()." },
+            { kata: "def", arti: 'Kata kunci untuk membuat function. Singkatan dari "define" (mendefinisikan).' },
+          ],
+          tanyaJawab: [
+            { tanya: "Membuat function dan memanggil function itu sama?", jawab: "Berbeda. Membuat (def) cuma 'mendaftarkan resepnya'. Memanggil (nama_function()) barulah benar-benar menjalankannya." },
+            { tanya: "Kenapa tanda kurungnya wajib ada?", jawab: "Tanda kurung itulah tanda 'jalankan sekarang'. Tanpa itu, kamu hanya menyebut namanya tanpa menjalankan isinya." },
+          ],
+          ingat: "Function = beri nama pada sekumpulan perintah, lalu panggil namanya.",
+        },
+        "membuat-function": {
+          inti: "Cara membuat function: tulis def, nama function, tanda kurung, titik dua, lalu perintah-perintahnya di bawah dengan spasi.",
+          cerita: [
+            "Anggap kamu sedang menulis catatan resep. Baris pertama adalah judulnya: def nama_resep():. Baris-baris berikutnya adalah langkah-langkahnya, dan semuanya harus ditulis menjorok ke dalam.",
+            "Spasi di awal baris bukan hiasan. Itu yang menandai 'ini masih bagian dari function'. Begitu spasinya habis, berarti kamu sudah keluar dari function.",
+            "Satu hal yang sering bikin pemula heran: menulis def saja tidak menampilkan apa pun di layar. Isinya baru jalan saat kamu memanggil function-nya.",
+          ],
+          istilah: [
+            { kata: "def", arti: "Kata pembuka untuk membuat function." },
+            { kata: "body / isi function", arti: "Kumpulan baris perintah yang menjorok ke dalam." },
+            { kata: "nama function", arti: "Nama yang kamu pilih sendiri, dipakai untuk memanggilnya." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa program saya tidak mengeluarkan apa-apa?", jawab: "Biasanya karena function baru dibuat tapi belum dipanggil. Tambahkan satu baris di luar function: nama_function()." },
+            { tanya: "Bolehkah nama function pakai spasi?", jawab: "Tidak. Pakai underscore, misalnya hitung_total. Nama boleh panjang, asal jelas dan tidak pakai spasi." },
+          ],
+          ingat: "def = daftar resep. nama() = jalankan resepnya.",
+        },
+        "parameter": {
+          inti: "Parameter adalah 'tempat kosong' di dalam function yang nanti diisi saat function dipanggil.",
+          cerita: [
+            "Bayangkan formulir dengan kolom kosong bertuliskan 'Nama: ____'. Kolomnya sudah disediakan, tapi isinya belum ada. Siapa pun yang mengisi formulir itu bisa memasukkan nama yang berbeda-beda.",
+            "Parameter adalah kolom kosong itu. Kamu menuliskan namanya di dalam tanda kurung saat membuat function: def sapa(nama):. Di dalam function, kamu bisa memakai 'nama' seperti variable biasa.",
+            "Dengan begitu, satu function bisa dipakai untuk banyak orang. Panggil sapa('Ani'), panggil lagi sapa('Budi') — function-nya sama, hasilnya beda karena isiannya beda.",
+          ],
+          istilah: [
+            { kata: "parameter", arti: "Nama tempat kosong yang ditulis di dalam tanda kurung saat function dibuat." },
+            { kata: "nilai masuk / input", arti: "Data yang diterima function untuk diolah." },
+            { kata: "variabel lokal", arti: "Nama yang hanya dikenal di dalam function itu saja." },
+          ],
+          tanyaJawab: [
+            { tanya: "Bolehkah parameter lebih dari satu?", jawab: "Boleh. Pisahkan dengan koma, misalnya def hitung(panjang, lebar):. Saat memanggil, isinya juga dipisah koma." },
+            { tanya: "Kenapa parameternya tidak dikenal di luar function?", jawab: "Karena dia memang hanya disediakan untuk keperluan di dalam function. Kalau butuh hasilnya di luar, kirim balik dengan return." },
+          ],
+          ingat: "Parameter = kolom kosong di formulir. Diisi saat function dipanggil.",
+        },
+        "argument": {
+          inti: "Argument adalah isi nyata yang kamu kirimkan ke function saat memanggilnya.",
+          cerita: [
+            "Kalau parameter itu kolom kosong di formulir, argument adalah tulisan yang kamu isi di kolom itu. Jadi dua kata ini memang pasangan dan sering tertukar.",
+            "Contoh: kamu punya function sapa(nama). Saat menulis sapa('Ani'), tulisan 'Ani' itulah argument-nya. Di dalam function, 'Ani' masuk ke parameter 'nama'.",
+            "Hal yang perlu diperhatikan: jumlah dan urutannya harus cocok. Kalau function butuh dua isian, kamu harus mengirim dua isian dengan urutan yang benar, kalau tidak hasilnya bisa tertukar.",
+          ],
+          istilah: [
+            { kata: "argument / argumen", arti: "Nilai nyata yang dikirim saat memanggil function." },
+            { kata: "urutan", arti: "Argument pertama masuk ke parameter pertama, dan seterusnya." },
+            { kata: "keyword argument", arti: "Cara mengirim dengan menyebut namanya, misalnya sapa(nama='Ani'), supaya tidak tertukar." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apa bedanya parameter dan argument?", jawab: "Parameter = nama tempatnya (waktu dibuat). Argument = isinya (waktu dipanggil). Kolom formulir vs tulisan yang diisi." },
+            { tanya: "Bagaimana kalau urutannya tertukar?", jawab: "Program biasanya tetap jalan tapi hasilnya salah. Solusinya: sebut nama parameternya, misalnya hitung(lebar=3, panjang=5)." },
+          ],
+          ingat: "Masuk ke function = argument. Tempatnya di dalam function = parameter.",
+        },
+        "return": {
+          inti: "return adalah cara function 'menyerahkan hasil' ke pemanggilnya, supaya hasilnya bisa disimpan atau dipakai lagi.",
+          cerita: [
+            "Bayangkan kamu menyuruh teman membelikan kopi. Kalau dia cuma bilang 'ini kopinya' lewat pengeras suara, kamu tidak memegang kopinya. Tapi kalau dia menyerahkan gelasnya ke tanganmu, kamu bisa meminumnya atau memberikannya ke orang lain.",
+            "print() itu seperti pengeras suara: hanya menampilkan. return itu seperti menyerahkan gelas: hasilnya benar-benar sampai ke tanganmu, bisa disimpan di variable.",
+            "Makanya return penting. Tanpa return, function yang menghitung total belanja hanya bisa menampilkan angkanya, tidak bisa menjumlahkannya dengan ongkos kirim.",
+          ],
+          istilah: [
+            { kata: "return", arti: "Bahasa Inggrisnya 'kembali' / 'menyerahkan'. Perintah mengirim hasil keluar dari function." },
+            { kata: "nilai kembali", arti: "Hasil yang diterima setelah function selesai dijalankan." },
+            { kata: "None", arti: "Tanda 'tidak ada nilai'. Didapat kalau function tidak punya return." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apakah return sama dengan print?", jawab: "Tidak. print hanya menampilkan ke layar. return menyerahkan nilai supaya bisa dipakai lagi di kode lain." },
+            { tanya: "Bolehkah return lebih dari satu baris?", jawab: "Bisa menulis return di beberapa cabang if, tapi begitu salah satu return jalan, function langsung selesai." },
+          ],
+          ingat: "Mau hasilnya dipakai lagi? Pakai return. Cuma mau tampil? Pakai print.",
+        },
+        "default-parameter": {
+          inti: "Default parameter adalah nilai cadangan yang otomatis dipakai kalau kamu tidak mengirim isian.",
+          cerita: [
+            "Bayangkan warung makan yang selalu menyajikan sambal, kecuali kamu bilang tidak mau. Jadi ada 'pilihan bawaan' yang berlaku kalau kamu diam saja.",
+            "Di Python kamu menulisnya seperti def sapa(nama, sapaan='Halo'):. Kalau kamu memanggil sapa('Ani'), sapaan otomatis berisi 'Halo'. Kalau kamu memanggil sapa('Ani', 'Selamat pagi'), nilai bawaan itu diganti.",
+            "Ini berguna supaya function tetap enak dipakai untuk kasus umum, tapi masih bisa diatur untuk kasus khusus.",
+          ],
+          istilah: [
+            { kata: "default / bawaan", arti: "Nilai yang dipakai kalau tidak ada isian yang dikirim." },
+            { kata: "opsional", arti: "Boleh diisi, boleh tidak." },
+          ],
+          tanyaJawab: [
+            { tanya: "Di mana menaruh parameter bawaan?", jawab: "Di akhir daftar parameter. Parameter tanpa bawaan harus ditulis lebih dulu, supaya Python tidak bingung." },
+            { tanya: "Apakah nilai bawaan boleh berupa angka atau list?", jawab: "Boleh angka dan tulisan dengan aman. Untuk list, sebaiknya hati-hati — pemula cukup pakai angka atau tulisan dulu." },
+          ],
+          ingat: "Parameter bawaan = 'kalau tidak diisi, pakai ini'.",
+        },
+        "function-sederhana": {
+          inti: "Function pendek yang cuma mengecek satu syarat dan mengembalikan jawaban sudah cukup untuk banyak kebutuhan.",
+          cerita: [
+            "Tidak semua function harus panjang. Kadang cukup satu pertanyaan: apakah umur sudah cukup? Kalau iya, kembalikan True; kalau tidak, False.",
+            "Function seperti ini enak dipakai di dalam if. Kamu tidak perlu menulis ulang aturannya di banyak tempat — cukup tanya ke function-nya.",
+            "Kalau aturannya berubah, misalnya batas umur naik dari 17 ke 18, kamu cukup mengubah satu baris di dalam function. Semua tempat yang memakainya ikut berubah.",
+          ],
+          istilah: [
+            { kata: "function pendek", arti: "Function dengan satu tugas kecil yang jelas." },
+            { kata: "cek / validasi", arti: "Memeriksa apakah data memenuhi aturan." },
+            { kata: "boolean", arti: "Nilai yang cuma dua: True (iya) atau False (tidak)." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa tidak langsung tulis if saja?", jawab: "Boleh, tapi kalau pengecekan yang sama dipakai di banyak tempat, function membuatnya lebih rapi dan mudah diperbaiki." },
+            { tanya: "Haruskah function selalu pakai return?", jawab: "Tidak selalu. Tapi kalau function bertugas menjawab pertanyaan atau menghitung hasil, return sangat dianjurkan." },
+          ],
+          ingat: "Satu function, satu tugas kecil. Lebih mudah dibaca dan diperbaiki.",
+        },
+        "rangkuman-function": {
+          inti: "Function itu tiga langkah: terima data (parameter/argument), olah di dalam, lalu serahkan hasilnya (return).",
+          cerita: [
+            "Cara paling mudah mengingat function adalah membayangkan sebuah mesin juicer. Kamu memasukkan buah (argument masuk ke parameter), mesin mengolahnya (isi function), lalu keluar segelas jus (return).",
+            "Kalau mesinnya tidak punya lubang keluaran, jusnya tidak bisa kamu bawa — mesin itu hanya memperlihatkan jusnya (print). Kalau ada lubang keluaran, kamu bisa menyimpan jusnya di gelas (variable).",
+            "Jadi, sebelum menulis function, jawab tiga pertanyaan: data apa yang masuk? apa yang dikerjakan? hasil apa yang keluar? Kalau tiga itu jelas, function-mu akan jauh lebih mudah dibaca.",
+          ],
+          istilah: [
+            { kata: "masukan / input", arti: "Data yang dikirim ke function (argument)." },
+            { kata: "proses", arti: "Bagian tengah function yang mengolah data." },
+            { kata: "keluaran / output", arti: "Hasil yang dikirim balik (return) atau ditampilkan (print)." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apakah function boleh tanpa parameter dan tanpa return?", jawab: "Boleh. Misalnya function yang cuma menampilkan sambutan. Tapi biasanya function paling berguna kalau minimal punya salah satunya." },
+            { tanya: "Kenapa function saya hasilnya None?", jawab: "Karena tidak ada return, atau kamu menulis print di dalamnya lalu menyimpan hasil pemanggilannya. Ganti print terakhir dengan return." },
+          ],
+          ingat: "Masukkan → olah → keluarkan. Itu semua cerita tentang function.",
+        },
+
+        /* ===================== LEVEL 8 ===================== */
+        "syntax-error": {
+          inti: "Syntax Error berarti ada yang salah pada cara penulisan: ada tanda yang kurang atau berlebih.",
+          cerita: [
+            "Bayangkan kamu mengirim pesan tapi lupa menutup tanda kutip. Penerima pesan bingung, 'ini kalimatnya selesai di mana?' Python juga begitu.",
+            "Pesan error semacam ini biasanya muncul sebelum program sempat berjalan sama sekali. Python membaca kode, menemukan tanda yang tidak beres, lalu berhenti.",
+            "Kabar baiknya: Syntax Error adalah error yang paling mudah diperbaiki. Cek tiga hal: titik dua setelah if/for/while/def, tanda kurung yang berpasangan, dan tanda kutip yang tertutup.",
+          ],
+          istilah: [
+            { kata: "syntax / sintaks", arti: "Aturan penulisan kode, mirip tata bahasa pada kalimat." },
+            { kata: "error", arti: "Pesan dari Python bahwa ada yang tidak beres." },
+            { kata: "tanda berpasangan", arti: "Setiap tanda buka harus ada tanda tutupnya: ( ), [ ], { }, \" \"." },
+          ],
+          tanyaJawab: [
+            { tanya: "Pesan errornya bahasa Inggris, bagaimana cara membacanya?", jawab: "Jangan panik. Cari baris paling bawah (jenis errornya), lalu lihat nomor baris yang disebut. Periksa baris itu dan satu baris sebelumnya." },
+            { tanya: "Kok saya sudah periksa tapi tetap error?", jawab: "Seringnya masalahnya ada satu baris SEBELUM yang ditunjuk Python. Cek juga baris di atasnya." },
+          ],
+          ingat: "Syntax Error = salah tulis. Cek titik dua, kurung, dan tanda kutip.",
+        },
+        "name-error": {
+          inti: "Name Error berarti Python tidak mengenal nama yang kamu tulis — biasanya karena salah ketik atau belum dibuat.",
+          cerita: [
+            "Bayangkan kamu memanggil nama orang yang tidak ada di dalam ruangan. Semua orang menoleh bingung. Python melakukan hal yang sama saat kamu menyebut nama variable yang belum pernah dibuat.",
+            "Penyebab paling umum: salah ketik. Kamu membuat 'nama', tapi memanggil 'nma'. Atau kamu membuat 'umur', lalu menulis 'Umur' dengan huruf besar — Python menganggap itu dua nama berbeda.",
+            "Penyebab lain: urutan. Kamu memakai variable sebelum baris yang membuatnya dijalankan. Ingat, Python membaca dari atas ke bawah.",
+          ],
+          istilah: [
+            { kata: "NameError", arti: "Error karena nama yang dipakai tidak dikenal Python." },
+            { kata: "case-sensitive", arti: "Huruf besar dan kecil dianggap berbeda: nama tidak sama dengan Nama." },
+            { kata: "deklarasi", arti: "Saat pertama kali sebuah variable dibuat." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa error padahal namanya sudah benar?", jawab: "Bisa jadi letaknya di dalam function sehingga tidak dikenal di luar, atau baris pembuatnya belum sempat dijalankan (misalnya ada di dalam if yang tidak terpenuhi)." },
+            { tanya: "Apakah ini error yang berbahaya?", jawab: "Tidak. Programnya tidak rusak. Cukup perbaiki penulisan namanya, lalu jalankan lagi." },
+          ],
+          ingat: "NameError = 'nama ini siapa ya?'. Cek salah ketik dan huruf besar/kecil.",
+        },
+        "type-error": {
+          inti: "Type Error berarti kamu mencampur dua jenis data yang tidak bisa digabung, misalnya tulisan ditambah angka.",
+          cerita: [
+            "Bayangkan kamu mencoba menjumlahkan 'tiga' (tulisan) dengan 5 (angka). Hasilnya apa? Tidak jelas. Python juga bingung, lalu menampilkan Type Error.",
+            "Kasus paling sering: hasil input() selalu berupa tulisan, walaupun yang diketik user adalah angka. Jadi sebelum dihitung, harus diubah dulu dengan int() atau float().",
+            "Solusinya selalu sama: samakan jenis datanya dulu. Tulisan + tulisan boleh (digabung), angka + angka boleh (dijumlah). Tulisan + angka tidak boleh.",
+          ],
+          istilah: [
+            { kata: "tipe data", arti: "Jenis sebuah nilai: tulisan (str), angka bulat (int), angka desimal (float), dll." },
+            { kata: "TypeError", arti: "Error karena operasi dilakukan pada jenis data yang tidak cocok." },
+            { kata: "konversi", arti: "Mengubah satu jenis data menjadi jenis lain, misalnya int('17')." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa input('Umur: ') tidak bisa langsung dibandingkan dengan 17?", jawab: "Karena hasil input() adalah tulisan '17', bukan angka 17. Bungkus dengan int() dulu: umur = int(input('Umur: '))." },
+            { tanya: "Bagaimana cara mengecek jenis datanya?", jawab: "Pakai type(nama_variable). Nanti muncul keterangan seperti <class 'str'> atau <class 'int'>." },
+          ],
+          ingat: "Sebelum menghitung, pastikan jenis datanya sama. Kalau ragu, pakai type().",
+        },
+        "index-error": {
+          inti: "Index Error berarti kamu meminta data di nomor urut yang tidak ada.",
+          cerita: [
+            "Bayangkan ada 3 kursi, lalu kamu menyuruh seseorang duduk di kursi nomor 10. Orang itu pasti bingung. Begitu juga Python saat kamu menulis daftar[10] padahal isinya cuma 3.",
+            "Ingat, nomor urut Python mulai dari 0. Jadi kalau ada 3 data, nomor yang tersedia cuma 0, 1, dan 2. Nomor 3 saja sudah terlalu jauh.",
+            "Cara mengecek jumlah isi data adalah len(daftar). Kalau hasilnya 3, index terbesar yang boleh dipakai adalah 2.",
+          ],
+          istilah: [
+            { kata: "IndexError", arti: "Error karena nomor urut yang diminta tidak tersedia." },
+            { kata: "len()", arti: "Fungsi untuk menghitung jumlah isi sebuah kumpulan data." },
+            { kata: "di luar jangkauan", arti: "Nomor yang diminta lebih besar (atau lebih kecil) dari yang tersedia." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa padahal saya minta index 3 untuk 3 data?", jawab: "Karena hitungan mulai dari 0. Tiga data berarti index 0, 1, 2. Index 3 adalah data keempat yang tidak ada." },
+            { tanya: "Bagaimana cara mencegahnya?", jawab: "Cek dulu dengan if index < len(daftar):, atau gunakan perulangan for yang otomatis berhenti di data terakhir." },
+          ],
+          ingat: "Jumlah data 3 → index terakhir 2. Selalu kurangi satu.",
+        },
+        "membaca-error": {
+          inti: "Pesan error bukan musuh. Dia adalah petunjuk: baca dari bawah, lalu cari nomor barisnya.",
+          cerita: [
+            "Saat merah muncul di layar, wajar kalau jantung berdebar. Tapi pesan error sebenarnya seperti pesan dari teman yang memberi tahu, 'di sini ada yang salah, di baris ini'.",
+            "Cara membacanya yang paling mudah: lompat ke baris paling bawah. Di situ tertulis nama errornya, misalnya TypeError, disertai kalimat singkat penjelasannya. Di atasnya ada nomor baris dan cuplikan kode yang bermasalah.",
+            "Biasakan membaca dengan urutan: jenis error → nomor baris → kode di baris itu. Setelah terbiasa, error justru jadi alat bantu belajar yang sangat cepat.",
+          ],
+          istilah: [
+            { kata: "traceback", arti: "Daftar jejak langkah yang ditunjukkan Python saat error terjadi." },
+            { kata: "baris paling bawah", arti: "Tempat nama error dan penjelasan singkatnya ditulis." },
+            { kata: "nomor baris", arti: "Posisi kode yang perlu kamu periksa." },
+          ],
+          tanyaJawab: [
+            { tanya: "Pesan errornya panjang sekali, harus dibaca semua?", jawab: "Tidak. Untuk pemula cukup baca 3 baris terakhir dan cari tulisan 'line' (nomor baris)." },
+            { tanya: "Bolehkah mencari pesan error di internet?", jawab: "Sangat boleh, bahkan itu kebiasaan programmer profesional. Salin nama errornya ke mesin pencari, biasanya langsung ketemu solusinya." },
+          ],
+          ingat: "Error = petunjuk, bukan hukuman. Baca dari bawah, lihat nomor barisnya.",
+        },
+        "mencari-kesalahan": {
+          inti: "Debugging itu sederhana: curigai sedikit demi sedikit, tampilkan isi variable, lalu lihat di mana hasilnya mulai aneh.",
+          cerita: [
+            "Bayangkan lampu rumah mati. Kamu tidak langsung membongkar seluruh rumah. Kamu cek dulu: saklar sudah on? lampunya putus? listriknya padam? Begitu juga mencari kesalahan kode.",
+            "Trik paling ampuh untuk pemula: sisipkan print() di beberapa titik untuk melihat isi variable. Misalnya print('total sementara:', total). Dari situ kelihatan di langkah mana angkanya mulai melenceng.",
+            "Setelah ketemu, hapus atau komentari print() tadi. Tidak perlu malu memakai cara ini — programmer berpengalaman juga masih sering melakukannya.",
+          ],
+          istilah: [
+            { kata: "debugging", arti: "Proses mencari dan memperbaiki kesalahan dalam kode." },
+            { kata: "bug", arti: "Kesalahan kecil yang membuat program berjalan tidak sesuai harapan." },
+            { kata: "print sementara", arti: "Menampilkan isi variable untuk memeriksa jalannya program." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kalau hasilnya salah tapi tidak ada error, apa yang harus dicek?", jawab: "Itu berarti logikanya yang perlu diperiksa. Cetak nilai di tengah-tengah perhitungan, lalu bandingkan dengan yang kamu harapkan." },
+            { tanya: "Kodenya panjang, mulai dari mana?", jawab: "Potong menjadi bagian kecil. Jalankan bagian awal dulu. Kalau sudah benar, tambahkan bagian berikutnya sedikit demi sedikit." },
+          ],
+          ingat: "Tidak ada error tapi hasil aneh? Cetak isi variable di tengah jalan.",
+        },
+        "error-lainnya": {
+          inti: "Selain empat error utama, ada beberapa error umum lain yang pesannya sebenarnya sangat jelas kalau sudah tahu artinya.",
+          cerita: [
+            "ValueError muncul saat isinya jenisnya benar tapi nilainya tidak cocok, misalnya int(\"halo\") — 'halo' memang tulisan, tapi tidak bisa jadi angka. KeyError muncul saat kamu meminta kunci yang tidak ada di dictionary.",
+            "ZeroDivisionError muncul saat membagi dengan nol. IndentationError muncul saat spasi di awal baris tidak konsisten. AttributeError muncul saat kamu memakai perintah yang tidak tersedia untuk jenis data itu.",
+            "Tidak perlu menghafal semuanya. Yang penting: baca nama errornya perlahan. Nama itu biasanya sudah menceritakan masalahnya: 'Key' berarti kunci, 'Value' berarti nilai, 'ZeroDivision' berarti pembagian dengan nol.",
+          ],
+          istilah: [
+            { kata: "ValueError", arti: "Jenis data sudah benar, tapi isinya tidak bisa dipakai." },
+            { kata: "KeyError", arti: "Kunci yang dicari tidak ada di dalam dictionary." },
+            { kata: "ZeroDivisionError", arti: "Mencoba membagi angka dengan 0." },
+            { kata: "IndentationError", arti: "Spasi di awal baris tidak rapi atau tidak konsisten." },
+          ],
+          tanyaJawab: [
+            { tanya: "Haruskah saya menghafal semua nama error?", jawab: "Tidak. Cukup hafal cara membacanya: baca nama error, cari nomor baris, lalu cek data di baris itu." },
+            { tanya: "Kenapa error ini tidak diajarkan di materi sebelumnya?", jawab: "Karena polanya sama dengan error yang sudah kamu pelajari. Begitu paham cara membaca satu error, sisanya tinggal menyesuaikan." },
+          ],
+          ingat: "Nama error = petunjuk. Baca pelan, jangan panik.",
+        },
+
+        /* ===================== LEVEL 9 ===================== */
+        "import": {
+          inti: "import adalah cara memakai kode yang sudah dibuat orang lain, tanpa harus menulisnya sendiri.",
+          cerita: [
+            "Bayangkan kamu mau memaku kayu. Kamu tidak membuat palu dari besi sendiri — kamu meminjam palu yang sudah jadi. import bekerja seperti itu.",
+            "Python sudah membawa banyak 'kotak peralatan' bawaan. Ada kotak untuk angka acak (random), untuk waktu (datetime), untuk matematika (math). Dengan import, kamu membuka kotak itu dan memakai isinya.",
+            "Jadi kamu tidak perlu memahami isi dalam kotaknya dulu. Cukup tahu nama alatnya dan cara memakainya.",
+          ],
+          istilah: [
+            { kata: "import", arti: "Bahasa Inggrisnya 'mengimpor' — mengambil kode dari tempat lain." },
+            { kata: "module / modul", arti: "Satu file kode Python yang berisi kumpulan alat siap pakai." },
+            { kata: "library / pustaka", arti: "Kumpulan module yang bisa dipakai bersama." },
+            { kata: "standar / bawaan", arti: "Sudah ikut terpasang bersama Python, tidak perlu diunduh." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apakah import perlu instalasi dulu?", jawab: "Untuk module bawaan seperti random atau math, tidak perlu. Cukup tulis import random, langsung bisa dipakai." },
+            { tanya: "Kenapa harus menulis random.randint(), bukan cuma randint()?", jawab: "Karena alatnya ada di dalam kotak bernama random. Nama kotaknya jadi 'alamat' supaya Python tahu harus mencari ke mana." },
+          ],
+          ingat: "import = pinjam alat yang sudah ada. Hemat waktu, hemat tenaga.",
+        },
+        "module": {
+          inti: "Module adalah file kode yang bisa dipakai ulang. Program besar biasanya dipecah menjadi beberapa module.",
+          cerita: [
+            "Bayangkan lemari dapur. Kamu tidak menaruh semua bumbu, piring, dan peralatan dalam satu tumpukan. Kamu memisahkannya ke dalam beberapa laci supaya mudah dicari.",
+            "Module adalah 'laci' untuk kode. Kamu bisa membuat file bernama hitung.py berisi function-function perhitungan, lalu memakainya di file lain dengan cara import.",
+            "Keuntungannya: file utama jadi lebih pendek, dan function yang sama bisa dipakai di banyak program berbeda.",
+          ],
+          istilah: [
+            { kata: "module", arti: "File .py berisi kode yang siap dipakai di file lain." },
+            { kata: "file .py", arti: "Berkas berisi kode Python." },
+            { kata: "memecah program", arti: "Membagi kode panjang menjadi beberapa file kecil." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apakah module harus dibuat sendiri?", jawab: "Tidak. Banyak module sudah tersedia. Tapi membuat module sendiri berguna saat program kamu mulai panjang." },
+            { tanya: "Kenapa module buatan saya tidak ketemu saat di-import?", jawab: "Pastikan filenya ada di folder yang sama dengan file yang menjalankannya, dan namanya ditulis tanpa akhiran .py saat di-import." },
+          ],
+          ingat: "Program panjang? Pecah jadi beberapa file module.",
+        },
+        "membaca-file": {
+          inti: "Membaca file berarti mengambil isi teks dari sebuah berkas supaya bisa dipakai di dalam program.",
+          cerita: [
+            "Bayangkan kamu membuka buku catatan, membaca isinya, lalu menutupnya kembali. Program juga melakukan tiga langkah yang sama: buka, baca, tutup.",
+            "Python punya cara yang lebih aman memakai kata with. Dengan with, file otomatis ditutup setelah selesai dibaca — jadi kamu tidak perlu mengingatnya.",
+            "Hasil bacaan biasanya berupa tulisan. Jadi kalau isinya angka dan mau dihitung, tetap harus diubah dulu dengan int() atau float().",
+          ],
+          istilah: [
+            { kata: "open()", arti: "Perintah membuka file." },
+            { kata: "\"r\" / mode baca", arti: "Keterangan bahwa file hanya akan dibaca, tidak diubah." },
+            { kata: "with", arti: "Cara aman membuka file: file otomatis ditutup setelah selesai." },
+            { kata: "read() / readlines()", arti: "Membaca seluruh isi sekaligus, atau membaca per baris." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apa yang terjadi kalau filenya tidak ada?", jawab: "Python menampilkan FileNotFoundError. Pastikan nama file dan lokasinya benar, atau tangani dengan try ... except." },
+            { tanya: "Kenapa hasil bacaannya ada karakter aneh di akhir baris?", jawab: "Itu tanda baris baru (\n). Gunakan .strip() untuk membersihkannya." },
+          ],
+          ingat: "Buka → baca → (otomatis) tutup. Pakai with supaya aman.",
+        },
+        "menulis-file": {
+          inti: "Menulis file berarti menyimpan data ke berkas supaya tidak hilang saat program ditutup.",
+          cerita: [
+            "Semua variable yang kamu buat akan hilang saat program selesai. Kalau kamu ingin datanya tetap ada besok, simpanlah ke file.",
+            "Caranya mirip membaca, tapi modenya diganti: \"w\" untuk menulis baru, \"a\" untuk menambah di akhir. Hati-hati, mode \"w\" menimpa isi lama.",
+            "Kegunaan sehari-harinya banyak: menyimpan catatan transaksi, menyimpan daftar tugas, atau membuat laporan sederhana.",
+          ],
+          istilah: [
+            { kata: "\"w\" / mode tulis", arti: "Menulis file dari awal. Isi lama akan tertimpa." },
+            { kata: "\"a\" / mode tambah", arti: "Menambahkan tulisan di akhir file tanpa menghapus isi lama." },
+            { kata: "write()", arti: "Perintah menulis tulisan ke dalam file." },
+            { kata: "\n", arti: "Tanda pindah baris baru." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa isi file lama saya hilang?", jawab: "Karena kamu memakai mode \"w\". Pakai \"a\" kalau ingin menambah, bukan menimpa." },
+            { tanya: "Apakah file langsung tersimpan?", jawab: "Iya, setelah blok with selesai file ditutup dan isinya tersimpan. Menutup file itu bagian dari proses menyimpan." },
+          ],
+          ingat: "Simpan ke file supaya data tidak hilang. Ingat bedanya \"w\" dan \"a\".",
+        },
+        "try-except": {
+          inti: "try ... except adalah 'jaga-jaga': coba jalankan kode, dan kalau gagal, jangan biarkan program berhenti — tangani dengan tenang.",
+          cerita: [
+            "Bayangkan kamu menyalakan kipas dengan colokan yang longgar. Alih-alih langsung menyerah, kamu cek colokannya, lalu coba lagi. try ... except melakukan hal itu untuk kode.",
+            "Kamu menaruh kode yang 'mungkin bermasalah' di dalam blok try. Kalau tidak ada masalah, semua berjalan normal dan blok except dilewati.",
+            "Kalau ada error, Python tidak mematikan program. Dia lari ke blok except dan menjalankan perintah di sana, misalnya menampilkan pesan ramah: 'Maaf, isiannya harus berupa angka.'",
+          ],
+          istilah: [
+            { kata: "try", arti: "Bahasa Inggrisnya 'coba'. Blok berisi kode yang mungkin error." },
+            { kata: "except", arti: "Blok yang dijalankan kalau terjadi error di dalam try." },
+            { kata: "exception / pengecualian", arti: "Nama lain untuk error yang bisa ditangani." },
+            { kata: "finally", arti: "Bagian opsional yang selalu dijalankan, error atau tidak." },
+          ],
+          tanyaJawab: [
+            { tanya: "Apakah try ... except membuat kode jadi kebal semua error?", jawab: "Tidak. Dia menangani error yang kamu sebut saja. Lebih baik tangani jenis error tertentu, misalnya except ValueError:, supaya error lain tetap terlihat." },
+            { tanya: "Kapan sebaiknya dipakai?", jawab: "Saat menerima masukan dari user, membaca file, atau berurusan dengan hal yang tidak sepenuhnya kamu kontrol." },
+          ],
+          ingat: "try = coba. except = kalau gagal, lakukan ini.",
+        },
+
+        /* ===================== LEVEL 10 ===================== */
+        "kalkulator": {
+          inti: "Kalkulator adalah latihan menggabungkan input, percabangan, dan perhitungan dalam satu program utuh.",
+          cerita: [
+            "Selama ini kamu belajar potongan-potongan kecil: menyimpan data, bertanya ke user, memilih dengan if. Mini project ini mengajakmu menyatukannya.",
+            "Alurnya sederhana: minta dua angka, minta pilihan operasi, lalu tentukan hasilnya. Tidak perlu langsung lengkap — mulai dari penjumlahan dulu, baru tambah yang lain.",
+            "Yang terpenting bukan hafal kodenya, tapi paham urutan berpikirnya: data masuk → dipilih → dihitung → hasil ditampilkan.",
+          ],
+          istilah: [
+            { kata: "mini project", arti: "Program kecil yang menggabungkan banyak materi sekaligus." },
+            { kata: "alur program", arti: "Urutan langkah dari awal sampai selesai." },
+            { kata: "operasi", arti: "Aksi hitung seperti tambah, kurang, kali, bagi." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa hasil pembagian sering berupa desimal?", jawab: "Karena operator / di Python selalu menghasilkan float. Kalau ingin angka bulat, pakai // (pembagian bulat)." },
+            { tanya: "Bagaimana kalau user membagi dengan nol?", jawab: "Itu akan menimbulkan ZeroDivisionError. Cek dulu dengan if, atau bungkus dengan try ... except." },
+          ],
+          ingat: "Program besar selalu dimulai dari langkah kecil yang benar.",
+        },
+        "tebak-angka": {
+          inti: "Game tebak angka melatih perulangan while, percabangan if, dan konversi tipe data secara bersamaan.",
+          cerita: [
+            "Permainannya sederhana: komputer menyimpan satu angka rahasia, kamu menebak, lalu komputer bilang 'terlalu besar' atau 'terlalu kecil'. Terus sampai benar.",
+            "Di baliknya ada tiga materi yang bekerja sama: while supaya permainan terus berjalan, if untuk memberi petunjuk, dan int() untuk mengubah tebakan user menjadi angka.",
+            "Kalau kamu paham alur ini, sebenarnya kamu sudah paham pola banyak program sungguhan: menunggu masukan, mengecek, lalu mengulang.",
+          ],
+          istilah: [
+            { kata: "loop utama", arti: "Perulangan yang menjaga program tetap berjalan." },
+            { kata: "kondisi menang", arti: "Syarat yang mengakhiri permainan (tebakan benar)." },
+            { kata: "acak / random", arti: "Angka yang berubah-ubah setiap kali program dijalankan." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa while cocok untuk game ini?", jawab: "Karena kita tidak tahu berapa kali user akan menebak. Kita cuma tahu syarat berhentinya: tebakan sama dengan angka rahasia." },
+            { tanya: "Kenapa tebakannya harus diubah ke int()?", jawab: "Karena input() selalu menghasilkan tulisan. Tulisan tidak bisa dibandingkan sebagai angka dengan benar." },
+          ],
+          ingat: "while + if + int() = resep dasar game tebak-tebakan.",
+        },
+        "data-siswa": {
+          inti: "Program data siswa melatih menyimpan banyak data, menampilkannya, dan mencari salah satunya.",
+          cerita: [
+            "Bayangkan buku induk sekolah. Ada banyak siswa, masing-masing punya nama dan nilai. Tugas programnya: menyimpan, menampilkan, dan mencari data tertentu.",
+            "Di sini kamu akan merasakan gunanya list dan dictionary. List untuk kumpulan siswa, dictionary untuk detail tiap siswa. Lalu for dipakai untuk menampilkan semuanya.",
+            "Kalau program terasa panjang, jangan langsung patah semangat. Baca perlahan per bagian: mana yang menyimpan, mana yang menampilkan, mana yang mencari.",
+          ],
+          istilah: [
+            { kata: "record / catatan", arti: "Satu data lengkap untuk satu objek, misalnya satu siswa." },
+            { kata: "kumpulan data", arti: "Banyak record yang disimpan dalam satu wadah." },
+            { kata: "pencarian", arti: "Mencari satu data tertentu di antara banyak data." },
+          ],
+          tanyaJawab: [
+            { tanya: "Lebih baik pakai list atau dictionary?", jawab: "Seringnya keduanya: list untuk menampung banyak siswa, dictionary untuk menyimpan detail tiap siswa." },
+            { tanya: "Kenapa datanya hilang saat program ditutup?", jawab: "Karena masih disimpan di memori. Supaya awet, simpan ke file dengan materi Menulis File." },
+          ],
+          ingat: "Banyak data? Kumpulkan di list, detailnya di dictionary.",
+        },
+        "todo-list": {
+          inti: "To-do list melatih menu berulang, menyimpan daftar, dan mengubah isinya sesuai perintah user.",
+          cerita: [
+            "Aplikasi catatan sederhana biasanya punya menu: lihat tugas, tambah tugas, hapus tugas, keluar. Menu itu berulang terus sampai user memilih keluar.",
+            "Di baliknya: while True untuk menjalankan menu terus-menerus, if atau elif untuk memilih aksi, list untuk menyimpan tugas, dan break untuk keluar.",
+            "Ini contoh nyata bahwa konsep-konsep kecil yang kamu pelajari ternyata cukup untuk membuat program yang benar-benar berguna.",
+          ],
+          istilah: [
+            { kata: "menu", arti: "Daftar pilihan yang ditampilkan ke user." },
+            { kata: "while True", arti: "Perulangan yang sengaja tidak punya syarat berhenti, karena yang menghentikannya adalah break." },
+            { kata: "aksi", arti: "Satu tindakan yang dipilih user." },
+          ],
+          tanyaJawab: [
+            { tanya: "Bukannya while True itu berbahaya?", jawab: "Tidak kalau di dalamnya ada break yang jelas. Banyak program interaktif memang memakai pola ini." },
+            { tanya: "Bagaimana cara menyimpan tugas supaya tidak hilang?", jawab: "Tambahkan langkah menulis list ke file dengan open(..., \"w\"), lalu baca lagi saat program dibuka." },
+          ],
+          ingat: "Menu = while + if/elif + list + break.",
+        },
+        "kasir": {
+          inti: "Program kasir menggabungkan hampir semua materi: perulangan, percabangan, dictionary harga, dan perhitungan total.",
+          cerita: [
+            "Kasir di swalayan melakukan hal yang berulang: memindai barang, mencatat jumlah, menjumlahkan harga, lalu menghitung kembalian. Semua itu bisa ditiru dengan kode.",
+            "Dictionary dipakai sebagai 'daftar harga', list dipakai sebagai 'keranjang', while dipakai untuk terus menerima barang sampai user mengetik 'selesai', dan if dipakai untuk memberi diskon.",
+            "Kalau kodenya terlihat menakutkan, ingat: kamu sudah pernah mempelajari setiap bagiannya. Bedanya sekarang semuanya dirangkai menjadi satu cerita utuh.",
+          ],
+          istilah: [
+            { kata: "keranjang", arti: "Kumpulan barang yang dibeli (biasanya list)." },
+            { kata: "subtotal", arti: "Jumlah harga untuk satu jenis barang." },
+            { kata: "total", arti: "Jumlah seluruh belanja." },
+            { kata: "checkout", arti: "Proses selesai belanja dan menghitung pembayaran." },
+          ],
+          tanyaJawab: [
+            { tanya: "Kenapa harga disimpan di dictionary?", jawab: "Supaya harga bisa dicari berdasarkan nama barang, bukan berdasarkan nomor urut. Lebih mudah dan lebih masuk akal." },
+            { tanya: "Bagian mana yang paling sering bikin salah?", jawab: "Lupa mengubah jumlah dari input() dengan int(). Tanpa itu, perhitungan jumlah akan error." },
+          ],
+          ingat: "Proyek besar = kumpulan langkah kecil yang sudah kamu kuasai.",
+        },
+        "rangkuman-akhir": {
+          inti: "Kalau kamu sampai di sini, kamu sudah punya semua bekal dasar: menyimpan data, memilih, mengulang, mengemas kode, dan membaca error.",
+          cerita: [
+            "Coba lihat ke belakang. Awalnya mungkin kamu belum tahu apa itu print(). Sekarang kamu sudah bisa membuat program yang menyimpan data, mengambil keputusan, mengulang pekerjaan, dan menangani kesalahan.",
+            "Tidak apa-apa kalau belum hafal semuanya. Programmer berpengalaman pun masih sering membuka catatan. Yang penting kamu tahu konsepnya dan berani mencoba.",
+            "Langkah berikutnya: pilih satu mini project, ubah-ubah kodenya, tambahkan fitur kecil, dan jangan takut error. Error adalah tanda kamu sedang benar-benar berlatih.",
+          ],
+          istilah: [
+            { kata: "dasar / fundamental", arti: "Konsep inti yang dipakai di hampir semua program." },
+            { kata: "eksperimen", arti: "Mengubah kode untuk melihat apa yang terjadi." },
+            { kata: "konsisten", arti: "Berlatih sedikit tapi rutin." },
+          ],
+          tanyaJawab: [
+            { tanya: "Saya masih sering lupa, apakah itu wajar?", jawab: "Sangat wajar. Menghafal bukan tujuannya. Yang penting kamu tahu harus mencari ke mana saat lupa." },
+            { tanya: "Setelah ini belajar apa?", jawab: "Coba perkecil satu topik yang paling menarik: misalnya memperdalam function, lalu lanjut ke konsep seperti class, atau langsung membuat project kecil sendiri." },
+          ],
+          ingat: "Sudah paham konsepnya? Sekarang waktunya sering-sering mencoba.",
+        },
+      };
+
+
+      /* ---------------------------------------------------------
+         DATA TAMBAHAN: CEK PEMAHAMAN (GERBANG SEBELUM LANJUT)
+
+         Setiap materi punya SATU pertanyaan sederhana. Tujuannya
+         bukan menguji hafalan, tapi memastikan pembaca benar-benar
+         menangkap satu ide utama sebelum pindah ke materi berikutnya.
+         Kunci object = id materi.
+         q       = pertanyaan
+         opsi    = 3 pilihan jawaban
+         benar   = nomor index jawaban yang benar (0, 1, atau 2)
+         alasan  = penjelasan singkat saat jawabannya benar
+         petunjuk= bantuan saat jawabannya masih salah
+         --------------------------------------------------------- */
+      var CEK_PAHAM = {
+        /* ===================== LEVEL 1 ===================== */
+        "apa-itu-python": {
+          q: "Python itu sebenarnya apa?",
+          opsi: ["Bahasa untuk menulis instruksi kepada komputer", "Jenis ular yang dipakai di komputer", "Nama sebuah aplikasi pengolah kata"],
+          benar: 0,
+          alasan: "Betul. Python adalah bahasa pemrograman — bahasa yang dipakai manusia untuk menulis instruksi yang bisa dijalankan komputer.",
+          petunjuk: "Ingat analogi asisten yang patuh: kamu memberi instruksi memakai sebuah 'bahasa'.",
+        },
+        "cara-kerja-python": {
+          q: "Python membaca kode kita dengan cara apa?",
+          opsi: ["Semua baris sekaligus secara acak", "Baris demi baris dari atas ke bawah", "Dimulai dari baris paling bawah"],
+          benar: 1,
+          alasan: "Betul. Python membaca dari atas ke bawah, jadi urutan penulisan sangat menentukan hasil.",
+          petunjuk: "Bayangkan resep masakan yang dibaca seorang koki dari langkah pertama.",
+        },
+        "print": {
+          q: "Apa yang dilakukan perintah print(\"Halo\")?",
+          opsi: ["Menyimpan tulisan Halo ke dalam variable", "Menampilkan tulisan Halo ke layar", "Menghapus tulisan Halo"],
+          benar: 1,
+          alasan: "Betul. print() adalah 'pengeras suara' program: apa pun di dalam kurungnya ditampilkan ke layar.",
+          petunjuk: "Ingat analogi pengeras suara di materi ini.",
+        },
+        "comment": {
+          q: "Apa gunanya tanda # di dalam kode Python?",
+          opsi: ["Menandai baris sebagai komentar yang diabaikan Python", "Membuat kode berjalan lebih cepat", "Menampilkan tulisan ke layar"],
+          benar: 0,
+          alasan: "Betul. Semua tulisan setelah # pada satu baris adalah catatan yang tidak dijalankan Python.",
+          petunjuk: "Bayangkan sticky note yang ditempel di buku: isinya tidak mengubah isi buku.",
+        },
+        "sintaks-dasar": {
+          q: "Kalau baris di dalam if tidak diberi spasi (indentasi), apa yang terjadi?",
+          opsi: ["Program tetap jalan normal", "Muncul IndentationError", "Python otomatis menambah spasinya"],
+          benar: 1,
+          alasan: "Betul. Python memakai spasi di awal baris untuk menandai blok kode, jadi spasinya tidak boleh hilang.",
+          petunjuk: "Spasi di Python bukan soal kerapian, tapi aturan yang menentukan isi sebuah blok.",
+        },
+
+        /* ===================== LEVEL 2 ===================== */
+        "variable": {
+          q: "Analogi paling pas untuk variable adalah...",
+          opsi: ["Sebuah kotak berlabel yang isinya bisa diganti", "Sebuah perintah untuk menampilkan tulisan", "Sebuah tanda baca khusus"],
+          benar: 0,
+          alasan: "Betul. Variable seperti kotak bernama: kamu bisa mengisi, melihat, dan mengganti isinya.",
+          petunjuk: "Pikirkan wadah yang diberi nama, bukan sekadar angka.",
+        },
+        "string": {
+          q: "Mana yang merupakan string (tulisan)?",
+          opsi: ["17", "\"17\"", "17 + 3"],
+          benar: 1,
+          alasan: "Betul. Tanda kutip membuat sesuatu menjadi string, walaupun isinya terlihat seperti angka.",
+          petunjuk: "Perhatikan mana yang dibungkus tanda kutip.",
+        },
+        "f-string": {
+          q: "Apa kelebihan f\"Halo {nama}\" dibanding print(\"Halo\", nama)?",
+          opsi: ["Lebih rapi saat menyisipkan isi variable ke dalam kalimat", "Bisa membuat program lebih cepat 10 kali", "Bisa menggantikan semua perintah print"],
+          benar: 0,
+          alasan: "Betul. f-string membuat penyisipan nilai ke dalam kalimat jauh lebih rapi dan mudah dibaca.",
+          petunjuk: "Fokus pada kata 'rapi', bukan soal kecepatan.",
+        },
+        "integer": {
+          q: "Tipe data apa yang tepat untuk menyimpan jumlah barang di gudang?",
+          opsi: ["float", "int (angka bulat)", "string"],
+          benar: 1,
+          alasan: "Betul. Jumlah barang selalu bilangan bulat, jadi int adalah pilihan yang tepat.",
+          petunjuk: "Barang dihitung satuan, tidak mungkin setengah butir dalam kasus ini.",
+        },
+        "float": {
+          q: "Kapan sebaiknya memakai float?",
+          opsi: ["Saat menyimpan nama orang", "Saat menyimpan angka yang punya koma desimal", "Saat menyimpan nilai benar/salah"],
+          benar: 1,
+          alasan: "Betul. float dipakai untuk angka berkoma seperti 12.5 atau 1500.75.",
+          petunjuk: "Ingat contoh tagihan listrik atau berat badan yang sering tidak bulat.",
+        },
+        "boolean": {
+          q: "Berapa jumlah nilai yang mungkin untuk tipe data boolean?",
+          opsi: ["Dua: True dan False", "Tidak terbatas", "Sepuluh: 0 sampai 9"],
+          benar: 0,
+          alasan: "Betul. Boolean hanya punya dua kemampuan: iya (True) atau tidak (False).",
+          petunjuk: "Bayangkan saklar lampu: hanya menyala atau mati.",
+        },
+        "type": {
+          q: "Apa gunanya type(17)?",
+          opsi: ["Mengubah 17 menjadi tulisan", "Mengetahui jenis data dari nilai 17", "Menjumlahkan angka"],
+          benar: 1,
+          alasan: "Betul. type() dipakai untuk 'mengintip' jenis sebuah nilai, misalnya int, str, atau float.",
+          petunjuk: "Namanya saja type yang artinya 'jenis'.",
+        },
+        "konversi-tipe-data": {
+          q: "Hasil dari input() ingin dipakai untuk hitungan. Apa yang harus dilakukan?",
+          opsi: ["Langsung dijumlahkan saja", "Diubah dulu dengan int() atau float()", "Ditambah tanda kutip"],
+          benar: 1,
+          alasan: "Betul. input() selalu menghasilkan tulisan, jadi harus dikonversi dulu sebelum dihitung.",
+          petunjuk: "Angka yang masih berupa 'tulisan' tidak bisa dijumlahkan dengan angka asli.",
+        },
+        "input": {
+          q: "Apa yang dilakukan perintah input(\"Nama kamu? \")?",
+          opsi: ["Menampilkan tulisan lalu menunggu user mengetik sesuatu", "Menampilkan tulisan lalu langsung selesai", "Menyimpan data ke file"],
+          benar: 0,
+          alasan: "Betul. input() menampilkan pertanyaan, menunggu jawaban, lalu menyerahkan hasilnya sebagai tulisan.",
+          petunjuk: "Bayangkan formulir kosong yang menunggu diisi.",
+        },
+
+        /* ===================== LEVEL 3 ===================== */
+        "operator-matematika": {
+          q: "Apa hasil dari 7 % 3 di Python?",
+          opsi: ["2", "1", "2.33"],
+          benar: 1,
+          alasan: "Betul. % adalah modulo, yaitu sisa pembagian. 7 dibagi 3 bersisa 1.",
+          petunjuk: "Bukan hasil bagi, tapi sisanya.",
+        },
+        "operator-perbandingan": {
+          q: "Apa hasil dari 10 > 5?",
+          opsi: ["True", "False", "10"],
+          benar: 0,
+          alasan: "Betul. Operator perbandingan selalu menghasilkan nilai boolean: True atau False.",
+          petunjuk: "Perbandingan adalah pertanyaan yang jawabannya iya/tidak.",
+        },
+        "operator-logika": {
+          q: "Apa hasil dari True and False?",
+          opsi: ["True", "False", "Error"],
+          benar: 1,
+          alasan: "Betul. and hanya menghasilkan True kalau kedua sisinya benar. Karena ada yang False, hasilnya False.",
+          petunjuk: "and itu seperti syarat 'dua-duanya harus iya'.",
+        },
+        "assignment-operator": {
+          q: "Kalau nilai awal poin = 10, apa isi poin setelah poin += 5?",
+          opsi: ["5", "10", "15"],
+          benar: 2,
+          alasan: "Betul. += artinya 'tambahkan ke nilai sebelumnya', jadi 10 + 5 = 15.",
+          petunjuk: "Baca sebagai: poin sekarang ditambah 5.",
+        },
+        "operator-bitwise": {
+          q: "Untuk apa operator bitwise biasanya dipakai?",
+          opsi: ["Mengatur dan memeriksa 'beberapa saklar' dalam satu angka", "Menggabungkan dua tulisan", "Membuat perulangan"],
+          benar: 0,
+          alasan: "Betul. Bitwise sering dipakai untuk menyimpan beberapa status/izin (seperti saklar) dalam satu angka.",
+          petunjuk: "Ingat analogi banyak tombol yang diringkas jadi satu angka.",
+        },
+        "operator-identitas": {
+          q: "Operator is dipakai untuk apa?",
+          opsi: ["Membandingkan apakah nilainya sama", "Mengecek apakah dua nama menunjuk ke objek yang sama", "Menghitung panjang data"],
+          benar: 1,
+          alasan: "Betul. is mengecek identitas (objek yang sama), bukan sekadar nilai yang sama. Untuk nilai, pakai ==.",
+          petunjuk: "'Identitas' berarti benda yang benar-benar sama, bukan cuma terlihat mirip.",
+        },
+        "operator-keanggotaan": {
+          q: "Apa arti dari 'apel' in buah?",
+          opsi: ["Menambah apel ke dalam buah", "Bertanya apakah apel ada di dalam kumpulan buah", "Menghapus apel dari buah"],
+          benar: 1,
+          alasan: "Betul. in dipakai untuk mengecek keanggotaan: ada atau tidaknya sesuatu di dalam kumpulan.",
+          petunjuk: "in artinya 'di dalam' — ini sebuah pertanyaan, bukan perintah mengubah data.",
+        },
+
+        /* ===================== LEVEL 4 ===================== */
+        "if": {
+          q: "umur = 15. Apa yang terjadi pada kode if umur >= 17: print(\"Boleh\")?",
+          opsi: ["Tulisan 'Boleh' tetap tampil", "Tulisan 'Boleh' tidak tampil", "Program langsung error"],
+          benar: 1,
+          alasan: "Betul. Karena 15 tidak lebih dari 17, kondisinya salah sehingga isi if dilewati. Program tetap lanjut ke baris setelahnya.",
+          petunjuk: "if hanya menjalankan isinya kalau pertanyaannya ber jawaban iya.",
+        },
+        "elif": {
+          q: "Kenapa urutan pengecekan pada if-elif itu penting?",
+          opsi: ["Karena Python berhenti di kondisi pertama yang benar", "Karena Python membaca dari bawah ke atas", "Karena elif hanya boleh satu"],
+          benar: 0,
+          alasan: "Betul. Begitu satu kondisi benar, Python tidak mengecek kondisi di bawahnya lagi.",
+          petunjuk: "Bayangkan pertanyaan berurutan: begitu ada jawaban iya, pertanyaan berikutnya tidak ditanyakan.",
+        },
+        "else": {
+          q: "Kapan blok else pada percabangan dijalankan?",
+          opsi: ["Kalau kondisi if benar", "Kalau semua kondisi if/elif di atasnya salah", "Setiap kali program dijalankan"],
+          benar: 1,
+          alasan: "Betul. else menangkap semua kasus yang tidak tertangkap oleh if atau elif.",
+          petunjuk: "Anggap else sebagai rak 'lain-lain'.",
+        },
+        "nested-if": {
+          q: "Apa tanda bahwa sebuah perintah berada di dalam if yang lebih dalam?",
+          opsi: ["Dia ditulis lebih pendek", "Spasi di depannya lebih banyak", "Dia diawali tanda #"],
+          benar: 1,
+          alasan: "Betul. Setiap tingkat if menambah spasi (biasanya 4 spasi) di awal baris.",
+          petunjuk: "Perhatikan jumlah spasi kosong di awal baris kode.",
+        },
+        "conditional-sederhana": {
+          q: "Apa arti dari status = \"Dewasa\" if umur >= 17 else \"Anak-anak\"?",
+          opsi: ["Selalu berisi Dewasa", "Berisi Dewasa kalau syarat benar, kalau tidak berisi Anak-anak", "Menghapus variable umur"],
+          benar: 1,
+          alasan: "Betul. Bentuk ringkas ini memilih salah satu dari dua nilai berdasarkan kondisinya.",
+          petunjuk: "Baca sebagai: 'Dewasa, kalau umur cukup; kalau tidak, Anak-anak'.",
+        },
+        "rangkuman-percabangan": {
+          q: "Urutan yang benar saat menulis banyak pilihan adalah...",
+          opsi: ["if dulu, lalu elif, lalu else di akhir", "else dulu, lalu if, lalu elif", "Bebas, tidak berpengaruh"],
+          benar: 0,
+          alasan: "Betul. if selalu membuka, elif boleh di tengah, dan else (kalau ada) selalu di akhir.",
+          petunjuk: "Pikirkan seperti antrean pertanyaan: mulai, lanjutan, lalu jalur terakhir.",
+        },
+
+        /* ===================== LEVEL 5 ===================== */
+        "for": {
+          q: "Kalau buah berisi 3 item, berapa kali perintah di dalam for item in buah: dijalankan?",
+          opsi: ["1 kali", "3 kali", "4 kali"],
+          benar: 1,
+          alasan: "Betul. for mengulang sebanyak jumlah item di dalam daftar, yaitu 3 kali.",
+          petunjuk: "Satu item, satu putaran.",
+        },
+        "while": {
+          q: "Apa yang membuat while berhenti?",
+          opsi: ["Kalau sudah dijalankan 10 kali", "Kalau kondisinya menjadi False", "Kalau ada perintah print"],
+          benar: 1,
+          alasan: "Betul. while terus berjalan selama syaratnya benar, dan berhenti saat syaratnya menjadi False.",
+          petunjuk: "while artinya 'selama'. Selama apa? Selama syaratnya masih benar.",
+        },
+        "range": {
+          q: "Apa yang dihasilkan range(5)?",
+          opsi: ["1, 2, 3, 4, 5", "0, 1, 2, 3, 4", "0, 1, 2, 3, 4, 5"],
+          benar: 1,
+          alasan: "Betul. range(5) mulai dari 0 dan berhenti sebelum 5, jadi ada 5 angka: 0 sampai 4.",
+          petunjuk: "Python mulai menghitung dari 0, dan angka batas akhir tidak ikut.",
+        },
+        "nested-loop": {
+          q: "Loop luar berjalan 3 kali, loop dalam 4 kali. Berapa kali perintah terdalam dijalankan?",
+          opsi: ["7 kali", "12 kali", "3 kali"],
+          benar: 1,
+          alasan: "Betul. Jumlahnya dikalikan: 3 x 4 = 12 kali.",
+          petunjuk: "Bukan dijumlahkan, tapi dikalikan — seperti baris dikali kolom.",
+        },
+        "break": {
+          q: "Apa yang terjadi saat break dijalankan di dalam perulangan?",
+          opsi: ["Perulangan berhenti saat itu juga", "Satu putaran dilewati saja", "Seluruh program ditutup"],
+          benar: 0,
+          alasan: "Betul. break langsung menghentikan perulangan; kode setelah loop tetap dijalankan.",
+          petunjuk: "break itu 'berhenti', bukan sekadar 'lewat'.",
+        },
+        "continue": {
+          q: "Apa bedanya continue dengan break?",
+          opsi: ["continue menghentikan seluruh program", "continue hanya melewati satu putaran, loop tetap lanjut", "Tidak ada bedanya"],
+          benar: 1,
+          alasan: "Betul. continue melompati sisa perintah di putaran itu, lalu lanjut ke putaran berikutnya.",
+          petunjuk: "Bayangkan melewati satu surat rusak, bukan membuang seluruh tumpukan.",
+        },
+        "while-else": {
+          q: "Kapan blok else pada while dijalankan?",
+          opsi: ["Kalau while dihentikan dengan break", "Kalau while selesai wajar tanpa break", "Setiap putaran while"],
+          benar: 1,
+          alasan: "Betul. else pada while hanya jalan kalau tidak ada break yang dijalankan.",
+          petunjuk: "Ingat analogi berkeliling warung: pesan 'tidak ketemu' muncul kalau tidak pernah berhenti lebih awal.",
+        },
+        "pilih-for-atau-while": {
+          q: "Kamu ingin meminta password sampai user mengetik dengan benar. Perulangan mana yang paling pas?",
+          opsi: ["for, karena jumlahnya sudah pasti", "while, karena berhentinya bergantung pada syarat", "Keduanya tidak bisa"],
+          benar: 1,
+          alasan: "Betul. Kita tidak tahu berapa kali user akan salah, jadi while (berbasis syarat) paling cocok.",
+          petunjuk: "Tanyakan: apakah jumlah putarannya sudah diketahui di awal?",
+        },
+        /* ===================== LEVEL 6 ===================== */
+        "list": {
+          q: "Mana yang merupakan contoh list di Python?",
+          opsi: ["{\"apel\", \"mangga\"}", "[\"apel\", \"mangga\"]", "(\"apel\", \"mangga\")"],
+          benar: 1,
+          alasan: "Betul. List ditulis dengan tanda kurung siku [ ] dan isinya boleh diubah.",
+          petunjuk: "Perhatikan bentuk tanda kurungnya: siku, kurawal, atau kurung biasa.",
+        },
+        "tuple": {
+          q: "Apa beda utama tuple dengan list?",
+          opsi: ["Tuple tidak bisa diubah isinya setelah dibuat", "Tuple hanya bisa berisi angka", "Tuple selalu lebih panjang"],
+          benar: 0,
+          alasan: "Betul. Tuple bersifat kekal (immutable): isinya tidak bisa diganti setelah dibuat.",
+          petunjuk: "Ingat analogi kartu identitas yang tidak boleh dicoret.",
+        },
+        "set": {
+          q: "Apa yang terjadi kalau kamu memasukkan \"Ani\" dua kali ke dalam satu set?",
+          opsi: ["Ani tetap tersimpan dua kali", "Ani cuma tersimpan satu kali", "Program error"],
+          benar: 1,
+          alasan: "Betul. Set otomatis membuang duplikat, jadi setiap nilai hanya muncul satu kali.",
+          petunjuk: "Ingat kasus mencatat pengunjung unik.",
+        },
+        "dictionary": {
+          q: "Bagaimana cara mengambil nomor HP Ani dari kontak = {\"Ani\": \"0812\"}?",
+          opsi: ["kontak[0]", "kontak[\"Ani\"]", "kontak(Ani)"],
+          benar: 1,
+          alasan: "Betul. Dictionary diakses berdasarkan kuncinya, bukan nomor urut.",
+          petunjuk: "Sebut 'namanya', bukan nomor urutnya.",
+        },
+        "index": {
+          q: "Daftar = [\"Ani\", \"Budi\", \"Citra\"]. Siapa yang ada di index 1?",
+          opsi: ["Ani", "Budi", "Citra"],
+          benar: 1,
+          alasan: "Betul. Karena index dimulai dari 0, index 1 adalah data kedua, yaitu Budi.",
+          petunjuk: "Data pertama itu index 0, jadi data kedua index 1.",
+        },
+        "looping-collection": {
+          q: "Saat for dipakai pada dictionary, apa yang didapat setiap putaran?",
+          opsi: ["Nilainya", "Kuncinya", "Nomor urutnya"],
+          benar: 1,
+          alasan: "Betul. for pada dictionary memberikan kunci. Untuk kunci sekaligus nilai, pakai .items().",
+          petunjuk: "Pikirkan apa yang dipakai untuk 'mencari' di dalam dictionary.",
+        },
+        "memilih-collection": {
+          q: "Kamu ingin menyimpan harga barang yang dicari berdasarkan nama barang. Wadah mana yang paling pas?",
+          opsi: ["list", "dictionary", "set"],
+          benar: 1,
+          alasan: "Betul. Dictionary menyimpan pasangan kunci (nama barang) dan nilai (harga), jadi paling pas.",
+          petunjuk: "Datanya berpasangan: nama barang → harga.",
+        },
+
+        /* ===================== LEVEL 7 ===================== */
+        "apa-itu-function": {
+          q: "Apa manfaat utama function?",
+          opsi: ["Menulis sekumpulan perintah satu kali lalu memakainya berkali-kali", "Membuat kode selalu lebih panjang", "Menggantikan semua variable"],
+          benar: 0,
+          alasan: "Betul. Function membuat kode bisa dipakai ulang dan cukup diperbaiki di satu tempat.",
+          petunjuk: "Ingat analogi resep yang tidak perlu ditulis ulang setiap kali memasak.",
+        },
+        "membuat-function": {
+          q: "Kata kunci apa yang dipakai untuk membuat function di Python?",
+          opsi: ["function", "def", "make"],
+          benar: 1,
+          alasan: "Betul. def (singkatan dari define) adalah kata pembuat function di Python.",
+          petunjuk: "Tiga huruf, diawali huruf d.",
+        },
+        "parameter": {
+          q: "Di mana parameter ditulis?",
+          opsi: ["Di dalam tanda kurung saat function dibuat", "Di akhir file", "Di luar function setelah titik dua"],
+          benar: 0,
+          alasan: "Betul. Parameter ditulis di dalam tanda kurung pada baris def, misalnya def sapa(nama):.",
+          petunjuk: "Bayangkan kolom kosong yang disediakan di formulir (baris def).",
+        },
+        "argument": {
+          q: "Pada pemanggilan sapa(\"Ani\"), sebutan untuk \"Ani\" adalah...",
+          opsi: ["parameter", "argument", "return"],
+          benar: 1,
+          alasan: "Betul. Argument adalah nilai nyata yang dikirim saat function dipanggil; parameter adalah tempatnya di dalam function.",
+          petunjuk: "Isi yang dikirim = argument. Tempat kosongnya = parameter.",
+        },
+        "return": {
+          q: "Kenapa return lebih berguna daripada print kalau hasilnya mau dipakai lagi?",
+          opsi: ["Karena return menyerahkan nilai ke pemanggilnya", "Karena return menampilkan warna", "Karena return menghapus error"],
+          benar: 0,
+          alasan: "Betul. return menyerahkan nilai sehingga bisa disimpan di variable atau dipakai untuk hitungan lain.",
+          petunjuk: "Bayangkan menyerahkan gelas kopi ke tanganmu, bukan cuma menyebutnya.",
+        },
+        "default-parameter": {
+          q: "Apa fungsi nilai default pada parameter?",
+          opsi: ["Dipakai kalau tidak ada isian yang dikirim", "Menghapus parameter", "Membuat function berjalan lebih cepat"],
+          benar: 0,
+          alasan: "Betul. Nilai default adalah nilai cadangan saat pemanggil tidak mengirim argument untuk parameter itu.",
+          petunjuk: "Pikirkan 'pilihan bawaan' kalau kamu diam saja.",
+        },
+        "function-sederhana": {
+          q: "Function yang mengecek syarat biasanya mengembalikan nilai apa?",
+          opsi: ["Selalu tulisan panjang", "True atau False", "Selalu angka 0"],
+          benar: 1,
+          alasan: "Betul. Function pengecekan umumnya mengembalikan boolean: True atau False.",
+          petunjuk: "Hasil dari sebuah pertanyaan ya/tidak.",
+        },
+        "rangkuman-function": {
+          q: "Urutan logika sebuah function yang baik adalah...",
+          opsi: ["Keluaran → masukan → proses", "Masukan → proses → keluaran", "Proses → proses → proses"],
+          benar: 1,
+          alasan: "Betul. Function menerima data, mengolahnya, lalu menyerahkan hasilnya.",
+          petunjuk: "Ingat analogi mesin juicer: buah masuk, diolah, jus keluar.",
+        },
+
+        /* ===================== LEVEL 8 ===================== */
+        "syntax-error": {
+          q: "Apa penyebab paling umum Syntax Error?",
+          opsi: ["Ada tanda baca kode yang kurang atau salah", "Koneksi internet putus", "Komputer kehabisan memori"],
+          benar: 0,
+          alasan: "Betul. Syntax Error terjadi karena aturan penulisan dilanggar: titik dua, kurung, atau tanda kutip yang tidak lengkap.",
+          petunjuk: "Syntax = tata bahasa. Masalahnya ada pada cara penulisannya.",
+        },
+        "name-error": {
+          q: "Kamu membuat variable 'nama', lalu menulis print(Nama). Apa yang terjadi?",
+          opsi: ["Tetap tampil normal", "NameError, karena huruf besar dan kecil dianggap berbeda", "Otomatis diperbaiki Python"],
+          benar: 1,
+          alasan: "Betul. Python membedakan huruf besar dan kecil, jadi Nama dianggap nama yang belum pernah dibuat.",
+          petunjuk: "Perhatikan huruf pertamanya: kecil vs besar.",
+        },
+        "type-error": {
+          q: "Kenapa \"Umur: \" + 17 menimbulkan Type Error?",
+          opsi: ["Karena 17 terlalu besar", "Karena tulisan dan angka tidak bisa digabung langsung", "Karena tanda kutipnya salah"],
+          benar: 1,
+          alasan: "Betul. Tulisan dan angka adalah tipe berbeda. Ubah dulu dengan str(17), atau pakai koma di dalam print().",
+          petunjuk: "Samakan dulu 'jenis' kedua data sebelum menggabungkannya.",
+        },
+        "index-error": {
+          q: "Daftar berisi 3 data. Mana index yang akan menimbulkan IndexError?",
+          opsi: ["0", "2", "3"],
+          benar: 2,
+          alasan: "Betul. Index yang tersedia hanya 0, 1, dan 2. Index 3 sudah melebihi jumlah data.",
+          petunjuk: "Tiga data, index terakhirnya 2 — bukan 3.",
+        },
+        "membaca-error": {
+          q: "Bagian mana dari pesan error yang sebaiknya dibaca lebih dulu?",
+          opsi: ["Baris paling atas", "Baris paling bawah (jenis errornya)", "Bagian tengah saja"],
+          benar: 1,
+          alasan: "Betul. Baris paling bawah berisi nama error dan penjelasan singkatnya, lalu di atasnya ada nomor baris.",
+          petunjuk: "Mulai dari kesimpulannya dulu, baru telusuri jejaknya ke atas.",
+        },
+        "mencari-kesalahan": {
+          q: "Program jalan tanpa error, tapi hasilnya salah. Apa langkah paling sederhana?",
+          opsi: ["Langsung menulis ulang semuanya", "Menambahkan print() sementara untuk melihat isi variable", "Menghapus semua komentar"],
+          benar: 1,
+          alasan: "Betul. Menampilkan nilai di tengah jalan membantu menemukan di langkah mana hasilnya mulai melenceng.",
+          petunjuk: "Lihat 'isi' datanya, bukan menebak-nebak.",
+        },
+        "error-lainnya": {
+          q: "Error apa yang muncul kalau kamu menulis int(\"halo\")?",
+          opsi: ["ValueError", "KeyError", "IndentationError"],
+          benar: 0,
+          alasan: "Betul. 'halo' adalah tulisan yang tidak bisa diubah jadi angka, sehingga muncul ValueError.",
+          petunjuk: "Jenisnya benar (tulisan), tapi nilainya tidak bisa dipakai — itu 'Value'.",
+        },
+
+        /* ===================== LEVEL 9 ===================== */
+        "import": {
+          q: "Apa gunanya perintah import random?",
+          opsi: ["Membuat angka acak dengan kode sendiri", "Memakai kode bantuan yang sudah disediakan Python", "Menghapus file temporary"],
+          benar: 1,
+          alasan: "Betul. import memungkinkan kita memakai module (kotak alat) yang sudah ada tanpa menulisnya sendiri.",
+          petunjuk: "Bayangkan meminjam palu, bukan membuat palu dari awal.",
+        },
+        "module": {
+          q: "Module pada dasarnya adalah...",
+          opsi: ["Sebuah file .py berisi kode yang bisa dipakai ulang", "Sebuah pesan error khusus", "Sebuah jenis perulangan"],
+          benar: 0,
+          alasan: "Betul. Module adalah file kode Python yang bisa dipanggil dari file lain.",
+          petunjuk: "Pikirkan 'satu laci' berisi alat di lemari dapur.",
+        },
+        "membaca-file": {
+          q: "Apa keuntungan memakai with saat membuka file?",
+          opsi: ["File otomatis ditutup setelah selesai", "File jadi lebih kecil", "Isinya otomatis jadi angka"],
+          benar: 0,
+          alasan: "Betul. with memastikan file ditutup otomatis, jadi lebih aman dan tidak perlu diingat manual.",
+          petunjuk: "Ingat tiga langkah: buka, baca, tutup — with menangani yang terakhir.",
+        },
+        "menulis-file": {
+          q: "Apa beda mode \"w\" dan \"a\" saat menulis file?",
+          opsi: ["\"w\" menimpa isi lama, \"a\" menambah di akhir", "\"w\" menambah, \"a\" menimpa", "Keduanya sama"],
+          benar: 0,
+          alasan: "Betul. \"w\" menulis dari awal (isi lama hilang), sedangkan \"a\" menambahkan tulisan di akhir.",
+          petunjuk: "w = write baru, a = append (menambah).",
+        },
+        "try-except": {
+          q: "Apa yang terjadi kalau kode di dalam try menimbulkan error?",
+          opsi: ["Program langsung berhenti", "Python menjalankan blok except", "Error dihapus dan kode diulang dari awal"],
+          benar: 1,
+          alasan: "Betul. except menangkap error itu dan menjalankan perintah pengganti yang kamu tulis.",
+          petunjuk: "try = coba. except = kalau gagal, lakukan ini.",
+        },
+
+        /* ===================== LEVEL 10 ===================== */
+        "kalkulator": {
+          q: "Kenapa hasil input() perlu diubah dengan float() atau int() di kalkulator?",
+          opsi: ["Supaya tampilannya lebih rapi", "Karena input() menghasilkan tulisan, bukan angka", "Karena Python tidak bisa menyimpan angka"],
+          benar: 1,
+          alasan: "Betul. input() selalu mengembalikan string, jadi harus dikonversi sebelum dihitung.",
+          petunjuk: "Ingat kembali materi konversi tipe data.",
+        },
+        "tebak-angka": {
+          q: "Perulangan apa yang paling cocok untuk game tebak angka?",
+          opsi: ["for dengan range(3)", "while, karena jumlah tebakan tidak diketahui", "Tidak perlu perulangan"],
+          benar: 1,
+          alasan: "Betul. Kita tidak tahu berapa kali user menebak, jadi while dengan syarat 'sampai benar' paling pas.",
+          petunjuk: "Berhentinya ditentukan syarat, bukan jumlah putaran.",
+        },
+        "data-siswa": {
+          q: "Kombinasi wadah apa yang paling rapi untuk banyak siswa yang tiap siswanya punya nama dan nilai?",
+          opsi: ["List berisi dictionary", "Satu string panjang", "Set berisi angka"],
+          benar: 0,
+          alasan: "Betul. List menampung banyak siswa, dan tiap siswa disimpan sebagai dictionary berisi nama dan nilai.",
+          petunjuk: "Banyak data → list. Detail tiap data → dictionary.",
+        },
+        "todo-list": {
+          q: "Dalam program to-do list, apa gunanya while True?",
+          opsi: ["Membuat program berjalan terus sampai user memilih keluar (break)", "Menghitung jumlah tugas", "Menyimpan tugas ke file"],
+          benar: 0,
+          alasan: "Betul. while True menjaga menu tetap muncul, dan break dipakai sebagai pintu keluar.",
+          petunjuk: "Menu harus terus muncul sampai ada perintah berhenti.",
+        },
+        "kasir": {
+          q: "Di program kasir, kenapa harga barang sebaiknya disimpan di dictionary?",
+          opsi: ["Supaya harga bisa dicari berdasarkan nama barang", "Supaya harga tidak bisa dibaca", "Karena dictionary selalu lebih cepat"],
+          benar: 0,
+          alasan: "Betul. Dengan dictionary, harga dicari memakai nama barang sebagai kunci — jauh lebih masuk akal daripada nomor urut.",
+          petunjuk: "Pikirkan pasangan: nama barang → harga.",
+        },
+        "rangkuman-akhir": {
+          q: "Kalau nanti kamu lupa salah satu materi, apa yang sebaiknya kamu lakukan?",
+          opsi: ["Berhenti belajar karena merasa gagal", "Kembali membuka materinya dan mencoba lagi di playground", "Menghafal semua kode tanpa memahaminya"],
+          benar: 1,
+          alasan: "Betul. Mengulang materi dan bereksperimen di playground jauh lebih efektif daripada menghafal. Lupa itu wajar.",
+          petunjuk: "Programmer profesional pun masih sering membuka catatan.",
+        },
+      };
 
       /* =========================================================
          BAGIAN 3 — DATA LATIHAN
@@ -7770,6 +9814,14 @@ Tahun depan umurmu 18</span>
 
       var BINGUNG = [
         {
+          tanya: "Kenapa harus menjawab pertanyaan dulu sebelum lanjut ke materi berikutnya?",
+          jawab: [
+            "Karena belajar coding itu mudah terlewat kalau kita cuma membaca tanpa mencoba. Satu pertanyaan kecil di akhir materi membantu kamu memastikan ide utamanya benar-benar masuk.",
+            "Salah menjawab tidak apa-apa. Setelah dua kali salah, website akan menampilkan bantuan berisi penjelasannya. Kamu juga bisa menekan tombol 'Baca lagi penjelasannya' kapan saja.",
+            "Begitu jawabanmu benar, tekan 'Sudah paham, lanjut'. Tombol 'Tandai selesai & lanjut' dan link 'Berikutnya' akan terbuka. Status ini tersimpan di browser, jadi kamu tidak perlu mengulangnya saat kembali lagi.",
+          ],
+        },
+        {
           tanya: "Kenapa = berbeda dengan ==?",
           jawab: [
             "Tanda = (satu) dipakai untuk mengisi isi variable. Contoh: nama = \"Anam\" artinya masukkan tulisan \"Anam\" ke dalam kotak bernama nama.",
@@ -7889,6 +9941,8 @@ Tahun depan umurmu 18</span>
          - percabangan: if / elif / else
          - perulangan: for ... in range(...) dan while
          - break, continue, pass
+         - penanganan error: try / except / finally (jenis error umum
+           seperti ValueError, TypeError, KeyError, IndexError, dll)
          - function bawaan: print, len, str, int, float, bool, type,
            input, range, abs, round, min, max, sum, sorted, list
 
@@ -7914,6 +9968,17 @@ Tahun depan umurmu 18</span>
         this.index = index;
       }
       PyInputRequest.prototype = Object.create(Error.prototype);
+
+      /* Sinyal internal (break, continue, return, dan permintaan input)
+         BUKAN error Python, jadi tidak boleh ditangkap oleh except. */
+      function sinyalKontrolInterpreter(err) {
+        return (
+          err === "break" ||
+          err === "continue" ||
+          Boolean(err && err.__return__) ||
+          err instanceof PyInputRequest
+        );
+      }
 
       /* ---------- 5a. TOKENIZER — memecah kode jadi potongan kecil ---------- */
       var ATURAN_TOKEN = [
@@ -8057,6 +10122,7 @@ Tahun depan umurmu 18</span>
           if (t.nilai === "for") return this.parseFor();
           if (t.nilai === "while") return this.parseWhile();
           if (t.nilai === "def") return this.parseDef();
+          if (t.nilai === "try") return this.parseTry();
           if (t.nilai === "import") return this.parseImport();
           if (t.nilai === "return") return this.parseReturn();
           if (t.nilai === "break") {
@@ -8217,6 +10283,63 @@ Tahun depan umurmu 18</span>
           orelse = this.parseBlok();
         }
         return { tipe: "While", test: test, body: body, orelse: orelse };
+      };
+
+      /* try: blok  — diikuti satu atau lebih except, boleh ada finally.
+         Bentuk yang didukung:
+           except:
+           except ValueError:
+           except ValueError as e:
+           except (ValueError, KeyError):
+           finally: */
+      Parser.prototype.parseTry = function () {
+        var tryKolom = this.lihat().kolom;
+        this.makan("NAME", "try");
+        this.makan("OP", ":");
+        var body = this.parseBlok();
+
+        var handlers = [];
+        this.lewatiBarisBaru();
+
+        while (this.adalah("NAME", "except") && this.lihat().kolom === tryKolom) {
+          this.makan("NAME", "except");
+          var jenis = [];
+
+          if (!this.adalah("OP", ":")) {
+            var dalamKurung = false;
+            if (this.adalah("OP", "(")) {
+              dalamKurung = true;
+              this.berikut();
+            }
+            jenis.push(this.makan("NAME").nilai);
+            while (this.adalah("OP", ",")) {
+              this.berikut();
+              if (dalamKurung && this.adalah("OP", ")")) break;
+              jenis.push(this.makan("NAME").nilai);
+            }
+            if (dalamKurung) this.makan("OP", ")");
+          }
+
+          var alias = null;
+          if (this.adalah("NAME", "as")) {
+            this.berikut();
+            alias = this.makan("NAME").nilai;
+          }
+
+          this.makan("OP", ":");
+          var handlerBody = this.parseBlok();
+          handlers.push({ jenis: jenis, alias: alias, body: handlerBody });
+          this.lewatiBarisBaru();
+        }
+
+        var akhirnya = null;
+        if (this.adalah("NAME", "finally") && this.lihat().kolom === tryKolom) {
+          this.makan("NAME", "finally");
+          this.makan("OP", ":");
+          akhirnya = this.parseBlok();
+        }
+
+        return { tipe: "Try", body: body, handlers: handlers, akhirnya: akhirnya };
       };
 
       Parser.prototype.parseSimpleStatement = function () {
@@ -8893,6 +11016,44 @@ Tahun depan umurmu 18</span>
             /* else pada while: hanya jalan kalau loop selesai dengan normal,
                yaitu kondisinya menjadi False. Kalau keluar karena break, dilewati. */
             if (!berhentiKarenaBreak && stmt.orelse) this.jalankanBlok(stmt.orelse);
+            break;
+          }
+
+          case "Try": {
+            try {
+              try {
+                this.jalankanBlok(stmt.body);
+              } catch (err) {
+                /* Sinyal kontrol bukan error Python — jangan ditangkap except. */
+                if (sinyalKontrolInterpreter(err)) throw err;
+
+                var pesan =
+                  err instanceof PyError
+                    ? err.message
+                    : "Exception: " + String((err && err.message) || err);
+                var namaError = pesan.split(":")[0].trim();
+
+                var handler = null;
+                for (var hi = 0; hi < stmt.handlers.length; hi += 1) {
+                  var calon = stmt.handlers[hi];
+                  if (
+                    calon.jenis.length === 0 ||
+                    calon.jenis.indexOf(namaError) !== -1 ||
+                    calon.jenis.indexOf("Exception") !== -1
+                  ) {
+                    handler = calon;
+                    break;
+                  }
+                }
+                if (!handler) throw err;
+
+                /* Simpan pesan error kalau ditulis "except ValueError as e". */
+                if (handler.alias) this.vars[handler.alias] = pesan;
+                this.jalankanBlok(handler.body);
+              }
+            } finally {
+              if (stmt.akhirnya) this.jalankanBlok(stmt.akhirnya);
+            }
             break;
           }
 
@@ -9926,7 +12087,13 @@ Tahun depan umurmu 18</span>
         bingung: [],
       };
 
-      PDN.materi = MATERI_1.concat(MATERI_2);
+      /* Tempelkan penjelasan versi mudah + soal cek pemahaman ke
+         masing-masing materi berdasarkan id-nya. */
+      PDN.materi = MATERI_1.concat(MATERI_2).map(function (m) {
+        if (VERSI_MUDAH[m.id]) m.versiMudah = VERSI_MUDAH[m.id];
+        if (CEK_PAHAM[m.id]) m.cekPaham = CEK_PAHAM[m.id];
+        return m;
+      });
       PDN.levels = LEVELS_1.concat(LEVELS_2).sort(function (a, b) {
         return a.no - b.no;
       });
@@ -9943,12 +12110,17 @@ Tahun depan umurmu 18</span>
       function bacaProgress() {
         try {
           var raw = localStorage.getItem(KUNCI_PROGRESS);
-          if (!raw) return { selesai: {}, terakhir: null };
+          if (!raw) return { selesai: {}, paham: {}, terakhir: null };
           var data = JSON.parse(raw);
-          return { selesai: data.selesai || {}, terakhir: data.terakhir || null };
+          return {
+            selesai: data.selesai || {},
+            /* paham = materi yang sudah lolos cek pemahaman */
+            paham: data.paham || {},
+            terakhir: data.terakhir || null,
+          };
         } catch (err) {
           /* Kalau localStorage diblokir browser, website tetap jalan. */
-          return { selesai: {}, terakhir: null };
+          return { selesai: {}, paham: {}, terakhir: null };
         }
       }
 
@@ -9971,8 +12143,33 @@ Tahun depan umurmu 18</span>
       function hapusProgressMateri(id) {
         var data = bacaProgress();
         delete data.selesai[id];
+        delete data.paham[id];
         simpanProgress(data);
         return data;
+      }
+
+      /* ---------- Status "sudah paham" (gerbang antar materi) ----------
+         Supaya pengguna tidak loncat ke materi berikutnya sebelum paham,
+         tombol lanjut hanya aktif kalau status ini sudah tersimpan. */
+      function tandaiPaham(id) {
+        var data = bacaProgress();
+        data.paham[id] = true;
+        simpanProgress(data);
+        return data;
+      }
+
+      function hapusTandaPaham(id) {
+        var data = bacaProgress();
+        delete data.paham[id];
+        simpanProgress(data);
+        return data;
+      }
+
+      function sudahPaham(id) {
+        var data = bacaProgress();
+        /* Materi yang sudah pernah ditandai selesai dianggap sudah paham,
+           supaya pembaca lama tidak terkunci oleh aturan baru ini. */
+        return Boolean(data.paham[id] || data.selesai[id]);
       }
 
       function catatTerakhirDibuka(id) {
@@ -11153,6 +13350,10 @@ Tahun depan umurmu 18</span>
           "<h1>Selamat datang di halaman belajar</h1>" +
           '<p class="materi-intro">Pilih salah satu materi di daftar sebelah kiri. ' +
           "Di ponsel, tekan tombol <strong>☰ Daftar Materi</strong> untuk membuka daftarnya.</p>" +
+          '<div class="callout callout-tip"><div class="callout-title">💡 Cara belajar di sini</div>' +
+          "<p>Mulai Level 4, setiap materi punya <strong>Versi paling sederhana</strong> dan " +
+          "<strong>Kamus kecil</strong> di bagian atas. Di bagian bawah ada satu pertanyaan cek pemahaman — " +
+          "jawab dulu dengan benar sebelum lanjut ke materi berikutnya. Kalau salah, baca lagi penjelasannya, tidak apa-apa.</p></div>" +
           "</div>" +
           '<div class="card">' +
           pesanLanjut +
@@ -11160,6 +13361,181 @@ Tahun depan umurmu 18</span>
           daftarLevel +
           "</ul></div>"
         );
+      }
+
+      /* ---------- Gerbang cek pemahaman ----------
+         Tiga fungsi ini memastikan pembaca benar-benar paham sebelum
+         pindah ke materi berikutnya:
+         1. siapkanCekPaham  — pasang interaksi soal pilihan ganda
+         2. bukaKunciLanjut — aktifkan tombol lanjut setelah jawaban benar
+         3. selesaikanDanLanjut — tandai selesai lalu buka materi berikutnya */
+      function selesaikanDanLanjut(materi) {
+        tandaiSelesai(materi.id);
+        renderSidebar();
+        perbaruiTampilanProgress();
+
+        var posisi = cariIndexMateri(materi.id);
+        var lanjut = posisi >= 0 && posisi < PDN.materi.length - 1
+          ? PDN.materi[posisi + 1]
+          : null;
+
+        if (lanjut) {
+          /* Mengubah hash akan memicu router menampilkan materi baru. */
+          window.location.hash = "#materi/" + lanjut.id;
+        } else {
+          tampilkanMateri(materi.id);
+        }
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function bukaKunciLanjut(wadah) {
+        var btn = document.getElementById("btnTandaiSelesai");
+        if (btn) btn.disabled = false;
+
+        var catatan = wadah.querySelector(".gate-note");
+        if (catatan) catatan.remove();
+
+        var status = wadah.querySelector(".cp-status");
+        if (status) {
+          status.textContent = "✓ Sudah paham — tombol lanjut aktif.";
+          status.classList.add("is-ok");
+        }
+
+        var nav = wadah.querySelector(".materi-nav-link.next");
+        if (nav) {
+          nav.classList.remove("is-locked");
+          nav.removeAttribute("data-butuh-cek");
+          nav.removeAttribute("aria-disabled");
+          var kunci = nav.querySelector(".nav-lock");
+          if (kunci) kunci.remove();
+        }
+      }
+
+      function siapkanCekPaham(wadah, materi) {
+        var kartu = wadah.querySelector(".cp-card");
+        if (!kartu || !materi.cekPaham) return;
+
+        var soal = materi.cekPaham;
+        var tombolOpsi = kartu.querySelectorAll("[data-cp-opsi]");
+        var btnPeriksa = kartu.querySelector("#cpPeriksa");
+        var btnBacaLagi = kartu.querySelector("#cpBacaLagi");
+        var feedback = kartu.querySelector("#cpFeedback");
+        var pilihan = -1;
+        var jumlahSalah = 0;
+        var rujukanBaca = materi.versiMudah
+          ? "Versi paling sederhana"
+          : "Penjelasan sederhana";
+
+        function gulirKeBagian(id) {
+          var target = document.getElementById(id);
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+          else window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function bacaLagi() {
+          /* Materi level 4-10 punya "Versi paling sederhana"; level 1-3
+             cukup diarahkan ke bagian penjelasan pertamanya. */
+          if (document.getElementById("versiMudah")) {
+            gulirKeBagian("versiMudah");
+            return;
+          }
+          var penjelasan = document.querySelector(".materi-main .materi-section");
+          if (penjelasan) penjelasan.scrollIntoView({ behavior: "smooth", block: "start" });
+          else gulirKeBagian("materiContent");
+        }
+
+        function sorotiPilihan() {
+          for (var i = 0; i < tombolOpsi.length; i += 1) {
+            var terpilih = Number(tombolOpsi[i].dataset.cpOpsi) === pilihan;
+            tombolOpsi[i].classList.toggle("is-selected", terpilih);
+            tombolOpsi[i].setAttribute("aria-pressed", String(terpilih));
+          }
+        }
+
+        for (var i = 0; i < tombolOpsi.length; i += 1) {
+          tombolOpsi[i].addEventListener("click", function () {
+            pilihan = Number(this.dataset.cpOpsi);
+            feedback.hidden = true;
+            feedback.className = "cp-feedback";
+            sorotiPilihan();
+          });
+        }
+
+        if (btnBacaLagi) btnBacaLagi.addEventListener("click", bacaLagi);
+
+        /* Kalau link "Berikutnya" masih terkunci, arahkan ke soalnya. */
+        var navTerkunci = wadah.querySelector("[data-butuh-cek]");
+        if (navTerkunci) {
+          navTerkunci.addEventListener("click", function (event) {
+            event.preventDefault();
+            kartu.classList.add("cp-attention");
+            window.setTimeout(function () {
+              kartu.classList.remove("cp-attention");
+            }, 1800);
+            gulirKeBagian("cekPaham");
+          });
+        }
+
+        if (btnPeriksa) {
+          btnPeriksa.addEventListener("click", function () {
+            if (pilihan < 0) {
+              feedback.hidden = false;
+              feedback.className = "cp-feedback is-info";
+              feedback.innerHTML =
+                "<p><strong>Pilih salah satu jawaban dulu, ya.</strong></p>" +
+                "<p>Kalau masih ragu, baca lagi bagian " + rujukanBaca + " di atas.</p>";
+              gulirKeBagian("cekPaham");
+              return;
+            }
+
+            if (pilihan === soal.benar) {
+              /* Simpan status paham supaya tetap berlaku saat halaman dibuka lagi. */
+              tandaiPaham(materi.id);
+              feedback.hidden = false;
+              feedback.className = "cp-feedback is-good";
+              feedback.innerHTML =
+                "<p><strong>✅ Betul! Berarti kamu sudah menangkap ide utamanya.</strong></p>" +
+                "<p>" + escapeHtml(soal.alasan) + "</p>" +
+                '<p class="cp-tanya-yakin"><strong>Sudah yakin paham?</strong> ' +
+                "Kalau masih ragu, tidak apa-apa — baca lagi penjelasannya dulu, lalu lanjut.</p>" +
+                '<div class="cp-feedback-actions">' +
+                '<button class="btn btn-primary btn-sm" type="button" id="cpLanjut">✓ Sudah paham, lanjut</button>' +
+                '<button class="btn btn-ghost btn-sm" type="button" id="cpBacaUlangi">↺ Baca lagi dulu</button>' +
+                "</div>";
+
+              bukaKunciLanjut(wadah);
+
+              var btnLanjut = feedback.querySelector("#cpLanjut");
+              if (btnLanjut) {
+                btnLanjut.addEventListener("click", function () {
+                  selesaikanDanLanjut(materi);
+                });
+              }
+              var btnBacaUlangi = feedback.querySelector("#cpBacaUlangi");
+              if (btnBacaUlangi) btnBacaUlangi.addEventListener("click", bacaLagi);
+            } else {
+              jumlahSalah += 1;
+              feedback.hidden = false;
+              feedback.className = "cp-feedback is-bad";
+              feedback.innerHTML =
+                "<p><strong>❌ Belum tepat. Tidak apa-apa — coba lagi, ya.</strong></p>" +
+                "<p>" + escapeHtml(soal.petunjuk) + "</p>" +
+                (jumlahSalah >= 2
+                  ? '<p class="cp-bantuan"><strong>Bantuan:</strong> ' + escapeHtml(soal.alasan) + "</p>"
+                  : "") +
+                '<div class="cp-feedback-actions">' +
+                '<button class="btn btn-ghost btn-sm" type="button" id="cpBacaLagi2">↺ Baca penjelasannya lagi</button>' +
+                "</div>";
+
+              var btnBacaLagi2 = feedback.querySelector("#cpBacaLagi2");
+              if (btnBacaLagi2) btnBacaLagi2.addEventListener("click", bacaLagi);
+              pilihan = -1;
+              sorotiPilihan();
+              gulirKeBagian("cekPaham");
+            }
+          });
+        }
       }
 
       /* ---------- Menampilkan satu materi ---------- */
@@ -11171,6 +13547,11 @@ Tahun depan umurmu 18</span>
         var progress = bacaProgress();
         var selesai = Boolean(progress.selesai[materi.id]);
         var hitung = hitungProgress();
+
+        /* Gerbang cek pemahaman: kalau materinya punya soal dan belum
+           lolos, tombol lanjut dikunci dulu. */
+        var lulusCek = sudahPaham(materi.id);
+        var butuhCek = Boolean(materi.cekPaham) && !lulusCek;
 
         /* Penjelasan kode baris demi baris */
         var barisKode = (materi.penjelasanKode || [])
@@ -11186,6 +13567,93 @@ Tahun depan umurmu 18</span>
             );
           })
           .join("");
+
+        /* ---------- Versi bahasa sehari-hari (level 4-10) ----------
+           Bagian ini sengaja ditaruh paling atas supaya orang awam
+           membaca penjelasan paling sederhana lebih dulu. */
+        var versiMudahHtml = "";
+        var kamusKecilHtml = "";
+        var faqHtml = "";
+        if (materi.versiMudah) {
+          var vm = materi.versiMudah;
+          versiMudahHtml =
+            '<section class="materi-section versi-mudah-section" id="versiMudah">' +
+            '<h2><span class="sec-icon" aria-hidden="true">🟢</span>Versi paling sederhana — baca ini dulu</h2>' +
+            '<div class="vm-card">' +
+            '<p class="vm-label">Intinya</p>' +
+            '<p class="vm-inti">' + escapeHtml(vm.inti) + "</p>" +
+            '<p class="vm-label">Dijelaskan seperti ngobrol</p>' +
+            vm.cerita.map(function (p) {
+              return '<p class="vm-cerita">' + escapeHtml(p) + "</p>";
+            }).join("") +
+            '<div class="callout callout-tip vm-ingat"><div class="callout-title">💡 Kalimat kunci</div><p>' +
+            escapeHtml(vm.ingat) +
+            "</p></div></div></section>";
+
+          kamusKecilHtml =
+            '<section class="materi-section kamus-kecil-section">' +
+            '<h2><span class="sec-icon" aria-hidden="true">📖</span>Kamus kecil: istilah di materi ini</h2>' +
+            '<p class="materi-lead">Ada kata yang terasa asing? Ini artinya dalam bahasa sehari-hari.</p>' +
+            '<div class="kk-grid">' +
+            vm.istilah.map(function (item) {
+              return (
+                '<div class="kk-item">' +
+                '<span class="kk-kata">' + escapeHtml(item.kata) + "</span>" +
+                "<p>" + escapeHtml(item.arti) + "</p></div>"
+              );
+            }).join("") +
+            "</div></section>";
+
+          faqHtml =
+            '<section class="materi-section faq-section">' +
+            '<h2><span class="sec-icon" aria-hidden="true">🙋</span>Masih bingung? Pertanyaan yang sering muncul</h2>' +
+            '<div class="faq-list">' +
+            vm.tanyaJawab.map(function (item) {
+              return (
+                '<details class="faq-item"><summary>' + escapeHtml(item.tanya) + "</summary>" +
+                "<p>" + escapeHtml(item.jawab) + "</p></details>"
+              );
+            }).join("") +
+            "</div></section>";
+        }
+
+        /* ---------- Cek pemahaman sebelum lanjut ---------- */
+        var cekPahamHtml = "";
+        if (materi.cekPaham) {
+          var cp = materi.cekPaham;
+          /* Level 1-3 belum punya bagian "Versi paling sederhana",
+             jadi petunjuknya diarahkan ke "Penjelasan sederhana". */
+          var rujukanBaca = materi.versiMudah
+            ? "Versi paling sederhana"
+            : "Penjelasan sederhana";
+          cekPahamHtml =
+            '<section class="materi-section cek-paham-section" id="cekPaham">' +
+            '<h2><span class="sec-icon" aria-hidden="true">✅</span>Cek pemahaman dulu, baru lanjut</h2>' +
+            '<div class="cp-card">' +
+            '<p class="cp-intro">Sebelum ke materi berikutnya, jawab satu pertanyaan kecil ini. ' +
+            "Salah tidak apa-apa — nanti ada bantuan dan kamu boleh mencoba lagi. " +
+            "Kalau masih ragu, baca lagi <strong>" + rujukanBaca + "</strong> di atas.</p>" +
+            '<p class="cp-question"><span class="cp-badge">1 pertanyaan</span>' +
+            escapeHtml(cp.q) + "</p>" +
+            '<div class="cp-options" role="group" aria-label="Pilihan jawaban cek pemahaman">' +
+            cp.opsi.map(function (teks, i) {
+              return (
+                '<button class="cp-option" type="button" data-cp-opsi="' + i +
+                '" aria-pressed="false"><span class="cp-key">' +
+                ["A", "B", "C"][i] + '.</span><span>' + escapeHtml(teks) + "</span></button>"
+              );
+            }).join("") +
+            "</div>" +
+            '<div class="cp-feedback" id="cpFeedback" hidden></div>' +
+            '<div class="cp-actions">' +
+            '<button class="btn btn-primary btn-sm" type="button" id="cpPeriksa">Periksa jawaban</button>' +
+            '<button class="btn btn-ghost btn-sm" type="button" id="cpBacaLagi">↺ Baca lagi penjelasannya</button>' +
+            '<span class="cp-status' + (lulusCek ? " is-ok" : "") + '">' +
+            (lulusCek
+              ? "✓ Sudah paham — tombol lanjut aktif."
+              : "🔒 Tombol lanjut baru aktif setelah jawabanmu benar.") +
+            "</span></div></div></section>";
+        }
 
         /* Tabel ringkasan opsional untuk membantu menghafal konsep. */
         var tabelHafalan = materi.tabelHafalan
@@ -11309,9 +13777,14 @@ Tahun depan umurmu 18</span>
         var tombolSelesai = selesai
           ? '<button class="btn btn-ghost" type="button" id="btnBatalSelesai">↺ Batalkan tanda selesai</button>' +
             '<span class="done-flag">✓ Materi ini sudah kamu selesaikan</span>'
-          : '<button class="btn btn-primary" type="button" id="btnTandaiSelesai">' +
+          : '<button class="btn btn-primary" type="button" id="btnTandaiSelesai"' +
+            (butuhCek ? " disabled" : "") +
+            ">" +
             labelSelesai +
             "</button>" +
+            (butuhCek
+              ? '<a class="gate-note" href="#cekPaham">🔒 Jawab dulu cek pemahaman di atas untuk membuka tombol ini</a>'
+              : "") +
             (berikutnya
               ? '<span class="next-hint">Berikutnya: ' +
                 escapeHtml(berikutnya.judul) +
@@ -11327,11 +13800,14 @@ Tahun depan umurmu 18</span>
           : '<span class="materi-nav-link placeholder"><span class="dir">← Sebelumnya</span><span class="title">Ini materi pertama</span></span>';
 
         var navBerikutnya = berikutnya
-          ? '<a class="materi-nav-link next" href="#materi/' +
+          ? '<a class="materi-nav-link next' + (butuhCek ? " is-locked" : "") + '" href="#materi/' +
             berikutnya.id +
-            '"><span class="dir">Berikutnya →</span><span class="title">' +
+            '"' + (butuhCek ? ' data-butuh-cek="1" aria-disabled="true"' : "") +
+            '><span class="dir">Berikutnya →</span><span class="title">' +
             escapeHtml(berikutnya.judul) +
-            "</span></a>"
+            "</span>" +
+            (butuhCek ? '<span class="nav-lock">🔒 Jawab cek pemahaman dulu</span>' : "") +
+            "</a>"
           : '<span class="materi-nav-link placeholder"><span class="dir">Berikutnya →</span><span class="title">Ini materi terakhir</span></span>';
 
         return (
@@ -11357,10 +13833,14 @@ Tahun depan umurmu 18</span>
           escapeHtml(materi.pertanyaan) +
           "</p></header>" +
 
+          versiMudahHtml +
+
           '<section class="materi-section">' +
           '<h2><span class="sec-icon" aria-hidden="true">🧠</span>Penjelasan sederhana</h2>' +
           materi.penjelasan.map(function (p) { return "<p>" + escapeHtml(p) + "</p>"; }).join("") +
           "</section>" +
+
+          kamusKecilHtml +
 
           tabelHafalan +
 
@@ -11387,6 +13867,8 @@ Tahun depan umurmu 18</span>
           kesalahan +
           "</section>" +
 
+          faqHtml +
+
           '<section class="materi-section">' +
           '<h2><span class="sec-icon" aria-hidden="true">🧪</span>Latihan kecil</h2>' +
           '<div class="callout callout-exercise">' +
@@ -11396,6 +13878,8 @@ Tahun depan umurmu 18</span>
           "</p></div>" +
           playground +
           "</section>" +
+
+          cekPahamHtml +
 
           '<footer class="materi-footer">' +
           '<div class="materi-progress-row">' +
@@ -11453,6 +13937,9 @@ Tahun depan umurmu 18</span>
         /* Siapkan playground supaya tombol Reset berfungsi */
         siapkanPlaygroundAwal(wadah);
 
+        /* Siapkan gerbang cek pemahaman sebelum lanjut */
+        siapkanCekPaham(wadah, materi);
+
         /* Tandai link aktif di sidebar */
         tandaiSidebarAktif(materi.id);
 
@@ -11462,25 +13949,8 @@ Tahun depan umurmu 18</span>
 
         if (btnSelesai) {
           btnSelesai.addEventListener("click", function () {
-            tandaiSelesai(materi.id);
-            renderSidebar();
-            perbaruiTampilanProgress();
-
-            /* Cari materi berikutnya, lalu langsung buka.
-               Kalau ini materi terakhir, cukup segarkan halaman ini. */
-            var posisi = cariIndexMateri(materi.id);
-            var lanjut = posisi >= 0 && posisi < PDN.materi.length - 1
-              ? PDN.materi[posisi + 1]
-              : null;
-
-            if (lanjut) {
-              /* Mengubah hash akan memicu router menampilkan materi baru. */
-              window.location.hash = "#materi/" + lanjut.id;
-            } else {
-              tampilkanMateri(materi.id);
-            }
-
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            if (btnSelesai.disabled) return;
+            selesaikanDanLanjut(materi);
           });
         }
 
